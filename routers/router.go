@@ -1,10 +1,12 @@
 package routers
 
-import (
-	"oversea/controllers"
-	"github.com/astaxie/beego"
-)
+import "github.com/astaxie/beego"
 
 func init() {
-    beego.Router("/", &controllers.MainController{})
+	beego.SetStaticPath("/admin/fonts","static/backend/fonts")
+	beego.SetStaticPath("/admin/images","static/backend/images")
+	beego.SetStaticPath("/admin/css","static/backend/css")
+	beego.SetStaticPath("/admin/js","static/backend/js")
+
+	adminRouters()
 }

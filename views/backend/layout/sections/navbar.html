@@ -1,0 +1,111 @@
+<!-- page-header begin -->
+<div class="page-header">
+    <!-- navbar header begin -->
+    <div class="navbar-header">
+        <button class="pull-right visible-xs" data-toggle="class:show" data-target=".navbar-collapse">
+            <i class="fa fa-fw icon-cog"></i>
+        </button>
+        <button class="pull-right visible-xs" data-toggle="class:off-screen" data-target=".page-aside">
+            <i class="fa fa-fw icon-caidan"></i>
+        </button>
+        <!-- brand begin -->
+        <a href="{{urlfor "HomeController.Index"}}" class="navbar-brand">
+            <img src="{{.website}}images/logo-collapsed.png" alt="."/>
+            <span class="hidden-folded">
+              <img src="{{.website}}images/logo.png" alt="."/></span>
+        </a>
+        <!-- brand close --></div>
+    <!-- navbar header close -->
+    <!-- navbar collapse begin -->
+    <div class="navbar-collapse collapse">
+        <!-- buttons begin -->
+        <div class="nav navbar-nav hidden-xs">
+            <a href="#" class="" data-toggle="class:page-aside-folded" data-target=".page-body">
+                <i class="fa fa-fw icon-dedent text"></i>
+                <i class="fa fa-fw icon-indent text-active"></i>
+            </a>
+        </div>
+        <!-- buttons close -->
+        <!-- link and dropdown begin -->
+        <ul class="nav navbar-nav nav-menu hidden-sm">
+            <li>
+                <a href="{{.website}}/home/home/index.html">
+                    <span>首页</span></a>
+            </li>
+        {{/*<li>*/}}
+        {{/*<a href="#" data-toggle="dropdown">*/}}
+        {{/*<span>选品平台</span>*/}}
+        {{/*<b class="caret"></b>*/}}
+        {{/*</a>*/}}
+        {{/*<ul class="dropdown-menu animated fadeInUp">*/}}
+        {{/*<li>*/}}
+        {{/*<a href="/home/wish/platform.html"*/}}
+        {{/*onclick="_czc.push([&quot;_trackEvent&quot;,&quot;导航头部&quot;,&quot;选品-WISH&quot;]);">WISH</a>*/}}
+        {{/*</li>*/}}
+        {{/*<li>*/}}
+        {{/*<a href="/joom/index/industry.html"*/}}
+        {{/*onclick="_czc.push([&quot;_trackEvent&quot;,&quot;导航头部&quot;,&quot;选品-JOOM&quot;]);">JOOM</a>*/}}
+        {{/*</li>*/}}
+        {{/*<li>*/}}
+        {{/*<a href="/Amazon/monitor/product.html"*/}}
+        {{/*onclick="_czc.push([&quot;_trackEvent&quot;,&quot;导航头部&quot;,&quot;选品-AMAZON&quot;]);">AMAZON</a>*/}}
+        {{/*</li>*/}}
+        {{/*</ul>*/}}
+        {{/*</li>*/}}
+        {{/*<li>*/}}
+        {{/*<a href="/Store/index/personMember.html"*/}}
+        {{/*onclick="_czc.push([&quot;_trackEvent&quot;,&quot;导航头部&quot;,&quot;升级会员&quot;]);">*/}}
+        {{/*<span>升级会员</span></a>*/}}
+        {{/*</li>*/}}
+        </ul>
+        <!-- link and dropdown close -->
+        <!-- nabar right close -->
+        <ul class="nav navbar-nav nav-userinfo navbar-right">
+        {{/*<li>*/}}
+        {{/*<a href="javascript:;"*/}}
+        {{/*onclick="jQuery(&quot;#freeGold&quot;).modal(&quot;show&quot;);_czc.push([&quot;_trackEvent&quot;,&quot;导航头部&quot;,&quot;新年福利&quot;]);">*/}}
+        {{/*<span class="text-danger">*/}}
+        {{/*<i class="fa fa-fw icon-newyear"></i>新年福利</span>*/}}
+        {{/*</a>*/}}
+        {{/*</li>*/}}
+            <li>
+                <a href="#" data-toggle="dropdown" class="userinfo">
+                <span class="thumb-sm pull-right">
+                  <img src="{{.website}}images/user-img.png" alt="..." class="img-circle"/></span>
+                    <span class="hidden-sm hidden-md pull-left">18380113618
+                  <b class="caret"></b></span>
+                </a>
+                <!-- dropdown begin -->
+                <ul class="dropdown-menu animated fadeInRight user-profile-menu">
+                    <li>
+                        <a href="/admin/user/information">
+                            <span>账号信息</span>
+                            <span class="pull-right"></span></a>
+                    </li>
+                {{/*<li>*/}}
+                {{/*<a href="#">*/}}
+                {{/*<span>账号等级</span>*/}}
+                {{/*<span class="pull-right">黄金会员</span></a>*/}}
+                {{/*</li>*/}}
+                {{/*<li>*/}}
+                {{/*<a href="#">*/}}
+                {{/*<span>我的钱包</span>*/}}
+                {{/*<span class="g-ml10 pull-right">金币*/}}
+                {{/*<span class="g-ml5 text-danger usergold">0</span></span>*/}}
+                {{/*<span class="g-ml10 pull-right">钻石*/}}
+                {{/*<span class="g-ml5 text-warning userdiamond">0</span></span>*/}}
+                {{/*</a>*/}}
+                {{/*</li>*/}}
+                    <li>
+                        <a href="/admin/user/changePassword">
+                            <span>修改密码</span></a>
+                    </li>
+                    <li>
+                        <a href="/loginout">退出登录</a>
+                    </li>
+                </ul>
+                <!-- dropdown close --></li>
+        </ul>
+        <!-- navbar right close --></div>
+    <!-- navbar collapse close --></div>
+<!-- page-header close -->

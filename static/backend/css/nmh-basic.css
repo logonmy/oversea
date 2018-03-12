@@ -1,0 +1,64 @@
+/*---base begin---*/
+body,div,ul,ol,li,a,header,button,select {
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+}
+html,
+body {
+  height: 100%;
+  font-family: "Helvetica Neue", Helvetica,"Microsoft YaHei","微软雅黑",Arial, sans-serif;
+  background-color: #eee;
+}
+*:focus {
+    outline: 0 !important;
+}
+ul,ol,li {
+  list-style: none;
+}
+a {   
+  color: #999;
+  text-decoration: none;
+  outline: none !important;
+  -webkit-transition: all 220ms ease-in-out;
+  -moz-transition: all 220ms ease-in-out;
+  -o-transition: all 220ms ease-in-out;
+  transition: all 220ms ease-in-out;
+}
+a:hover, 
+a:focus { 
+  color: #31b0d5;
+  text-decoration: none;
+}
+button,
+input{
+  -webkit-transition: all 220ms ease-in-out;
+  -moz-transition: all 220ms ease-in-out;
+  -o-transition: all 220ms ease-in-out;
+  transition: all 220ms ease-in-out;
+}
+
+.panel.panel-person {
+  position: relative;
+  z-index: 3;
+}
+.panel.panel-person .panel-body {
+  padding-top: 0;
+}
+/*.details-list .details-body.details-info,
+.details-list .details-body.details-password {
+  padding: 20px 20px 10px;
+}*/
+.details-list .details-body .form-group {
+  padding-left: 96px;
+}
+
+/*.panel.panel-deal .tab-content {
+  margin-top: 20px;
+}*/
+
+.panel.panel-deal .panel-heading {
+  padding: 20px;
+  padding-bottom: 0;
+  border: 0;
+}

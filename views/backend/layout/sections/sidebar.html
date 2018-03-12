@@ -1,0 +1,26 @@
+<!-- page-aside begin -->
+<div class="page-aside hidden-xs">
+    <!-- nav begin -->
+    <nav class="nav-wrap">
+        <ul class="nav">
+            <li class="active">
+                <a class="auto" href="###">
+                    <i class="fa icon-zhanghaoguanli"></i>
+                    <span>账号管理</span></a>
+                <ul class="nav nav-sub" style="display:block">
+                    <li {{if .InformationMenu}} class="active" {{end}}>
+                        <a href="/admin/user/information">
+                            <span>个人信息</span></a>
+                    </li>
+                    <li {{if .ChangePasswordMenu}} class="active" {{end}}>
+                        <a href="/admin/user/changePassword">
+                            <span>修改密码</span></a>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <!-- nav close -->
+</div>
+<!-- page-aside close -->

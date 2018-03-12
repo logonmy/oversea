@@ -1,0 +1,84 @@
+<!-- "page-content begin -->
+<div class="page-content page-md-content page-lg-content">
+
+    <!-- page-breadcrumb begin -->
+    <div class="panel panel-breadcrumb">
+        <div class="panel-body">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#"><i class="fa icon-home"></i> 账号中心</a>
+                </li>
+                <li class="active">
+                    个人信息
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- page-breadcrumb close -->
+
+    <!-- panel-person begin -->
+    <div class="panel panel-person">
+        <div class="panel-body">
+            <div class="details-list">
+                <div class="details-header">
+                    <ul class="row">
+                        <li class="col-md-12">个人信息</li>
+                    </ul>
+                </div>
+
+                <div class="details-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>手机号码</label>
+                                <ul>
+                                    <li>
+                                        <input type="text" class="form-control form-focus-primary"
+                                               value="{{ .phone}}" disabled="disabled">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form role="form" action="/admin/user/information" method="post" id="userForm">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>您的姓名</label>
+                                    <ul>
+                                        <li>
+                                            <input type="text" name="real_name"
+                                                   class="form-control form-focus-primary" placeholder="请输入您的姓名"
+                                                   value="">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>邮箱地址</label>
+                                    <ul>
+                                        <li>
+                                            <input type="text" name="email" class="form-control form-focus-primary"
+                                                   placeholder="请输入您的邮箱" value="">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-block btn-primary changeInfo">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- panel-person close -->
