@@ -7,7 +7,6 @@ import (
 	"time"
 	"oversea/app/backend/stdout"
 	"oversea/app/backend/services"
-	"fmt"
 )
 
 type AdminBaseController struct {
@@ -42,9 +41,8 @@ func (this *AdminBaseController) Prepare() {
 	controllerName, actionName := this.GetControllerAndAction()
 	this.controllerName = strings.ToLower(controllerName[0: len(controllerName)-10])
 	this.actionName = strings.ToLower(actionName)
-	this.pageSize = 20
+	this.pageSize = 1
 
-	fmt.Println("-------------------------")
 	this.initAuth()
 }
 
@@ -129,11 +127,14 @@ func (this *AdminBaseController) initAuth() {
 	this.auth.Init(token)
 	this.userId = this.auth.GetUserId()
 
+	this.Data["auth"] = this.auth
+	this.Data["adminEntity"] = this.auth.GetUser()
 	if !this.auth.IsLogined() {
 		if this.controllerName != "main" ||
 			(this.controllerName == "main" && this.actionName != "logout" && this.actionName != "login") {
 			this.redirect(beego.URLFor("MainController.Login"))
 		}
+
 	} else {
 		// 进行权限判断
 	}

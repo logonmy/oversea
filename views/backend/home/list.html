@@ -1,0 +1,91 @@
+<!-- "page-content begin -->
+<div class="page-content page-md-content page-lg-content">
+
+    <!-- page-breadcrumb begin -->
+    <div class="panel panel-breadcrumb">
+        <div class="panel-body">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#"><i class="fa icon-home"></i> 账号中心</a>
+                </li>
+                <li class="active">
+                    个人信息
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- page-breadcrumb close -->
+
+    <!-- panel-person begin -->
+    <div class="panel panel-person">
+        <div class="panel-body">
+            <div class="details-list">
+                <div class="details-header">
+                    <ul class="row">
+                        <li class="col-md-12">管理员列表</li>
+                    </ul>
+                </div>
+
+                <div class="details-body" style="background-color: #ffffff">
+                    <div class="row table-responsive">
+                        <table class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <td><input type="checkbox" name="all_check" /></td>
+                            <td>ID</td>
+                            <td width="20%">昵称</td>
+                            <td>性别</td>
+
+                            <td>邮箱</td>
+                            <td>最后登录时间</td>
+                            <td>最后登录ip</td>
+                            <td width="25%">操作</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {{range $k,$v := .userList}}
+                    <tr>
+                            <td class="chk"><input type="checkbox" name="ids"  value="{{$v.Id}}" /></td>
+                            <td> {{$v.Id}} </td>
+                            <td>
+                                 {{$v.UserName}}
+                            </td>
+                            <td> {{$v.Sex}} </td>
+
+                            <td> {{$v.Email}} </td>
+                            <td> {{$v.LastLogin}} </td>
+                            <td> {{$v.LastIp}} </td>
+                            <td>
+                                    {{/*<a class="btn btn-info btn-run  btn-xs" href="{{urlfor "TaskController.Run"}}?id={{$v.id}}">*/}}
+                                        {{/*<span class="glyphicon glyphicon-flash" aria-hidden="true"></span> 执行*/}}
+                                    {{/*</a>*/}}
+                                    {{/*<a class="btn btn-info  btn-xs" href="{{urlfor "TaskController.Logs"}}?id={{$v.id}}">*/}}
+                                        {{/*<span class="glyphicon glyphicon-file" aria-hidden="true"></span> 日志*/}}
+                                   {{/*</a>*/}}
+
+                                   <button class="btn btn-success  btn-xs" href="###">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
+                                   </button>
+                            </td>
+                        </tr>
+                    {{end}}
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="8">
+                                <div class="pull-right">
+                                {{str2html .pageBar}}
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- panel-person close -->

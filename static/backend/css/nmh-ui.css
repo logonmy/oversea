@@ -1373,7 +1373,7 @@ a.bg-danger:focus {
 }
 .table > thead > tr > td,
 .table > thead > tr > th {
-  position: relative;
+  /*position: relative;*/
   border-bottom: 1px solid #e6e6e6;
   color: #222;
 }
@@ -1407,7 +1407,7 @@ a.bg-danger:focus {
 }
 .table > tfoot > tr > td,
 .table > tfoot > tr > th {
-  position: relative;
+  /*position: relative;*/
   padding: 12px 15px;
   color: #222;
   border-left: 0;
@@ -1647,7 +1647,7 @@ a.bg-danger:focus {
 
 /* table-responsive  begin */
 .table-responsive {
-  position: relative;
+  /*position: relative;*/
 }
 .table-responsive .table th {
   position: relative;
@@ -1660,7 +1660,7 @@ a.bg-danger:focus {
   white-space:nowrap;*/
 }
 .table-responsive .table td {
-  position: relative;
+  /*position: relative;*/
   padding: 6px;
   color: #666;
   /*
@@ -1674,7 +1674,7 @@ a.bg-danger:focus {
 }
 .table-responsive .table th a,
 .table-responsive .table td a {
-  color: #31b0d5;
+  /*color: #31b0d5;*/
 }
 .table-responsive .table th a:hover,
 .table-responsive .table td a:hover {
