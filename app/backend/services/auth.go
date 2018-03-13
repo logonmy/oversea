@@ -7,38 +7,75 @@ import (
 	"oversea/app/backend/entitys"
 	"errors"
 	"oversea/utils"
+	"oversea/app/backend/stdout"
+	"strings"
+	"github.com/astaxie/beego"
+	"strconv"
 )
 
 // 登录验证服务
 type AuthService struct {
 	loginUser *entitys.AdminUser    // 当前登录用户
-	permMap   map[string]bool // 当前用户权限表
-	openPerm  map[string]bool // 公开的权限
 }
 
 // 用户登录
 func (this *AuthService) Login(userName, password string) (string, error) {
-	adminUserService := &AdminUserService{}
-	user, err := adminUserService.GetUserByName(userName)
+
+	user, err := BackUserService.GetUserByName(userName)
 	if err != nil {
 		if err == orm.ErrNoRows {
-			return "", errors.New("帐号或密码错误")
+			return "", errors.New(stdout.UserOrderPasswordError)
 		} else {
-			return "", errors.New("系统错误")
+			return "", errors.New(stdout.SystemError)
 		}
 	}
 
 	if user.Password != utils.MD5(password+user.Salt) {
-		return "", errors.New("帐号或密码错误")
+		return "", errors.New(stdout.UserOrderPasswordError)
 	}
 	if user.Status == -1 {
-		return "", errors.New("该帐号已禁用")
+		return "", errors.New(stdout.UserIsDisenbled)
 	}
 
 	user.LastLogin = time.Now()
-	//UserService.UpdateUser(user, "LastLogin")
-	//this.loginUser = user
+	BackUserService.UpdateAdminUser(user, "LastLogin")
+	this.loginUser = user
 
 	token := fmt.Sprintf("%d|%s", user.Id, utils.MD5(user.Password+user.Salt))
 	return token, nil
+}
+
+// 检查是否登录
+func (this *AuthService) IsLogined() bool {
+	return this.loginUser != nil && this.loginUser.Id > 0
+}
+
+// 获取当前登录的用户对象
+func (this *AuthService) GetUser() *entitys.AdminUser {
+	return this.loginUser
+}
+
+// 获取当前登录的用户id
+func (this *AuthService) GetUserId() int {
+	if this.IsLogined() {
+		return this.loginUser.Id
+	}
+	return 0
+}
+
+// 初始化
+func (this *AuthService) Init(token string) {
+	arr := strings.Split(token, "|")
+	beego.Trace("登录验证, token: ", token)
+	if len(arr) == 2 {
+		idstr, password := arr[0], arr[1]
+		userId, _ := strconv.Atoi(idstr)
+		if userId > 0 {
+			user, err := BackUserService.GetUser(userId)
+			if err == nil && password == utils.MD5(user.Password + user.Salt) {
+				this.loginUser = user
+				beego.Trace("验证成功，用户信息: ", user)
+			}
+		}
+	}
 }

@@ -7,9 +7,12 @@ import (
 	"runtime"
 	"path/filepath"
 	_ "oversea/routers"
-
+	_"github.com/go-sql-driver/mysql"
+	_"github.com/astaxie/beego/session/mysql"
 	"github.com/astaxie/beego"
 	. "github.com/smartystreets/goconvey/convey"
+	"oversea/utils"
+	"github.com/astaxie/beego/logs"
 )
 
 func init() {
@@ -37,3 +40,10 @@ func TestBeego(t *testing.T) {
 	})
 }
 
+func TestPassword(t *testing.T) {
+	salt := utils.NewNoDashUUID()
+	password := "admin"
+	pwd := utils.MD5(password + salt)
+
+	logs.Info("salt=%v , password=%v" , salt, pwd)
+}

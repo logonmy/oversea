@@ -20,16 +20,12 @@ $(function () {
                     }
                 }
             },
-            phone: {
-                message: '手机号码不能为空',
+            username: {
+                message: '管理员账号不能为空',
                 validators: {
                     notEmpty: {
-                        message: '手机号码不能为空'
+                        message: '管理员账号不能为空'
                     },
-                    regexp: {
-                        regexp: /^1[0-9]{10}$/,
-                        message: '请输入正确的手机号码'
-                    }
                 }
             },
             captcha: {
@@ -43,21 +39,6 @@ $(function () {
                         max: 6,
                         message: '验证码长度为6位',
                     },
-                    // remote: {
-                    //     url: '/captcha/verify',
-                    //     message:"验证码不正确",
-                    //     type: "post",
-                    //     dataType: 'json',
-                    //     data: {
-                    //         _xsrf: $('meta[name=_xsrf]').attr('content'),
-                    //         captchaId: $('input[name="captchaId"]').val(),
-                    //         captcha: $('input[name="captcha"]').val(),
-                    //     },
-                    //     success: function () {
-                    //
-                    //     },
-                    //     delay: 2000,
-                    // },
                 }
             }
         }
@@ -73,7 +54,7 @@ $(function () {
                 return false;
             } else {
                 toastr.success(result.errorMsg);
-                self.location = "/admin/index";//"/home/wish/platform";
+                self.location = "/admin/home/index";
             }
         }, 'json').complete(function () {
             $('#btnLogin').removeAttr('disabled')

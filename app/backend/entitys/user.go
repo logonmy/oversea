@@ -6,7 +6,7 @@ type AdminUser struct {
 	Id         int
 	UserName   string    `orm:"unique;size(20)"`             // 用户名
 	Password   string    `orm:"size(32)"`                    // 密码
-	Salt       string    `orm:"size(10)"`                    // 密码盐
+	Salt       string    `orm:"size(255)"`                    // 密码盐
 	Sex        int       `orm:"default(0)"`                  // 性别
 	Email      string    `orm:"size(50)"`                    // 邮箱
 	LastLogin  time.Time `orm:"null;type(datetime)"`         // 最后登录时间

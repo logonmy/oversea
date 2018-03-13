@@ -2,14 +2,17 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"time"
-	"oversea/app/backend/constant"
 	"strings"
 	"github.com/dchest/captcha"
+	"time"
+	"oversea/app/backend/stdout"
+	"oversea/app/backend/services"
+	"fmt"
 )
 
 type AdminBaseController struct {
 	beego.Controller
+	auth           *services.AuthService // 验证服务
 	userId         int    // 当前登录的用户id
 	controllerName string // 控制器名
 	actionName     string // 动作名
@@ -31,25 +34,18 @@ type SubMenu struct {
 	Action string
 }
 
-// StdJSON 标准输出JSON格式
-type StdJSON struct {
-	ErrCode   int                    `json:"errorCode"`
-	ErrMsg    string                 `json:"errorMsg"`
-	ErrDesc   string                 `json:"errDesc,omitempty"`
-	Data      interface{}            `json:"data,omitempty"`
-	DataQuery interface{}            `json:"query,omitempty"`
-	DataExtra map[string]interface{} `json:"extra,omitempty"`
-	TagMap    interface{}            `json:"tagMap,omitempty"`
-	Time      int64                  `json:"time"`
-}
+
 
 func (this *AdminBaseController) Prepare() {
 	//this.Ctx.Output.Header("X-Powered-By", "GoPub/"+beego.AppConfig.String("version"))
-	//this.Ctx.Output.Header("X-Author-By", "lisijie")
+	this.Ctx.Output.Header("X-Author-By", "weilanzhuan")
 	controllerName, actionName := this.GetControllerAndAction()
 	this.controllerName = strings.ToLower(controllerName[0: len(controllerName)-10])
 	this.actionName = strings.ToLower(actionName)
 	this.pageSize = 20
+
+	fmt.Println("-------------------------")
+	this.initAuth()
 }
 
 //渲染模版
@@ -75,6 +71,20 @@ func (this *AdminBaseController) display(tpl ...string) {
 	this.Data["xsrf_token"] = this.XSRFToken()
 }
 
+func (this *AdminBaseController) setTpl(tpl ...string) {
+	var tplname string
+	tpldir := "backend/"
+	if len(tpl) > 0 {
+		tplname = tpl[0] + ".html"
+	} else {
+		tplname = this.controllerName + "/" + this.actionName + ".html"
+	}
+	this.TplName = tpldir + tplname
+
+	this.Data["website"] = beego.AppConfig.String("website")
+	this.Data["xsrf_token"] = this.XSRFToken()
+}
+
 // 重定向
 func (this *AdminBaseController) redirect(url string) {
 	if this.IsAjax() {
@@ -85,39 +95,7 @@ func (this *AdminBaseController) redirect(url string) {
 	}
 }
 
-func (this *AdminBaseController) makeStdJSON(code int) *StdJSON {
-	return &StdJSON{
-		ErrCode: code,
-		Time:    time.Now().Unix(),
-	}
-}
 
-// StdoutSuccess 输出结构-完成
-func (this *AdminBaseController) StdoutSuccess(data interface{}) {
-	s := this.makeStdJSON(constant.Success)
-	s.ErrMsg = constant.MsgSuccess
-	if data != nil {
-		s.Data = data
-	}
-	this.Data["json"] = s
-	this.ServeFormatted()
-	this.StopRun()
-}
-
-// StdoutError 输出结构-失败
-func (this *AdminBaseController) StdoutError(code int, err error, data ...interface{}) {
-	s := this.makeStdJSON(code)
-	s.ErrMsg = constant.ErrCode2Msg(code)
-	if err != nil {
-		s.ErrDesc = err.Error()
-	}
-	if len(data) != 0 {
-		s.Data = data[0]
-	}
-	this.Data["json"] = s
-	this.ServeFormatted()
-	this.StopRun()
-}
 
 // 获取验证码
 func (this *AdminBaseController) getCaptchaMap() map[string]interface{} {
@@ -136,12 +114,72 @@ func (this *AdminBaseController) getCaptchaMap() map[string]interface{} {
 }
 
 func (this *AdminBaseController) isPost() bool {
-
 	return this.Ctx.Input.IsPost()
 }
 
 
 func (this *AdminBaseController) isAjax() bool {
-
 	return this.Ctx.Input.IsAjax()
 }
+
+//登录验证
+func (this *AdminBaseController) initAuth() {
+	token := this.Ctx.GetCookie("auth")
+	this.auth = services.BackAuthService
+	this.auth.Init(token)
+	this.userId = this.auth.GetUserId()
+
+	if !this.auth.IsLogined() {
+		if this.controllerName != "main" ||
+			(this.controllerName == "main" && this.actionName != "logout" && this.actionName != "login") {
+			this.redirect(beego.URLFor("MainController.Login"))
+		}
+	} else {
+		// 进行权限判断
+	}
+}
+
+// StdoutSuccess 输出结构-完成
+func (this *AdminBaseController) StdoutSuccess(data interface{}) {
+	s :=  this.makeStdJSON(stdout.Success)
+	s.ErrMsg = stdout.MsgSuccess
+	if data != nil {
+		s.Data = data
+	}
+	this.Data["json"] = s
+	this.ServeFormatted()
+	this.StopRun()
+}
+
+// StdoutError 输出结构-失败
+func (this *AdminBaseController) StdoutError(code int, errMsg string, data ...interface{}) {
+	s := this.makeStdJSON(code)
+	s.ErrMsg = errMsg
+	if len(data) != 0 {
+		s.Data = data[0]
+	}
+	this.Data["json"] = s
+	this.ServeFormatted()
+	this.StopRun()
+}
+
+
+// StdJSON 标准输出JSON格式
+type StdJSON struct {
+	ErrCode   int                    `json:"errorCode"`
+	ErrMsg    string                 `json:"errorMsg"`
+	ErrDesc   string                 `json:"errDesc,omitempty"`
+	Data      interface{}            `json:"data,omitempty"`
+	DataQuery interface{}            `json:"query,omitempty"`
+	DataExtra map[string]interface{} `json:"extra,omitempty"`
+	TagMap    interface{}            `json:"tagMap,omitempty"`
+	Time      int64                  `json:"time"`
+}
+
+func (this *AdminBaseController) makeStdJSON(code int) *StdJSON {
+	return &StdJSON{
+		ErrCode: code,
+		Time:    time.Now().Unix(),
+	}
+}
+
