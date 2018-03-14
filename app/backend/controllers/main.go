@@ -11,6 +11,12 @@ type MainController struct {
 	AdminBaseController
 }
 
+// 列表
+func (this *MainController) Index() {
+	this.Data["pageTitle"] = "后台首页"
+	this.display()
+}
+
 // 登录
 func (c *MainController) Login() {
 	if c.userId > 0 {

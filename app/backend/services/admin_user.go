@@ -35,7 +35,7 @@ func (m *AdminUserService) UpdateAdminUser (user *entitys.AdminUser, fileds ...s
 	return nil
 }
 
-func (m *AdminUserService) AddUser(userName, email, password string, sex int) (*entitys.AdminUser, error) {
+func (m *AdminUserService) AddUser(userName, phone, email, password string, sex int) (*entitys.AdminUser, error) {
 	if exists, _ := m.GetUserByName(userName); exists.Id > 0 {
 		return nil, errors.New(stdout.UserIsExists)
 	}
@@ -44,9 +44,9 @@ func (m *AdminUserService) AddUser(userName, email, password string, sex int) (*
 	user.UserName = userName
 	user.Sex = sex
 	user.Email = email
+	user.Phone = phone
 	user.Salt = utils.NewNoDashUUID()
 	user.Password = utils.MD5(password + user.Salt)
-	// user.LastLogin = time.Date(0, 0, 0, 0, 0, 0, 0, time.UTC)
 	_, err := o.Insert(user)
 	return user, err
 }
@@ -67,8 +67,7 @@ func (m *AdminUserService) GetAdminUsersList(page, pageSize int, filters ...inte
 
 	users := make([]*entitys.AdminUser, 0)
 
-	u := &entitys.AdminUser{}
-	query := orm.NewOrm().QueryTable(u.TableName())
+	query := orm.NewOrm().QueryTable(new(entitys.AdminUser))
 	if len(filters) > 0 {
 		l := len(filters)
 		for k := 0; k < l; k += 2 {

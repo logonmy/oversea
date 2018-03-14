@@ -1,10 +1,11 @@
 package services
 
 var (
-	BackUserService       *AdminUserService       // 用户服务
-	BackAuthService           *AuthService
+	BackUserService *AdminUserService // 用户服务
+	BackAuthService *AuthService
 )
-func InitServices()  {
+
+func InitServices() {
 	BackUserService = &AdminUserService{}
 	BackAuthService = &AuthService{}
 }

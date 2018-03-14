@@ -16,6 +16,7 @@ func Init() {
 	dbPassword := beego.AppConfig.String("db.password")
 	dbName := beego.AppConfig.String("db.name")
 	timezone := beego.AppConfig.String("db.timezone")
+	tablePrefix := beego.AppConfig.String("db.prefix")
 
 	if dbPort == "" {
 		dbPort = "3306"
@@ -26,7 +27,7 @@ func Init() {
 	}
 	orm.RegisterDataBase("default", "mysql", dsn)
 
-	orm.RegisterModel(
+	orm.RegisterModelWithPrefix(tablePrefix,
 		new(entitys.AdminUser),
 	)
 

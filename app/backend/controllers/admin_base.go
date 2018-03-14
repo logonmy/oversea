@@ -33,15 +33,13 @@ type SubMenu struct {
 	Action string
 }
 
-
-
 func (this *AdminBaseController) Prepare() {
 	//this.Ctx.Output.Header("X-Powered-By", "GoPub/"+beego.AppConfig.String("version"))
 	this.Ctx.Output.Header("X-Author-By", "weilanzhuan")
 	controllerName, actionName := this.GetControllerAndAction()
 	this.controllerName = strings.ToLower(controllerName[0: len(controllerName)-10])
 	this.actionName = strings.ToLower(actionName)
-	this.pageSize = 1
+	this.pageSize = 10
 
 	this.initAuth()
 }
@@ -67,6 +65,7 @@ func (this *AdminBaseController) display(tpl ...string) {
 
 	this.Data["website"] = beego.AppConfig.String("website")
 	this.Data["xsrf_token"] = this.XSRFToken()
+	beego.Trace( "测试菜单："+ this.controllerName + "/" + this.actionName)
 }
 
 func (this *AdminBaseController) setTpl(tpl ...string) {
@@ -184,3 +183,11 @@ func (this *AdminBaseController) makeStdJSON(code int) *StdJSON {
 	}
 }
 
+func (this *AdminBaseController) checkError(err error) {
+	if err != nil {
+		if this.IsAjax() {
+			this.StdoutError(-1, err.Error())
+		}
+		this.Ctx.WriteString(err.Error()) //后续用错误页面替换
+	}
+}

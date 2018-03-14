@@ -1,6 +1,8 @@
 package entitys
 
-import "time"
+import (
+	"time"
+)
 
 type AdminUser struct {
 	Id         int
@@ -9,6 +11,7 @@ type AdminUser struct {
 	Salt       string    `orm:"size(255)"`                    // 密码盐
 	Sex        int       `orm:"default(0)"`                  // 性别
 	Email      string    `orm:"size(50)"`                    // 邮箱
+	Phone      string    `orm:"size(12)"`                    // 手机号
 	LastLogin  time.Time `orm:"null;type(datetime)"`         // 最后登录时间
 	LastIp     string    `orm:"size(15)"`                    // 最后登录IP
 	Status     int       `orm:"default(0)"`                  // 状态，0正常 -1禁用

@@ -35,7 +35,7 @@
                             <td>ID</td>
                             <td width="20%">昵称</td>
                             <td>性别</td>
-
+                            <td>手机号</td>
                             <td>邮箱</td>
                             <td>最后登录时间</td>
                             <td>最后登录ip</td>
@@ -51,7 +51,7 @@
                                  {{$v.UserName}}
                             </td>
                             <td> {{$v.Sex}} </td>
-
+                            <td> {{$v.Phone}} </td>
                             <td> {{$v.Email}} </td>
                             <td> {{$v.LastLogin}} </td>
                             <td> {{$v.LastIp}} </td>
@@ -63,9 +63,9 @@
                                         {{/*<span class="glyphicon glyphicon-file" aria-hidden="true"></span> 日志*/}}
                                    {{/*</a>*/}}
 
-                                   <button class="btn btn-success  btn-xs" href="###">
+                                   <a class="btn btn-success  btn-xs" href="{{urlfor "AdminUserController.Edit"}}?id={{$v.Id}}">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
-                                   </button>
+                                   </a>
                             </td>
                         </tr>
                     {{end}}
@@ -73,7 +73,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="8">
+                            <td colspan="9">
                                 <div class="pull-right">
                                 {{str2html .pageBar}}
                                 </div>
