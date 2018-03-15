@@ -85,6 +85,79 @@ CREATE TABLE `oz_immigrant_project` (
   UNIQUE KEY `nation_id` (`nation_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='移民项目表';
 
+
+-- ----------------------------
+-- 5、后台菜单权限表
+-- ----------------------------
+drop table if exists sys_menu;
+create table sys_menu (
+  menu_id 			int(11) 		not null auto_increment    comment '菜单ID',
+  menu_name 		varchar(50) 	not null 				   comment '菜单名称',
+  parent_id 		int(11) 		default 0 			       comment '父菜单ID',
+  order_num 		int(4) 			default null 			   comment '显示顺序',
+  url 				varchar(200) 	default ''				   comment '请求地址',
+  menu_type 		char(1) 		default '' 			       comment '类型:M目录,C菜单,F按钮',
+  visible 			int(1) 			default 0 				   comment '菜单状态:0显示,1隐藏',
+  perms 			varchar(100) 	default '' 				   comment '权限标识',
+  icon 				varchar(100) 	default '' 				   comment '菜单图标',
+  create_by         varchar(64)     default ''                 comment '创建者',
+  create_time 		timestamp       default current_timestamp  comment '创建时间',
+  update_time 		timestamp       default current_timestamp  comment '更新时间',
+  update_by 		varchar(64) 	default ''			       comment '更新者',
+  remark 			varchar(500) 	default '' 				   comment '备注',
+  primary key (menu_id)
+) engine=innodb auto_increment=1000 default charset=utf8;
+
+
+-- ----------------------------
+-- 11、系统访问记录
+-- ----------------------------
+drop table if exists sys_logininfor;
+create table sys_logininfor (
+  info_id 		int(11) 	 not null auto_increment   comment '访问ID',
+  login_name 	varchar(50)  default '' 			   comment '登录账号',
+  ipaddr 		varchar(50)  default '' 			   comment '登录IP地址',
+  browser  		varchar(50)  default '' 			   comment '浏览器类型',
+  os      		varchar(50)  default '' 			   comment '操作系统',
+  status 		int(1) 		 default 0 			 	   comment '登录状态 0成功 1失败',
+  msg      		varchar(255) default '' 			   comment '提示消息',
+  login_time 	timestamp    default current_timestamp comment '访问时间',
+  primary key (info_id)
+) engine=innodb auto_increment=100 default charset=utf8;
+
+
+-- ----------------------------
+-- 12、在线用户记录
+-- ----------------------------
+drop table if exists sys_user_online;
+create table sys_user_online (
+  sessionId 	    varchar(50)  default ''              	comment '用户会话id',
+  login_name 	    varchar(50)  default '' 		 	 	comment '登录账号',
+  dept_name 		varchar(50)  default '' 		 	 	comment '部门名称',
+  ipaddr 		    varchar(50)  default '' 			 	comment '登录IP地址',
+  browser  		    varchar(50)  default '' 			 	comment '浏览器类型',
+  os      		    varchar(50)  default '' 			 	comment '操作系统',
+  status      	    varchar(10)  default '' 			 	comment '在线状态on_line在线off_line离线',
+  start_timestsamp 	timestamp    default current_timestamp  comment 'session创建时间',
+  last_access_time  timestamp    default current_timestamp  comment 'session最后访问时间',
+  expire_time 	    int(5) 		 default 0 			 	    comment '超时时间，单位为分钟',
+  primary key (sessionId)
+) engine=innodb default charset=utf8;
+
+
+-- ----------------------------
+-- 12、客户表
+-- ----------------------------
+
+
+INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('1', '投资移民', '0');
+INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('2', '技术移民', '0');
+INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('3', '创业移民', '0');
+INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('4', '杰出人才', '0');
+INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('5', '留学生移民', '0');
+INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('6', '家属团聚', '0');
+
+
 INSERT INTO `oz_admin_user` (`id`, `user_name`, `password`, `salt`, `sex`, `email`, `last_login`, `last_ip`, `status`,
 `create_time`, `update_time`)
 VALUES
