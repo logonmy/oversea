@@ -5,6 +5,7 @@ import (
 	"github.com/dchest/captcha"
 	"oversea/app/backend/stdout"
 	"oversea/app/backend/services"
+	"oversea/utils"
 )
 
 type MainController struct {
@@ -48,7 +49,7 @@ func (c *MainController) Login() {
 			} else {
 				c.Ctx.SetCookie("auth", token)
 			}
-
+			services.BackActionLogService.Login()
 			c.StdoutSuccess(nil)
 		} else {
 			c.StdoutError(stdout.ParamsError, stdout.UsernameOrPasswdEmptyError, c.getCaptchaMap())
@@ -60,8 +61,9 @@ func (c *MainController) Login() {
 
 // 退出登录
 func (this *MainController) Logout() {
-	//service.ActionService.Logout(this.auth.GetUser().UserName, this.auth.GetUserId(), this.getClientIp())
-	//this.auth.Logout()
+	ip := utils.GetIpAddress()
+	services.BackActionLogService.Logout()
+	services.BackAuthService.Logout()
 	this.Ctx.SetCookie("auth", "")
 	this.redirect(beego.URLFor(".Login"))
 }

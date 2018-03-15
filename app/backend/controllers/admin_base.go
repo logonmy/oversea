@@ -126,6 +126,7 @@ func (this *AdminBaseController) initAuth() {
 	this.auth.Init(token)
 	this.userId = this.auth.GetUserId()
 
+
 	this.Data["auth"] = this.auth
 	this.Data["adminEntity"] = this.auth.GetUser()
 	if !this.auth.IsLogined() {

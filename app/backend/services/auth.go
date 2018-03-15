@@ -37,8 +37,9 @@ func (this *AuthService) Login(userName, password string) (string, error) {
 		return "", errors.New(stdout.UserIsDisenbled)
 	}
 
+	user.LastIp = utils.GetIpAddress()
 	user.LastLogin = time.Now()
-	BackUserService.UpdateAdminUser(user, "LastLogin")
+	BackUserService.UpdateAdminUser(user, "LastLogin", "LastIp")
 	this.loginUser = user
 
 	token := fmt.Sprintf("%d|%s", user.Id, utils.MD5(user.Password+user.Salt))
@@ -63,6 +64,22 @@ func (this *AuthService) GetUserId() int {
 	return 0
 }
 
+// 获取当前登录的用户名
+func (this *AuthService) GetUserName() string {
+	if this.IsLogined() {
+		return this.loginUser.UserName
+	}
+	return ""
+}
+
+// 获取当前ip
+func (this *AuthService) GetLastIp() string {
+	if this.IsLogined() {
+		return this.loginUser.LastIp
+	}
+	return ""
+}
+
 // 初始化
 func (this *AuthService) Init(token string) {
 	arr := strings.Split(token, "|")
@@ -78,4 +95,10 @@ func (this *AuthService) Init(token string) {
 			}
 		}
 	}
+}
+
+// 退出登录
+func (this *AuthService) Logout() error {
+	this.loginUser.Id = 0
+	return nil
 }

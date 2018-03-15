@@ -1,3 +1,5 @@
+
+-- 管理员表
 CREATE TABLE `oz_admin_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(20) NOT NULL DEFAULT '',
@@ -15,44 +17,73 @@ CREATE TABLE `oz_admin_user` (
   UNIQUE KEY `user_name` (`user_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE IF NOT EXISTS `oz_action_log` (
-  `id` mediumint(8) unsigned NOT NULL auto_increment,
-  `object_type` varchar(30) NOT NULL default '',
-  `object_id` mediumint(8) unsigned NOT NULL default '0',
-  `product` varchar(255) NOT NULL,
-  `project` mediumint(9) NOT NULL,
-  `actor` varchar(30) NOT NULL default '',
-  `action` varchar(30) NOT NULL default '',
-  `date` datetime NOT NULL,
-  `comment` text NOT NULL,
+-- 操作日志表
+CREATE TABLE `oz_action_log` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `object_type` varchar(30) NOT NULL DEFAULT '',
+  `object_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `user_id` int(11) DEFAULT NULL,
+  `actor` varchar(30) NOT NULL DEFAULT '',
+  `action` varchar(30) NOT NULL DEFAULT '',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `comment` text,
   `extra` text NOT NULL,
-  `read` enum('0','1') NOT NULL default '0',
+  `read` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `action` (`object_id`,`product`,`project`,`action`,`date`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  KEY `action` (`object_id`,`action`,`create_time`),
+  KEY `read` (`object_type`,`read`) USING BTREE,
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `oz_group` (
-  `id` mediumint(8) unsigned NOT NULL auto_increment,
-  `name` char(30) NOT NULL,
-  `role` char(30) NOT NULL default '',
-  `desc` char(255) NOT NULL default '',
-  `acl` text,
-  PRIMARY KEY  (`id`)
-) ENGINE=INNODB  DEFAULT CHARSET=utf8;
+-- 移民项目类型表
+CREATE TABLE `oz_project_type` (
+  `project_type_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '项目类型id',
+  `project_type_name` varchar(30) NOT NULL DEFAULT '' COMMENT '项目类型名称',
+  `status` tinyint(4) DEFAULT '0' COMMENT '状态，0正常 -1禁用',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `project_type_name` (`project_type_name`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目类型表';
 
-CREATE TABLE IF NOT EXISTS `oz_grouppriv` (
-  `group` mediumint(8) unsigned NOT NULL default '0',
-  `module` char(30) NOT NULL default '',
-  `method` char(30) NOT NULL default '',
-  UNIQUE KEY `group` (`group`,`module`,`method`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+-- 移民国家表
+CREATE TABLE `oz_immigrant_nation` (
+  `nation_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '国家或地区id',
+  `nation_name` varchar(30) NOT NULL DEFAULT '' COMMENT '国家或地区名称',
+  `flag` VARCHAR(500) DEFAULT NULL COMMENT '国旗图标',
+  `desc` text DEFAULT NULL COMMENT '简介描素',
+  `status` tinyint(4) DEFAULT '0' COMMENT '状态，0正常 -1禁用',
+  PRIMARY KEY (`nation_id`),
+  UNIQUE KEY `nation_name` (`nation_name`) USING BTREE,
+  UNIQUE KEY `status` (`status`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='移民国家表';
 
-CREATE TABLE IF NOT EXISTS `oz_usergroup` (
-  `account` char(30) NOT NULL default '',
-  `group` mediumint(8) unsigned NOT NULL default '0',
-  UNIQUE KEY `account` (`account`,`group`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+-- 移民项目表
+CREATE TABLE `oz_immigrant_project` (
+  `project_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '项目id',
+  `project_name` varchar(30) NOT NULL DEFAULT '' COMMENT '项目名称',
+  `nation_id` mediumint(8) NOT NULL COMMENT '移民国家id',
+  `project_type_id`  mediumint(8) NOT NULL COMMENT '移民类型id',
+  `investment_amount` varchar(50) NOT NULL DEFAULT '' COMMENT '投资金额',
+  `complexity` tinyint(4) DEFAULT '0' COMMENT '手续复杂度，0-简单; 1-普通; 2-困难',
+  `residency_requirement` varchar(50) NOT NULL DEFAULT '' COMMENT '居住要求',
+  `job_requirement` varchar(50) NOT NULL DEFAULT '' COMMENT '工作要求',
+  `cycle_time` varchar(20) NOT NULL DEFAULT '' COMMENT '办理周期',
+  `visa_type` varchar(20) NOT NULL DEFAULT '' COMMENT '签证类型',
+  `project_desc` text  COMMENT '项目介绍',
+  `apply_requirement` text COMMENT '申请条件描述',
+  `policy_advantage` text  COMMENT '政策优势描述',
+  `handling_procedures` text  COMMENT '办理流程描述',
+  `apply_list` text  COMMENT '申请材料清单',
+  `charge_list` text  COMMENT '费用清单',
+  `status` tinyint(4) DEFAULT '0' COMMENT '状态，0正常 -1禁用',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`project_id`),
+  UNIQUE KEY `nation_name` (`project_name`) USING BTREE,
+  UNIQUE KEY `status` (`status`) USING BTREE,
+  UNIQUE KEY `project_type_id` (`project_type_id`) USING BTREE,
+  UNIQUE KEY `nation_id` (`nation_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='移民项目表';
 
 INSERT INTO `oz_admin_user` (`id`, `user_name`, `password`, `salt`, `sex`, `email`, `last_login`, `last_ip`, `status`,
 `create_time`, `update_time`)

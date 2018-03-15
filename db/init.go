@@ -7,8 +7,6 @@ import (
 	"oversea/app/backend/entitys"
 )
 
-
-
 func Init() {
 	dbHost := beego.AppConfig.String("db.host")
 	dbPort := beego.AppConfig.String("db.port")
@@ -29,12 +27,10 @@ func Init() {
 
 	orm.RegisterModelWithPrefix(tablePrefix,
 		new(entitys.AdminUser),
+		new(entitys.ActionLog),
 	)
 
 	if beego.AppConfig.String("runmode") == "dev" {
 		orm.Debug = true
 	}
 }
-
-
-

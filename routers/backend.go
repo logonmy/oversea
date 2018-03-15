@@ -13,6 +13,7 @@ func adminRouters()  {
 	beego.Router("/admin/home/index", &controllers.MainController{}, "*:Index")
 	beego.Router("/admin/user/list", &controllers.AdminUserController{}, "*:List")
 	beego.Router("/admin/login", &controllers.MainController{}, "*:Login")
+	beego.Router("/admin/logout", &controllers.MainController{}, "*:Logout")
 	beego.Router("/admin/user/add", &controllers.AdminUserController{}, "*:Add")
 	beego.Router("/admin/user/edit", &controllers.AdminUserController{}, "*:Edit")
 
