@@ -1,6 +1,6 @@
 
 -- 管理员表
-CREATE TABLE `oz_admin_user` (
+CREATE TABLE `sys_admin_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(20) NOT NULL DEFAULT '',
   `password` varchar(32) NOT NULL DEFAULT '',
@@ -18,7 +18,7 @@ CREATE TABLE `oz_admin_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 操作日志表
-CREATE TABLE `oz_action_log` (
+CREATE TABLE `sys_action_log` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `object_type` varchar(30) NOT NULL DEFAULT '',
   `object_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -148,7 +148,75 @@ create table sys_user_online (
 -- ----------------------------
 -- 12、客户表
 -- ----------------------------
+CREATE TABLE `crm_customer` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `name` char(100) NOT NULL,
+  `type` char(30) NOT NULL,
+  `relation` enum('client','provider','partner') NOT NULL DEFAULT 'client',
+  `source` varchar(20) NOT NULL,
+  `source_note` varchar(255) NOT NULL,
+  `size` tinyint(3) unsigned NOT NULL,
+  `industry` mediumint(8) unsigned NOT NULL,
+  `area` mediumint(8) unsigned NOT NULL,
+  `status` char(30) NOT NULL,
+  `level` char(10) NOT NULL,
+  `intension` text NOT NULL,
+  `site` varchar(100) NOT NULL,
+  `weibo` char(50) NOT NULL,
+  `weixin` char(50) NOT NULL,
+  `category` char(30) NOT NULL,
+  `depositor` varchar(100) NOT NULL,
+  `desc` text NOT NULL,
+  `public` enum('0','1') NOT NULL DEFAULT '0',
+  `created_by` char(30) NOT NULL,
+  `created_date` datetime NOT NULL,
+  `assigned_to` char(30) NOT NULL,
+  `assigned_by` char(30) NOT NULL,
+  `assigned_date` datetime NOT NULL,
+  `editedBy` char(30) NOT NULL,
+  `edited_date` datetime NOT NULL,
+  `contacted_by` char(30) NOT NULL,
+  `contacted_date` datetime NOT NULL,
+  `next_date` date NOT NULL,
+  `deleted` enum('0','1') NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `industry` (`industry`),
+  KEY `size` (`size`),
+  KEY `name` (`name`),
+  KEY `type` (`type`),
+  KEY `relation` (`relation`),
+  KEY `area` (`area`),
+  KEY `status` (`status`),
+  KEY `level` (`level`),
+  KEY `category` (`category`),
+  KEY `public` (`public`),
+  KEY `assigned_to` (`assigned_to`),
+  KEY `contacted_date` (`contacted_date`),
+  KEY `next_date` (`next_date`)
+) ENGINE=innodb AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- 12、客户地址表
+-- ----------------------------
+drop table if exists crm_customer_addr;
+create table if not exists crm_customer_addr (
+    id int auto_increment primary key comment '主键编号',
+    customer_id int not null comment '客户表主键编号',
+    `name` varchar(32) not null comment '姓名',
+    country varchar(32) not null default '' comment '国家',
+    province varchar(32) not null default '' comment '省份名称',
+    city varchar(32) not null default '' comment '城市名称',
+    area varchar(32) not null default '' comment '地区名称',
+    street varchar(200) not null default '' comment '街道',
+    zip varchar(8) not null default '' comment '邮政编码',
+    telphone varchar(32) not null default '' comment '电话号码',
+    mobile varchar(32) not null default '' comment '手机号码',
+    is_default char(1) not null default 0 comment '是否默认地址',
+    sort smallint not null default 0 comment '排序',
+    create_time timestamp not null default CURRENT_TIMESTAMP comment '创建时间',
+    INDEX idx_customer_id (customer_id),
+    INDEX idxu_telphone_street (telphone,street)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 comment '客户地址表';
 
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('1', '投资移民', '0');
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('2', '技术移民', '0');
@@ -158,7 +226,7 @@ INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`)
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('6', '家属团聚', '0');
 
 
-INSERT INTO `oz_admin_user` (`id`, `user_name`, `password`, `salt`, `sex`, `email`, `last_login`, `last_ip`, `status`,
+INSERT INTO `sys_admin_user` (`id`, `user_name`, `password`, `salt`, `sex`, `email`, `last_login`, `last_ip`, `status`,
 `create_time`, `update_time`)
 VALUES
 	(1,'admin','7fef6171469e80d32c0559f88b377245','',1,'admin@admin.com','2016-05-11 10:33:49','127.0.0.1',0,'2016-05-11 10:33:49','2016-05-11 10:33:49');

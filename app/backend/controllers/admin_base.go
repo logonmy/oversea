@@ -65,7 +65,6 @@ func (this *AdminBaseController) display(tpl ...string) {
 
 	this.Data["website"] = beego.AppConfig.String("website")
 	this.Data["xsrf_token"] = this.XSRFToken()
-	beego.Trace( "测试菜单："+ this.controllerName + "/" + this.actionName)
 }
 
 func (this *AdminBaseController) setTpl(tpl ...string) {

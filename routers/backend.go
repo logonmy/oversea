@@ -7,6 +7,12 @@ import (
 )
 
 func adminRouters()  {
+
+	beego.SetStaticPath("/admin/fonts","static/backend/fonts")
+	beego.SetStaticPath("/admin/images","static/backend/images")
+	beego.SetStaticPath("/admin/css","static/backend/css")
+	beego.SetStaticPath("/admin/js","static/backend/js")
+
 	// 验证码路由
 	beego.Handler("/captcha/*.png", captcha.Server(130, 34))
 

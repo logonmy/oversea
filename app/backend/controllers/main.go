@@ -5,7 +5,6 @@ import (
 	"github.com/dchest/captcha"
 	"oversea/app/backend/stdout"
 	"oversea/app/backend/services"
-	"oversea/utils"
 )
 
 type MainController struct {
@@ -61,7 +60,6 @@ func (c *MainController) Login() {
 
 // 退出登录
 func (this *MainController) Logout() {
-	ip := utils.GetIpAddress()
 	services.BackActionLogService.Logout()
 	services.BackAuthService.Logout()
 	this.Ctx.SetCookie("auth", "")

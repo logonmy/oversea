@@ -9,8 +9,6 @@ import (
 	_"github.com/astaxie/beego/session/mysql"
 )
 
-
-
 func main() {
     db.Init()
 	services.InitServices()

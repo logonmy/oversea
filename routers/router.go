@@ -6,11 +6,8 @@ import (
 )
 
 func init() {
-	beego.SetStaticPath("/admin/fonts","static/backend/fonts")
-	beego.SetStaticPath("/admin/images","static/backend/images")
-	beego.SetStaticPath("/admin/css","static/backend/css")
-	beego.SetStaticPath("/admin/js","static/backend/js")
 
+	frontendRouters()
 	adminRouters()
 
 	// 允许跨域
