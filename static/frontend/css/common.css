@@ -44,119 +44,21 @@ a{
 strong{font-weight: normal;}
 ul li{list-style: none;}
 body,html{width: 100%;height: 100%;font-family: "微软雅黑";background-color:#FFFFFF;}
-
-/*bootsharp特殊限制开始*/
-@media (min-width: 768px){
-    .container{padding-left: 0;padding-right: 0;}
-    .pc_nav .col-sm-10{padding-left: 0;padding-right: 0;}
-}
-/*bootsharp特殊限制结束*/
-
-/*头部信息,logo信息,导航菜单*/
-
-/*头部信息开始*/
-header{background-color:#f8f8f8;border-bottom: 1px solid #e0e0e0;}
-header h6{color:#666666;}
-header .col-sm-12{padding-left: 0;padding-right: 0;}
-header h6.h_brand{float: left;}
-header h6.h_hotline{float: right;}
-/*header h6{font-size: 0.00001px;padding-top: 10px;}*/
-.navbar-brand{padding: 0;}
-header .col-sm-4{padding-right: 0px;}
-/*头部信息结束*/
-
-/*logo信息开始*/
-.logo{padding-left: 0px;}
-.logo img{padding: 10px 0;float: left;}
-/*.hotline h4{float: right;color: #666666;padding: 20px 0;}*/
-.hotline{margin-top: 16.5px;padding-right: 0px;}
-.phone_img{float: right;margin-top: 5.5px;}
-.phone_number{float: right;color: #666666;margin-left: 16px;}
-/*logo信息结束*/
-
-/*导航菜单开始*/
-.menus{border-top:1px solid #e0e0e0;border-bottom: 1px solid #e0e0e0;/*box-shadow: 2px 2px 2px 1px rgba(0,0,0,.1)*/}
-.menus_nav ul{margin-bottom: 0px;}
-.menus_nav ul li{float: left;position: relative;height: 65px;display: table;}
-.menus_nav ul li a.mainNav{padding: 0px 32px;color: #0b2441;text-decoration: none;display: table-cell;vertical-align: middle;
-    transition:800ms ease all;}
-.menus_nav ul li a.mainNav:hover{-moz-box-shadow: 6px 0 0 rgba(0, 0, 0, 0.05), -6px 0 0 rgba(0, 0, 0, 0.05);
-    -o-box-shadow: 6px 0 0 rgba(0, 0, 0, 0.05), -6px 0 0 rgba(0, 0, 0, 0.05);
-    -webkit-box-shadow: 6px 0 0 rgba(0, 0, 0, 0.05), -6px 0 0 rgba(0, 0, 0, 0.05);
-    box-shadow: 6px 0 0 rgba(0, 0, 0, 0.05), -6px 0 0 rgba(0, 0, 0, 0.05);}
-/*导航滑动后动画*/
-.menus_nav ul li a.mainNav:after{
-    content:'';position:absolute;top:0;right:0;height:2px;width:0;background: #3899d3;
-    transition:400ms ease all;}
-.menus_nav ul li a.mainNav:after{
-    right:inherit;top:inherit;left:0;top:0;}
-.menus_nav ul li a.mainNav:hover:before,.menus_nav ul li a.mainNav:hover:after{
-    width:100%;transition:800ms ease all;}
-
-.menu_lists{width: 512px;border-top: 1px solid #b7b7b7;z-index: 2;position: absolute;left: 0;;top:65px;background-color:white;
-    padding: 20px 0;display: none;}
-.menu_lists ul li{float: left;width: 128px;text-align: center;height: 40px;line-height: 40px;}
-.menu_lists ul li a{color: #666666;}
-.menu_lists ul li a:hover{color: #3899d3;}
-/*关于弘域导航*/
-.about_hyimmi{width: 128px;border-top: 1px solid #b7b7b7;z-index: 2;position: absolute;left: 0;;top:65px;background-color:white;
-    padding: 20px 0;display: none;}
-.about_hyimmi ul li{float: left;width: 128px;text-align: center;height: 40px;line-height: 40px;}
-.about_hyimmi ul li a{color: #666666;}
-.about_hyimmi ul li a:hover{color: #3899d3;}
-
-/*移动端按钮*/
-.menu_button{float: left;margin-left: 0px;margin-right: 0px;width: 100%;background: none repeat scroll 0 0 #FFFFFF;}
-.demo-buttons .icon-bar{background-color: #888;height: 3px;}
-.navbar-toggle{float: left;}
-.menus .menus_container{padding-left: 0px;padding-right: 0px;}
-/*移动端导航插件修改*/
-.fancynav-mainnav{position: fixed;top: 0;width: 94%;}
-.fancynav-header{position: fixed;top: 0;width: 100%;height: 100%;}
-.fancynav-mainnav>ul{position: fixed;
-    width: 100%;top: 50px;overflow-y: auto;height: 100%;margin-bottom: 100px;}
-.fancynav-subnav ul{background: #FFFFFF;height: 100%;}
-.fancynav-subnav ul li:nth-last-of-type(1){margin-bottom: 50px;}
-
-.navbar-toggle{margin-right: 0;padding-right: 0;}
-.m_s_logo img{height: 46px;margin: 0 auto;margin-top: 4px;padding-right: 50px;}
-.navbar-toggle{height: 54px;padding-top: 0px;padding-bottom: 0px;margin-top: 0px;margin-bottom: 0px;border-right: 1px solid #eaeaea;padding-right: 25px;}
-
-.fixation_pc_nav{width: 1170px;}
-.fixation_pc_nav .col-sm-12{padding-left: 0;padding-right: 0;}
-.pc_nav .menus_nav ul li.menus_nav_li{height: 40px;}
-.pc_nav{display: none;}
-.pc_nav_main{width: 1200px;height: 40px;margin: 0 auto;}
-.small_logo{width: 154px;}
-.small_logo img{float: left;}
-.pc_nav .col-sm-2{padding-left: 0;}
-
-
-
-/*导航菜单结束*/
-
-/*导航滚动置顶*/
-.fixednav{position: fixed;background-color: white;top: 0px;
-    left: 15px;width: 100%;z-index: 9;opacity: 0.9;
-    animation:myfirst 1s;-webkit-animation:myfirst 1s; /* Safari and Chrome */
+body {
+    min-height: 2000px;
 }
 
-@keyframes myfirst{
-    from {top:-20px;opacity: 0.4;}
-    to {top:0px;opacity: 1;}
+.color-white {
+    background-color: #fff;
 }
-@-webkit-keyframes myfirst {
-    from {top:-20px;}
-    to {top:0px;}
-}
-@media screen and (max-width: 768px) {
-    .fixednav{
-        position: static;top: 0;
-    }
-}
-@media screen and (max-width: 1024px) {
-    .s_logo{display: none;}
-    .fixednav{display: none;}
-    .s_mainNav{display: none;}
 
+@-ms-viewport     { width: device-width; }
+@-o-viewport      { width: device-width; }
+@viewport         { width: device-width; }
+
+.navbar {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+    background-color: #fff;
 }
+
+
