@@ -1,12 +1,12 @@
-package controllers
+package backend
 
 import (
 	"github.com/astaxie/beego"
 	"strings"
 	"github.com/dchest/captcha"
 	"time"
-	"oversea/app/backend/stdout"
-	"oversea/app/backend/services"
+	"oversea/app/stdout"
+	"oversea/app/services"
 )
 
 type AdminBaseController struct {

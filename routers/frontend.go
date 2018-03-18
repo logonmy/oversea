@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
-	"oversea/app/frontend/controllers"
+	"oversea/app/controllers/frontend"
 )
 
 func frontendRouters()  {
@@ -12,5 +12,5 @@ func frontendRouters()  {
 	beego.SetStaticPath("/css","static/frontend/css")
 	beego.SetStaticPath("/js","static/frontend/js")
 
-	beego.Router("/", &controllers.IndexController{}, "get:Home")
+	beego.Router("/", &frontend.IndexController{}, "get:Home")
 }

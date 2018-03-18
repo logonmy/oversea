@@ -1,10 +1,10 @@
-package controllers
+package backend
 
 import (
 	"github.com/astaxie/beego"
 	"github.com/dchest/captcha"
-	"oversea/app/backend/stdout"
-	"oversea/app/backend/services"
+	"oversea/app/stdout"
+	"oversea/app/services"
 )
 
 type MainController struct {

@@ -2,7 +2,7 @@ package services
 
 import (
 	"github.com/astaxie/beego/orm"
-	"oversea/app/backend/entitys"
+	"oversea/app/entitys"
 	"oversea/utils"
 )
 

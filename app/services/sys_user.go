@@ -1,10 +1,10 @@
 package services
 
 import (
-	"oversea/app/backend/entitys"
+	"oversea/app/entitys"
 	"github.com/astaxie/beego/orm"
 	"errors"
-	"oversea/app/backend/stdout"
+	"oversea/app/stdout"
 	"oversea/utils"
 )
 

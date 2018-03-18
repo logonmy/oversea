@@ -1,10 +1,10 @@
-package controllers
+package backend
 
 import (
-	"oversea/app/backend/services"
+	"oversea/app/services"
 	"github.com/astaxie/beego"
-	"oversea/app/backend/libs"
-	"oversea/app/backend/stdout"
+	"oversea/app/libs"
+	"oversea/app/stdout"
 	"oversea/utils"
 )
 

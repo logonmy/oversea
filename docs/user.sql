@@ -40,7 +40,7 @@ CREATE TABLE `oz_project_type` (
   `project_type_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '项目类型id',
   `project_type_name` varchar(30) NOT NULL DEFAULT '' COMMENT '项目类型名称',
   `status` tinyint(4) DEFAULT '0' COMMENT '状态，0正常 -1禁用',
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`project_type_id`),
   UNIQUE KEY `project_type_name` (`project_type_name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目类型表';
 

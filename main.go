@@ -4,7 +4,7 @@ import (
 	_ "oversea/routers"
 	"github.com/astaxie/beego"
 	"oversea/db"
-	"oversea/app/backend/services"
+	"oversea/app/services"
 	_"github.com/go-sql-driver/mysql"
 	_"github.com/astaxie/beego/session/mysql"
 )

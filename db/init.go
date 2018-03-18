@@ -4,7 +4,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego"
 	"net/url"
-	"oversea/app/backend/entitys"
+	"oversea/app/entitys"
 )
 
 func Init() {
@@ -28,6 +28,12 @@ func Init() {
 	orm.RegisterModelWithPrefix(tablePrefix,
 		new(entitys.AdminUser),
 		new(entitys.ActionLog),
+	)
+
+	orm.RegisterModelWithPrefix("oz",
+		new(entitys.OzImmigrantProject),
+			new(entitys.OzProjectType),
+				new(entitys.OzImmigrantNation),
 	)
 
 	if beego.AppConfig.String("runmode") == "dev" {
