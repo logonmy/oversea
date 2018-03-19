@@ -62,3 +62,20 @@ body {
 }
 
 
+/*移动端导航插件修改*/
+
+.fancynav-mainnav{position: fixed;top: 0;width: 94%;}
+.fancynav-header{position: fixed;top: 0;width: 100%;height: 100%; color: #4a4a4a; background: white;}
+.fancynav-mainnav>ul{position: fixed;
+    width: 100%;top: 50px;overflow-y: auto;height: 100%;margin-bottom: 100px;}
+.fancynav-subnav {background: #ffffff}
+.fancynav-subnav ul{background: #FFFFFF;height: 100%;}
+.fancynav-subnav ul li:nth-last-of-type(1){margin-bottom: 50px;}
+
+.navbar-toggle{margin-right: 0;padding-right: 0;}
+.navbar-toggle{height: 54px;padding-top: 0px;padding-bottom: 0px;margin-top: 0px;margin-bottom: 0px;border-right: 1px solid #eaeaea;padding-right: 25px;}
+.website_sm_logo img {
+    height: 46px;
+    margin-top: -12px;
+    padding-right: 50px;
+}

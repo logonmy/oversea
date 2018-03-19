@@ -12,4 +12,6 @@ $(function () {
 
     });
 
+    $('.navbar-toggle').fancynav();
+
 });

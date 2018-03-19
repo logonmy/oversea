@@ -6,6 +6,7 @@ var (
 	BackActionLogService *actionLogService
 	OzProjectTypeService	*ozProjectTypeService
 	OzImmigrantNationService *ozImmigrantNationService
+	OzImmigrantProjectService *ozImmigrantProjectService
 )
 
 func InitServices() {
@@ -14,4 +15,5 @@ func InitServices() {
 	BackActionLogService = &actionLogService{}
 	OzProjectTypeService = &ozProjectTypeService{}
 	OzImmigrantNationService = &ozImmigrantNationService{}
+	OzImmigrantProjectService = &ozImmigrantProjectService{}
 }
