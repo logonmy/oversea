@@ -14,6 +14,8 @@ const (
 	// 参数错误
 	ParamsError = 2000
 )
+
+// 后台errMsg
 const (
 	// MsgSuccess ...
 	MsgSuccess = "success"
@@ -34,6 +36,9 @@ const (
 	UpdateError = "更新失败"
 )
 
+const (
+
+)
 
 
 

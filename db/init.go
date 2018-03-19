@@ -32,8 +32,8 @@ func Init() {
 
 	orm.RegisterModelWithPrefix("oz",
 		new(entitys.OzImmigrantProject),
-			new(entitys.OzProjectType),
-				new(entitys.OzImmigrantNation),
+		new(entitys.OzProjectType),
+		new(entitys.OzImmigrantNation),
 	)
 
 	if beego.AppConfig.String("runmode") == "dev" {
