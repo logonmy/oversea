@@ -668,7 +668,7 @@
             transition: transform 0.2s ease;
   }
   .off-screen {
-    position: absolute;
+    /*position: absolute;*/
     top: 60px;
     bottom: 0;
     z-index: 1023;
@@ -679,7 +679,7 @@
     -webkit-overflow-scrolling: touch;
   }
   .off-screen + * {
-    position: absolute;
+    /*position: absolute;*/
     top: 0;
     right: 0;
     bottom: 0;
@@ -700,7 +700,7 @@
             backface-visibility: hidden;
   }
   .off-screen + * .off-screen-toggle {
-    position: absolute;
+    /*position: absolute;*/
     top: 0;
     right: 0;
     bottom: 0;
