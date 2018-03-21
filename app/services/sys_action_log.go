@@ -17,15 +17,15 @@ func (this *actionLogService) Add(action,objectType string, objectId int, extra 
 	act.ObjectType = objectType
 	act.ObjectId = objectId
 	act.Extra = extra
-	act.Actor = BackAuthService.GetUserName()
-	act.UserId = BackAuthService.GetUserId()
+	act.Actor = SysAuthService.GetUserName()
+	act.UserId = SysAuthService.GetUserId()
 	o.Insert(act)
 	return true
 }
 
 // 登录动态
 func (this *actionLogService) Login() {
-	ip := BackAuthService.GetLastIp()
+	ip := SysAuthService.GetLastIp()
 	this.Add("login", "user", 1, ip)
 }
 

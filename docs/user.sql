@@ -218,6 +218,20 @@ create table if not exists crm_customer_addr (
     INDEX idxu_telphone_street (telphone,street)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 comment '客户地址表';
 
+-- ----------------------------
+-- 13、系统配置表
+-- ----------------------------
+drop table if exists sys_config;
+CREATE TABLE `sys_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键编号',
+  `config_key` varchar(60) NOT NULL COMMENT '配置名称',
+  `config_value` varchar(255) DEFAULT NULL COMMENT '姓名',
+  `config_group` int(11) NOT NULL DEFAULT '0' COMMENT '配置分组',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `config_key` (`config_group`,`config_key`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+
+
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('1', '投资移民', '0');
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('2', '技术移民', '0');
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('3', '创业移民', '0');

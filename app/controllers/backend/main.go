@@ -37,7 +37,7 @@ func (c *MainController) Login() {
 		}
 
 		if phone != "" && password != "" {
-			token, err := services.BackAuthService.Login(phone, password)
+			token, err := services.SysAuthService.Login(phone, password)
 
 			if err != nil {
 				c.StdoutError(stdout.ParamsError, err.Error())
@@ -48,7 +48,7 @@ func (c *MainController) Login() {
 			} else {
 				c.Ctx.SetCookie("auth", token)
 			}
-			services.BackActionLogService.Login()
+			services.SysActionLogService.Login()
 			c.StdoutSuccess(nil)
 		} else {
 			c.StdoutError(stdout.ParamsError, stdout.UsernameOrPasswdEmptyError, c.getCaptchaMap())
@@ -60,8 +60,8 @@ func (c *MainController) Login() {
 
 // 退出登录
 func (this *MainController) Logout() {
-	services.BackActionLogService.Logout()
-	services.BackAuthService.Logout()
+	services.SysActionLogService.Logout()
+	services.SysAuthService.Logout()
 	this.Ctx.SetCookie("auth", "")
 	this.redirect(beego.URLFor(".Login"))
 }

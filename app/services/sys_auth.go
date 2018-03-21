@@ -21,7 +21,7 @@ type AuthService struct {
 // 用户登录
 func (this *AuthService) Login(userName, password string) (string, error) {
 
-	user, err := BackUserService.GetUserByName(userName)
+	user, err := SysUserService.GetUserByName(userName)
 	if err != nil {
 		if err == orm.ErrNoRows {
 			return "", errors.New(stdout.UserOrderPasswordError)
@@ -39,7 +39,7 @@ func (this *AuthService) Login(userName, password string) (string, error) {
 
 	user.LastIp = utils.GetIpAddress()
 	user.LastLogin = time.Now()
-	BackUserService.UpdateAdminUser(user, "LastLogin", "LastIp")
+	SysUserService.UpdateAdminUser(user, "LastLogin", "LastIp")
 	this.loginUser = user
 
 	token := fmt.Sprintf("%d|%s", user.Id, utils.MD5(user.Password+user.Salt))
@@ -88,7 +88,7 @@ func (this *AuthService) Init(token string) {
 		idstr, password := arr[0], arr[1]
 		userId, _ := strconv.Atoi(idstr)
 		if userId > 0 {
-			user, err := BackUserService.GetUser(userId)
+			user, err := SysUserService.GetUser(userId)
 			if err == nil && password == utils.MD5(user.Password + user.Salt) {
 				this.loginUser = user
 				beego.Trace("验证成功，用户信息: ", user)

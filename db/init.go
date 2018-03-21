@@ -28,6 +28,7 @@ func Init() {
 	orm.RegisterModelWithPrefix(tablePrefix,
 		new(entitys.AdminUser),
 		new(entitys.ActionLog),
+		new(entitys.SysConfig),
 	)
 
 	orm.RegisterModelWithPrefix("oz",

@@ -26,7 +26,7 @@ func (this *AdminUserController) List() {
 		filters = append(filters, "id", id)
 	}
 
-	userList, count := services.BackUserService.GetAdminUsersList(page, this.pageSize, filters...)
+	userList, count := services.SysUserService.GetAdminUsersList(page, this.pageSize, filters...)
 
 	this.Data["pageBar"] = libs.NewPager(page, int(count), this.pageSize, beego.URLFor("HomeController.List",
 		filters...),
@@ -62,12 +62,12 @@ func (this *AdminUserController) Add() {
 			this.StdoutError(stdout.ParamsError, stdout.RepeatPasswordError)
 		}
 
-		_, e := services.BackUserService.GetUserByName(realName)
+		_, e := services.SysUserService.GetUserByName(realName)
 		if e == nil {
 			this.StdoutError(stdout.DBError, stdout.UserIsExists)
 		}
 
-		_, err := services.BackUserService.AddUser(realName, phone, email, password, sex)
+		_, err := services.SysUserService.AddUser(realName, phone, email, password, sex)
 		if err != nil {
 			this.StdoutError(stdout.DBError, stdout.AddAdminFailError)
 		}
@@ -81,7 +81,7 @@ func (this *AdminUserController) Add() {
 func (this *AdminUserController) Edit() {
 
 	id, _ := this.GetInt("id")
-	user, err := services.BackUserService.GetUser(id)
+	user, err := services.SysUserService.GetUser(id)
 	this.checkError(err)
 
 	if this.isPost() {
@@ -99,7 +99,7 @@ func (this *AdminUserController) Edit() {
 		user.Phone = phone
 		user.Email = email
 
-		err := services.BackUserService.UpdateAdminUser(user, "Phone", "email")
+		err := services.SysUserService.UpdateAdminUser(user, "Phone", "email")
 
 		if err != nil {
 			this.StdoutError(stdout.DBError, stdout.UpdateError)

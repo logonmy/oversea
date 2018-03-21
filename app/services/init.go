@@ -1,21 +1,23 @@
 package services
 
 var (
-	BackUserService *AdminUserService // 用户服务
-	BackAuthService *AuthService
-	BackActionLogService *actionLogService
-	OzProjectTypeService	*ozProjectTypeService
-	OzImmigrantNationService *ozImmigrantNationService
+	SysUserService            *AdminUserService // 用户服务
+	SysAuthService            *AuthService
+	SysActionLogService       *actionLogService
+	OzProjectTypeService      *ozProjectTypeService
+	OzImmigrantNationService  *ozImmigrantNationService
 	OzImmigrantProjectService *ozImmigrantProjectService
-	CrmCustomerService *crmCustomerService
+	CrmCustomerService        *crmCustomerService
+	SysConfigService          *sysConfigService
 )
 
 func InitServices() {
-	BackUserService = &AdminUserService{}
-	BackAuthService = &AuthService{}
-	BackActionLogService = &actionLogService{}
+	SysUserService = &AdminUserService{}
+	SysAuthService = &AuthService{}
+	SysActionLogService = &actionLogService{}
 	OzProjectTypeService = &ozProjectTypeService{}
 	OzImmigrantNationService = &ozImmigrantNationService{}
 	OzImmigrantProjectService = &ozImmigrantProjectService{}
 	CrmCustomerService = &crmCustomerService{}
+	SysConfigService = &sysConfigService{}
 }

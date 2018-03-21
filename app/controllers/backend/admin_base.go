@@ -121,7 +121,7 @@ func (this *AdminBaseController) isAjax() bool {
 //登录验证
 func (this *AdminBaseController) initAuth() {
 	token := this.Ctx.GetCookie("auth")
-	this.auth = services.BackAuthService
+	this.auth = services.SysAuthService
 	this.auth.Init(token)
 	this.userId = this.auth.GetUserId()
 
