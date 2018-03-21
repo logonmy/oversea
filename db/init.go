@@ -36,6 +36,10 @@ func Init() {
 		new(entitys.OzImmigrantNation),
 	)
 
+	orm.RegisterModelWithPrefix("crm",
+		new(entitys.CrmCustomer),
+	)
+
 	if beego.AppConfig.String("runmode") == "dev" {
 		orm.Debug = true
 	}

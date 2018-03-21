@@ -7,6 +7,7 @@ var (
 	OzProjectTypeService	*ozProjectTypeService
 	OzImmigrantNationService *ozImmigrantNationService
 	OzImmigrantProjectService *ozImmigrantProjectService
+	CrmCustomerService *crmCustomerService
 )
 
 func InitServices() {
@@ -16,4 +17,5 @@ func InitServices() {
 	OzProjectTypeService = &ozProjectTypeService{}
 	OzImmigrantNationService = &ozImmigrantNationService{}
 	OzImmigrantProjectService = &ozImmigrantProjectService{}
+	CrmCustomerService = &crmCustomerService{}
 }

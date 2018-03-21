@@ -146,54 +146,54 @@ create table sys_user_online (
 
 
 -- ----------------------------
--- 12、客户表
+-- 12、客户表 crm_customer
 -- ----------------------------
 CREATE TABLE `crm_customer` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `name` char(100) NOT NULL,
-  `type` char(30) NOT NULL,
-  `relation` enum('client','provider','partner') NOT NULL DEFAULT 'client',
-  `source` varchar(20) NOT NULL,
-  `source_note` varchar(255) NOT NULL,
-  `size` tinyint(3) unsigned NOT NULL,
-  `industry` mediumint(8) unsigned NOT NULL,
-  `area` mediumint(8) unsigned NOT NULL,
-  `status` char(30) NOT NULL,
-  `level` char(10) NOT NULL,
-  `intension` text NOT NULL,
-  `site` varchar(100) NOT NULL,
-  `weibo` char(50) NOT NULL,
-  `weixin` char(50) NOT NULL,
-  `category` char(30) NOT NULL,
-  `depositor` varchar(100) NOT NULL,
-  `desc` text NOT NULL,
-  `public` enum('0','1') NOT NULL DEFAULT '0',
-  `created_by` char(30) NOT NULL,
-  `created_date` datetime NOT NULL,
-  `assigned_to` char(30) NOT NULL,
-  `assigned_by` char(30) NOT NULL,
-  `assigned_date` datetime NOT NULL,
-  `editedBy` char(30) NOT NULL,
-  `edited_date` datetime NOT NULL,
-  `contacted_by` char(30) NOT NULL,
-  `contacted_date` datetime NOT NULL,
-  `next_date` date NOT NULL,
-  `deleted` enum('0','1') NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `industry` (`industry`),
-  KEY `size` (`size`),
+  `cust_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL COMMENT '客户姓名',
+  `source` int(16) DEFAULT NULL COMMENT '客户来源',
+  `level` int(16) DEFAULT NULL COMMENT '客户等级',
+  `website` varchar(256) DEFAULT NULL COMMENT '客户个人网站地址',
+  `mobile` varchar(64) NOT NULL COMMENT '客户手机号码',
+  `tel` varchar(256) DEFAULT NULL COMMENT '客户电话号码',
+  `fax` varchar(256) DEFAULT NULL COMMENT '客户传真',
+  `email` varchar(256) DEFAULT NULL COMMENT '客户邮箱地址',
+  `status` varchar(256) DEFAULT NULL COMMENT '客户状态',
+  `intro` text COMMENT '客户简介',
+  `create_by` int(11) NOT NULL DEFAULT '0' COMMENT '创建者',
+  `assign_to` int(11) NOT NULL DEFAULT '0' COMMENT '指派给',
+  `assign_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '指派日期',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`cust_id`),
   KEY `name` (`name`),
-  KEY `type` (`type`),
-  KEY `relation` (`relation`),
-  KEY `area` (`area`),
-  KEY `status` (`status`),
-  KEY `level` (`level`),
-  KEY `category` (`category`),
-  KEY `public` (`public`),
-  KEY `assigned_to` (`assigned_to`),
-  KEY `contacted_date` (`contacted_date`),
-  KEY `next_date` (`next_date`)
-) ENGINE=innodb AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  KEY `assign_to` (`assign_to`) USING BTREE,
+  KEY `create_by` (`create_by`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- 联系人表 linkman
+-- ----------------------------
+DROP TABLE IF EXISTS `crm_linkman`;
+CREATE TABLE `crm_linkman` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `job` varchar(255) DEFAULT NULL,
+  `call` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `qq` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `linkmanstatus_id` bigint(20) DEFAULT NULL,
+  `main` bit(1) DEFAULT NULL,
+  `institute` varchar(255) DEFAULT NULL,
+  `department` varchar(255) DEFAULT NULL,
+  `sex` tinyint(4) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `intro` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
 
 -- ----------------------------
 -- 12、客户地址表
