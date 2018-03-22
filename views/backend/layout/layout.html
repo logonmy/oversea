@@ -3,11 +3,22 @@
 <head>
     {{.Header}}
 </head>
-<body>
-    <div class="page-body page-body-fixed">
+<body id="oversea-cms">
+    <div class="layout___1t_P1 ant-layout">
         {{.Navbar}}
-        {{.Sidebar}}
-        {{.LayoutContent}}
+        <div class="oversea-layout oversea-layout-has-sider">
+           {{.Sidebar}}
+           {{ .Footer}}
+               <div class="oversea-layout" style="margin-left: 180px;">
+                   <div class="oversea-layout-content" style="height: 100%; position: relative;">
+                       <div class="review___1Sljm review">
+                           {{.LayoutContent}}
+                       </div>
+                   </div>
+               </div>
+
+        </div>
+
     </div>
 </body>
 </html>

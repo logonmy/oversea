@@ -1,89 +1,87 @@
-<!-- "page-content begin -->
-<div class="page-content page-md-content page-lg-content">
 
-    <!-- page-breadcrumb begin -->
-    <div class="panel panel-breadcrumb">
-        <div class="panel-body">
-            <ol class="breadcrumb">
-                <li>
-                    <a href="#"><i class="fa icon-home"></i> 账号中心</a>
-                </li>
-                <li class="active">
-                    个人信息
-                </li>
-            </ol>
-        </div>
+<div class="breadcrumb___3SR1l">
+    <div class="oversea-breadcrumb">
+        <span>
+            <span class="oversea-breadcrumb-link">
+                <a class="back___2xxr1" href="{{urlfor "AdminUserController.List"}}">
+                    <i class="anticon anticon-left"></i>
+                </a>
+            </span>
+            <span class="oversea-breadcrumb-separator"></span>
+        </span>
+        <span>
+            <span class="oversea-breadcrumb-link">
+                <span class="pageTitle___2WMeG">修改管理员信息</span></span>
+            <span class="oversea-breadcrumb-separator"></span>
+        </span>
     </div>
-    <!-- page-breadcrumb close -->
-
-    <!-- panel-person begin -->
-    <div class="panel panel-person">
-        <div class="panel-body">
-            <div class="details-list">
-                <div class="details-header">
-                    <ul class="row">
-                        <li class="col-md-12">个人信息</li>
-                    </ul>
+</div>
+<div class="oversea-row">
+    <div class="oversea-col-24">
+        <form class="oversea-form oversea-form-horizontal" action="{{urlfor "AdminUserController.Edit"}}" method="post"
+              id="userEditForm">
+            <div class="panel___35TIy">
+                <div class="header___19HLM clearfix___1B55C">
+                    <h3 class="title___283kT">基本信息</h3>
+                    <span class="help___3n8W3"></span>
+                </div>
+                <div class="oversea-row oversea-form-item oversea-form-item-no-colon">
+                    <div class="oversea-col-4 oversea-form-item-label">
+                        <label class="oversea-form-item-required" title="登陆账号" >登陆账号</label></div>
+                    <div class="oversea-col-10 oversea-form-item-control-wrapper">
+                        <div class="oversea-form-item-control ">
+                            <input type="text" name="real_name" placeholder="登录账户" class="oversea-input
+                            oversea-input-lg oversea-input-disabled" disabled value="{{ .userInfo.UserName}}">
+                        </div>
+                    </div>
                 </div>
 
-                <div class="details-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>管理员名称</label>
-                                    <ul>
-                                        <li>
-                                            <input type="text" name="real_name" class="form-control
-                                            form-focus-primary" placeholder="请输入您的姓名" value="{{ .userInfo.UserName}}" disabled="disabled">
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                <div class="oversea-row oversea-form-item oversea-form-item-no-colon">
+                    <div class="oversea-col-4 oversea-form-item-label">
+                        <label class="" title="登陆密码">登陆密码</label></div>
+                    <div class="oversea-col-20 oversea-form-item-control-wrapper">
+                        <div class="oversea-form-item-control ">
+                            <a href="###" target="_blank" rel="noopener noreferrer">修改</a></div>
+                    </div>
+                </div>
 
-                    <form role="form" action="{{urlfor "AdminUserController.Eidt"}}" method="post" id="userEditForm">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>手机号码</label>
-                                    <ul>
-                                        <li>
-                                            <input type="text" name="phone" class="form-control form-focus-primary"
-                                                   value="{{ .userInfo.Phone}}"  placeholder="请输入手机号">
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                <div class="oversea-row oversea-form-item oversea-form-item-no-colon">
+                    <div class="oversea-col-4 oversea-form-item-label">
+                        <label for="tel" class="oversea-form-item-required" title="手机号">手机号</label></div>
+                    <div class="oversea-col-10 oversea-form-item-control-wrapper">
+                        <div class="oversea-form-item-control has-success">
+                            <input type="text" placeholder="手机号" class="oversea-input oversea-input-lg" value="{{ .userInfo.Phone}}"
+                                   id="tel"  name="phone"></div>
+                    </div>
+                </div>
 
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>邮箱地址</label>
-                                    <ul>
-                                        <li>
-                                            <input type="text" name="email" class="form-control form-focus-primary"
-                                                   placeholder="请输入您的邮箱" value="{{ .userInfo.Email}}">
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                <div class="oversea-row oversea-form-item oversea-form-item-no-colon">
+                    <div class="oversea-col-4 oversea-form-item-label">
+                        <label for="email" class="oversea-form-item-required" title="邮箱">邮箱</label></div>
+                    <div class="oversea-col-10 oversea-form-item-control-wrapper">
+                        <div class="oversea-form-item-control has-success">
+                            <input type="text" placeholder="请输入邮箱" value="{{ .userInfo.Email}}" class="oversea-input
+                            oversea-input-lg" id="email"
+                                   name="email"
+                            ></div>
+                    </div>
+                </div>
 
-                        <div class="row">
-                            <div class="col-md-2">
-                                <input type="hidden" name="id" value="{{ .userInfo.Id}}">
-                                <button type="submit" class="btn btn-block btn-primary" id="btnEditUser">保存</button>
-
-                            </div>
-                            <div class="col-md-2">
-                                 <button class="btn btn-block btn-danger" id="btnBack" onclick="javascript:history.go(-1)">返回</button>
-                            </div>
+                <div class="oversea-row oversea-form-item oversea-form-item-no-colon">
+                    <div class="oversea-col-4 oversea-form-item-label">
+                        <label class="" title=" "></label>
+                    </div>
+                    <div class="oversea-col-20 oversea-form-item-control-wrapper">
+                        <div class="oversea-form-item-control ">
+                             <input type="hidden" name="id" value="{{ .userInfo.Id}}">
+                            <button type="submit" class="oversea-btn btnSecondary___31mKp">
+                                <span>保 存</span></button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
+
+        </form>
     </div>
 </div>
     <!-- panel-person close -->

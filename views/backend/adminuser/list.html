@@ -1,91 +1,165 @@
-<!-- "page-content begin -->
-<div class="page-content page-md-content page-lg-content">
+<div class="oversea-row" style="margin-left: -10px; margin-right: -10px;">
 
-    <!-- page-breadcrumb begin -->
-    <div class="panel panel-breadcrumb">
-        <div class="panel-body">
-            <ol class="breadcrumb">
-                <li>
-                    <a href="#"><i class="fa icon-home"></i> 账号中心</a>
-                </li>
-                <li class="active">
-                    个人信息
-                </li>
-            </ol>
+    <div class="actions___1fT2D clearfix___1B55C">
+        <button type="button" class="oversea-btn oversea-btn-primary">
+            <span>新建文章</span></button>
+        <button type="button" class="oversea-btn oversea-btn-primary">
+            <span>新建图集</span></button>
+        <button type="button" class="oversea-btn oversea-btn-primary">
+            <span>新建视频</span></button>
+
+
+        <div class="rightActions___2fGLs">
+            <div class="oversea-select-sm filter___2IU0N oversea-select oversea-select-enabled">
+                <div class="oversea-select-selection
+                oversea-select-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true"
+                     aria-expanded="false" tabindex="0">
+                    <div class="oversea-select-selection__rendered">
+                        <div class="oversea-select-selection-selected-value" title="1" style="display: block; opacity: 1;
+">全部状态</div></div>
+                    <span class="oversea-select-arrow" unselectable="unselectable" style="user-select: none;">
+                        <b>
+                        </b>
+                    </span>
+                </div>
+            </div>
+
+            <span class="oversea-input-group oversea-input-group-compact searchWrap___36MsM">
+                <span class="oversea-input-affix-wrapper" style="width: 169px;margin-right: -2px">
+                    <input type="text" placeholder="搜索标题" value="" class="oversea-input oversea-input-lg"></span>
+                <button type="button" class="oversea-btn searchIcon___3K2HQ oversea-btn-sm">
+                    <i class="anticon anticon-search"></i>
+                </button>
+            </span>
+            <button type="button" class="oversea-btn">
+                <i class="iconfont___48nuJ icon-upload___2gohI icon___1Frhf"></i>
+                <span>投递</span></button>
+            <button type="button" class="oversea-btn">
+                <i class="iconfont___48nuJ icon-delete___2dgs- icon___1Frhf"></i>
+                <span>删除</span></button>
         </div>
     </div>
-    <!-- page-breadcrumb close -->
 
-    <!-- panel-person begin -->
-    <div class="panel panel-person">
-        <div class="panel-body">
-            <div class="details-list">
-                <div class="details-header">
-                    <ul class="row">
-                        <li class="col-md-12">管理员列表</li>
-                    </ul>
-                </div>
-
-                <div class="details-body" style="background-color: #ffffff">
-                    <div class="row table-responsive">
-                        <table class="table table-bordered ">
-                    <thead>
-                        <tr>
-                            <td><input type="checkbox" name="all_check" /></td>
-                            <td>ID</td>
-                            <td width="20%">昵称</td>
-                            <td>性别</td>
-                            <td>手机号</td>
-                            <td>邮箱</td>
-                            <td>最后登录时间</td>
-                            <td>最后登录ip</td>
-                            <td width="25%">操作</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {{range $k,$v := .userList}}
-                    <tr>
-                            <td class="chk"><input type="checkbox" name="ids"  value="{{$v.Id}}" /></td>
-                            <td> {{$v.Id}} </td>
-                            <td>
-                                 {{$v.UserName}}
-                            </td>
-                            <td> {{$v.Sex}} </td>
-                            <td> {{$v.Phone}} </td>
-                            <td> {{$v.Email}} </td>
-                            <td> {{$v.LastLogin}} </td>
-                            <td> {{$v.LastIp}} </td>
-                            <td>
-                                    {{/*<a class="btn btn-info btn-run  btn-xs" href="{{urlfor "TaskController.Run"}}?id={{$v.id}}">*/}}
-                                        {{/*<span class="glyphicon glyphicon-flash" aria-hidden="true"></span> 执行*/}}
-                                    {{/*</a>*/}}
-                                    {{/*<a class="btn btn-info  btn-xs" href="{{urlfor "TaskController.Logs"}}?id={{$v.id}}">*/}}
-                                        {{/*<span class="glyphicon glyphicon-file" aria-hidden="true"></span> 日志*/}}
-                                   {{/*</a>*/}}
-
-                                   <a class="btn btn-success  btn-xs" href="{{urlfor "AdminUserController.Edit"}}?id={{$v.Id}}">
-                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
-                                   </a>
-                            </td>
-                        </tr>
-                    {{end}}
-
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="9">
-                                <div class="pull-right">
-                                {{str2html .pageBar}}
-                                </div>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
+   <!-- <div class="actions___1hcMj">
+        <div class="oversea-row">
+            <div class="oversea-col-6">
+                <div class="filter___2IU0N oversea-select oversea-select-enabled">
+                    <div class="oversea-select-selection
+                    oversea-select-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true"
+                         aria-expanded="false" tabindex="0">
+                        <div class="oversea-select-selection__rendered">
+                            <div class="oversea-select-selection-selected-value" title="推荐" style="display: block;
+                            opacity: 1;">
+                                <div>
+                                    <span>推荐</span>
+                                    <span class="tips___1Vgmz">全部直发</span></div>
+                            </div>
+                        </div>
+                        <span class="oversea-select-arrow" unselectable="unselectable" style="user-select: none;">
+                            <b>
+                            </b>
+                        </span>
                     </div>
+                </div>
+            </div>
+            <div class="oversea-col-18">
+                <div class="rightActions___2mWhn">
+                    <button type="button" class="oversea-btn oversea-btn-primary">
+                        <i class="iconfont___48nuJ icon-check___3cjTY iconPrimary___3sX1x"></i>
+                        <span>审核通过</span></button>
+                    <button type="button" class="oversea-btn">
+                        <i class="iconfont___48nuJ icon-close___2kNly icon___1IjEF"></i>
+                        <span>拒绝通过</span></button>
+                    <button type="button" class="oversea-btn">
+                        <i class="iconfont___48nuJ icon-setting___3IKR7 icon___1IjEF"></i>
+                        <span>审核设置</span></button>
+                    <button type="button" class="oversea-btn">
+                        <i class="iconfont___48nuJ icon-filter___F7Z-O icon___1IjEF"></i>
+                        <span>过滤设置</span></button>
+                </div>
+            </div>
+        </div>
+    </div> -->
 
+    <div class="oversea-table-wrapper">
+        <div class="oversea-spin-nested-loading">
+            <div class="oversea-spin-container">
+                <div class="oversea-table oversea-table-middle oversea-table-scroll-position-left">
+                    <div class="oversea-table-content">
+                        <div class="oversea-table-body">
+                            <table class="">
+                                <colgroup>
+                                    <col>
+                                        <col>
+                                            <col style="width: 6em; min-width: 6em;">
+                                                <col>
+                                                    <col>
+                                                        <col></colgroup>
+                                <thead class="oversea-table-thead">
+                                    <tr>
+                                        <th class="oversea-table-selection-column">
+                                            <span>
+                                                <div class="oversea-table-selection">
+                                                    <label class="oversea-checkbox-wrapper">
+                                                        <span class="oversea-checkbox">
+                                                            <input type="checkbox" class="oversea-checkbox-input"
+                                                                   value="on">
+                                                            <span class="oversea-checkbox-inner"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </span>
+                                        </th>
+                                        <th class=""><span>昵称</span></th>
+                                        <th class=""><span>性别</span></th>
+                                        <th class=""><span>手机</span></th>
+                                        <th class=""><span>邮箱</span></th>
+                                        <th class=""><span>最后登录时间</span></th>
+                                        <th class=""><span>最后登录ip</span></th>
+                                        <th class="textAlignCenter___1rfVB"><span>操作</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="oversea-table-tbody">
+                                    {{range $k,$v := .userList}}
+                                    <tr class="oversea-table-row previewSelected___3jvxF oversea-table-row-level-0">
+                                        <td class="oversea-table-selection-column">
+                                            <span>
+                                                <label class="oversea-checkbox-wrapper">
+                                                    <span class="oversea-checkbox">
+                                                        <input type="checkbox" class="oversea-checkbox-input"
+                                                               value="on" data-id="{{$v.Id}}">
+                                                        <span class="oversea-checkbox-inner"></span>
+                                                    </span>
+                                                </label>
+                                            </span>
+                                        </td>
+                                        <td class="">
+                                            <span class="oversea-table-row-indent indent-level-0"
+                                                  style="padding-left: 0px;"></span>
+                                            <div class="rowTitle___3CsKe">
+                                                <a href="javascript: void(0);">{{$v.UserName}}
+                                                   </a>
+                                            </div>
+                                        </td>
+                                        <td class=""> {{$v.Sex}}</td>
+                                        <td class="">{{$v.Phone}} </td>
+                                        <td class="">{{$v.Email}}</td>
+                                        <td class=""><span class="appChannel___2Qhqo">{{$v.LastLogin}}</span></td>
+                                        <td class="">{{$v.LastIp}}</td>
+                                        <td class="textAlignCenter___1rfVB">
+                                            <span class="tableActions___1TxK0">
+                                                <a class="actionLink___2IjwD" href="{{urlfor "AdminUserController.Edit"}}?id={{$v.Id}}">编辑</a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {{end}}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-    <!-- panel-person close -->

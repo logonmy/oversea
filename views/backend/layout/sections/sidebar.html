@@ -1,26 +1,31 @@
-<!-- page-aside begin -->
-<div class="page-aside hidden-xs">
-    <!-- nav begin -->
-    <nav class="nav-wrap">
-        <ul class="nav">
-            <li class="active">
-                <a class="auto" href="###">
-                    <i class="fa icon-zhanghaoguanli"></i>
-                    <span>账号管理</span></a>
-                <ul class="nav nav-sub" style="display:block">
-                    <li {{if .InformationMenu}} class="active" {{end}}>
-                        <a href="/admin/user/information">
-                            <span>个人信息</span></a>
-                    </li>
-                    <li {{if .ChangePasswordMenu}} class="active" {{end}}>
-                        <a href="/admin/user/changePassword">
-                            <span>修改密码</span></a>
-                    </li>
+<div class="sider___c3dmg oversea-layout-sider" style="display: block; overflow: auto; height: calc(100vh - 94px); position:
+ fixed; flex: 0 0 180px; max-width: 180px; min-width: 180px; width: 180px;">
+    <div class="oversea-layout-sider-children">
+        <div class="sider___GHDQS">
+            <ul class="oversea-menu oversea-menu-inline oversea-menu-light oversea-menu-root" role="menu" aria-activedescendant=""
+                tabindex="0" style="border-right: none;">
+                <li class="oversea-menu-item-selected oversea-menu-item menuTitleItem___czmzP menuActive___1nbJU menuTitleItem"
+                    role="menuitem" aria-selected="true" style="padding-left: 24px;">
+                    <a href="#/apps">
+                        <i class="iconfont___48nuJ icon-sider-apps___3SgWm menuIcon___1QT7K menuIcon"></i>
+                        首页
+                    </a>
+                </li>
+                <li class=" oversea-menu-item-group">
+                    <div class="oversea-menu-item-group-title">
+                        <span class="title___1yn1w">
+                            <i class="iconfont___48nuJ icon-sider-appstore___3D5jL menuIcon___1QT7K"></i>
+                            系统管理
+                        </span>
+                    </div>
+                    <ul class="oversea-menu-item-group-list">
+                        <li class="oversea-menu-item menuItem___2mOoR "  style="padding-left: 24px;">
+                            <a href="{{urlfor "AdminUserController.List"}}">管理员列表</a>
+                        </li>
+                    </ul>
+                </li>
 
-                </ul>
-            </li>
-        </ul>
-    </nav>
-    <!-- nav close -->
+            </ul>
+        </div>
+    </div>
 </div>
-<!-- page-aside close -->
