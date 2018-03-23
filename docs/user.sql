@@ -297,6 +297,52 @@ CREATE TABLE IF NOT EXISTS `cms_category_article_rel` (
    KEY `status` (`status`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='内容分类关系表' AUTO_INCREMENT=17 ;
 
+-- ----------------------------
+-- 17、前端用户表
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `cms_users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_login` varchar(60) NOT NULL DEFAULT '' COMMENT '用户名',
+  `user_pass` varchar(64) NOT NULL DEFAULT '' COMMENT '登录密码；sp_password加密',
+  `user_nicename` varchar(50) NOT NULL DEFAULT '' COMMENT '用户美名',
+  `user_email` varchar(100) NOT NULL DEFAULT '' COMMENT '登录邮箱',
+  `user_url` varchar(100) NOT NULL DEFAULT '' COMMENT '用户个人网站',
+  `avatar` varchar(255) DEFAULT NULL COMMENT '用户头像，相对于upload/avatar目录',
+  `sex` smallint(1) DEFAULT '0' COMMENT '性别；0：保密，1：男；2：女',
+  `birthday` date DEFAULT '2000-01-01' COMMENT '生日',
+  `signature` varchar(255) DEFAULT NULL COMMENT '个性签名',
+  `last_login_ip` varchar(16) DEFAULT NULL COMMENT '最后登录ip',
+  `last_login_time` datetime DEFAULT NULL  COMMENT '最后登录时间',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
+  `validation_type`    varchar(50) comment '验证类型(用户激活,重置密码,邮箱激活)',
+   `validation_key`    varchar(100) comment '验证KEY',
+  `salt`               varchar(32) comment '加密混淆码',
+  `user_status` int(11) NOT NULL DEFAULT '1' COMMENT '用户状态 0：禁用； 1：正常 ；2：未验证',
+  `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号',
+  `qq_openid`          varchar(64) comment 'qq openid',
+   `weibo_uid`          varchar(64) comment 'weibo uid',
+  `weixin_openid`      varchar(64) comment 'weixin openid',
+    `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  unique KEY `user_login` (`user_login`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+-- ----------------------------
+-- 17、用户留言表
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `cms_guestbook` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `full_name` varchar(50) NOT NULL COMMENT '留言者姓名',
+  `email` varchar(100) NOT NULL COMMENT '留言者邮箱',
+  `title` varchar(255) DEFAULT NULL COMMENT '留言标题',
+  `msg` text NOT NULL COMMENT '留言内容',
+  `createtime` datetime NOT NULL COMMENT '留言时间',
+  `status` smallint(2) NOT NULL DEFAULT '1' COMMENT '留言状态，1：正常，0：删除',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='留言表';
+
+
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('1', '投资移民', '0');
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('2', '技术移民', '0');
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('3', '创业移民', '0');
