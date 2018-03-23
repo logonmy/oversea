@@ -14,7 +14,7 @@ func adminRouters()  {
 	beego.SetStaticPath("/admin/js","static/backend/js")
 
 	// 验证码路由
-	beego.Handler("/captcha/*.png", captcha.Server(130, 34))
+	beego.Handler("/captcha/*.png", captcha.Server(130, 40))
 
 	beego.Router("/admin/home/index", &backend.MainController{}, "*:Index")
 	beego.Router("/admin/user/list", &backend.AdminUserController{}, "*:List")

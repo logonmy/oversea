@@ -131,7 +131,6 @@ $(function () {
                     }, 2000)
                 },
                 complete:function () {
-                    alert(111);
                     $('button[type="submit"]').removeAttr('disabled')
                 }
             });

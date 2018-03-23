@@ -12,92 +12,96 @@
     <meta name="_xsrf" content="{{.xsrf_token}}" />
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="{{.website}}css/iconfont.css" />
-    <link rel="stylesheet" href="{{.website}}js/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="{{.website}}css/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="{{.website}}css/basic.css" />
     <link rel="stylesheet" href="{{.website}}css/login.css" />
     <link rel="stylesheet" href="{{.website}}js/toastr/toastr.css" />
     <script type="text/javascript" src="{{.website}}js/jquery-2.1.1.min.js"></script>
-    <link rel="stylesheet" href="{{.website}}js/bootstrapvalidator/css/bootstrapValidator.min.css"/>
+
 </head>
 <body>
-<div class="page-body page-login">
+    <div id="app">
+        <div id="bg" >
 
-    <!-- login begin -->
-    <div class="visible">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
+            <div class="g-doc">
+                <div class="m-body">
+                    <div class="g-body">
+                        <div class="container">
 
-                    <div class="login-box">
-                        <h4 class="text-center">用户登录</h4>
+                            <div class="m-plogin">
 
-                        <div class="tab-content">
-                            <div id="LoginDiv" class='tab-pane active'>
-                                <form role="form" method="post" id="loginForm" action="{{urlfor "MainController.Login"}}">
-                                    <div class="form-group">
-                                        <label for="person-name">管理员账号</label>
-                                        <input type="text" required name="username" class="form-control"
-                                               placeholder="管理员账号"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="person-password">密码</label>
-                                        <input type="password" required name="password" class="form-control" placeholder="密码"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="check_code">验证码</label>
-                                        <div class="input-group">
-                                            <input name="captcha" required class="form-control check_code" placeholder="验证码" type="text">
-                                            <span class="input-group-btn">
-                                                    <img id="captchaImg" alt="验证码" src="{{ .captcha.captchaUrl}}" title="点击刷新">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-actions row">
-                                        <div class="col-xs-8">
-                                            <label class="checkbox">
-                                                <input type="checkbox" class="ml-20 uniform" name="rememberme"
-                                                       value="1">记住密码
-                                            </label>
-                                        </div>
-                                        <div class="col-sm-4 text-right">
-                                            <a href="###">忘记密码？</a>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <button id="btnLogin" type="submit" class="btn btn-block
-                                                btn-primary">登录
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="captchaId" value="{{ .captcha.captchaId }}"/>
-                                </form>
+                                <div class="login_container">
+                                    <form class="login-form m-form" id="loginForm"
+                                          method="post" action="{{urlfor "MainController.Login"}}">
 
-                                {{/*<div class="login-helpers">*/}}
-                                    {{/*还不是会员？<a href="/register">马上注册</a>*/}}
-                                {{/*</div>*/}}
+                                        <h2 class="title">世桥海外登录</h2>
+                                        <div class="m-form-group">
+
+                                            <div class="m-input-group ">
+                                                <input type="text" name="username" class="m-input m-input-large
+                                                account-input" placeholder="世桥海外管理员账号">
+                                                <div class="m-input-in-icon">
+                                                    <i class="icomoon icon-clean"></i>
+                                                    <i class="icomoon icon-user"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-form-group">
+                                            <div class="m-input-group m-password-group ">
+                                                <input type="password" name="password" class="m-input m-input-large password-input" placeholder="登录密码">
+                                                <div class="m-input-in-icon">
+                                                    <i class="icomoon icon-clean"></i>
+                                                    <i class="icomoon icon-open-eye"></i>
+                                                </div>
+                                                <i class="icomoon icon-password"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="m-form-group">
+                                            <div class="m-input-group m-password-group ">
+                                                <input type="text" name="captcha" class="m-input m-input-large
+                                                password-input" placeholder="验证码" maxlength="6">
+                                                <div class="m-input-in-icon">
+                                                    <img id="captchaImg" alt="验证码" src="{{ .captcha.captchaUrl}}"
+                                                         title="点击刷新" style="margin-top: -8px" >
+                                                </div>
+                                                <i class="icomoon icon-password"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="f-clearfix">
+                                            <div class="m-form-group z-small">
+                                                <div class="m-checkbox-group" id="rememberPwd">
+                                                  <i class="icomoon icon-checkbox checked "></i>
+                                                  <span>15天免登录</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" name="captchaId" value="{{ .captcha.captchaId }}"/>
+                                        <div class="m-form-group m-form-group-small">
+                                            <button type="submit" class="m-btn m-btn-primary m-btn-large
+                                            m-btn-submit" id="btnLogin">登&nbsp;&nbsp;录</button>
+                                        </div>
+                                    </form>
+                                </div>
+
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
+
     </div>
-    <!-- login close -->
-</div>
 </body>
 <script type="text/javascript" src="{{.website}}js/cookie.min.js"></script>
-<script type="text/javascript" src="{{.website}}js/common.js"></script>
-<script type="text/javascript" src="{{.website}}js/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{.website}}js/ajax_extend.js"></script>
 <script type="text/javascript" src="{{.website}}js/toastr/toastr.min.js"></script>
+<script type="text/javascript" src="{{.website}}js/jquery-validation/jquery.validate.js"></script>
+<script type="text/javascript" src="{{.website}}js/jquery-validation/localization/messages_zh.js"></script>
 <script>
     toastr.options = {
         "positionClass": "toast-top-center"
     }
 </script>
-<script type="text/javascript" src="{{.website}}js/bootstrapvalidator/js/bootstrapValidator.js"></script>
 <script type="text/javascript" src="{{.website}}js/login.js"></script>
 </html>
