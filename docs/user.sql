@@ -231,6 +231,71 @@ CREATE TABLE `sys_config` (
   UNIQUE KEY `config_key` (`config_group`,`config_key`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
+-- ----------------------------
+-- 14、文章表
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `cms_article` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL COMMENT '管理员ID',
+  `tid` int(11) NOT NULL DEFAULT '0' COMMENT '模板ID',
+  `title` varchar(80) NOT NULL DEFAULT '' COMMENT '标题',
+  `sub_title` varchar(80) NOT NULL DEFAULT '' COMMENT '副标题',
+  `color` char(24) NOT NULL DEFAULT '' COMMENT '标题颜色',
+  `font` char(24) NOT NULL DEFAULT '' COMMENT '标题加粗',
+  `thumb` varchar(255) NOT NULL DEFAULT '' COMMENT '图片地址',
+  `content` text NOT NULL COMMENT '内容',
+  `copy_from` varchar(100) NOT NULL DEFAULT '' COMMENT '来源',
+  `keywords` varchar(100) NOT NULL DEFAULT '' COMMENT '关键字',
+  `description` varchar(250) NOT NULL COMMENT '描述',
+  `relation` varchar(255) NOT NULL DEFAULT '' COMMENT '相关文章',
+  `page_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '分页方式',
+  `max_char_per_page` mediumint(6) NOT NULL DEFAULT '0' COMMENT '分页字符数',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否发布 0:不发布 1:发布',
+  `hits` tinyint(5) NOT NULL DEFAULT '0' COMMENT '点击数',
+  `is_comment` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否允许评论',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `cid` (`cid`,`id`),
+  KEY `create_time` (`create_time`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='内容表' AUTO_INCREMENT=0 ;
+
+
+-- ----------------------------
+-- 15、文章分类表
+-- ----------------------------
+
+CREATE TABLE IF NOT EXISTS `cms_category_article_rel` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目id',
+  `pid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '父id',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '类别 0:栏目 1:单网页',
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '栏目名称',
+  `enname` varchar(30) NOT NULL DEFAULT '' COMMENT '栏目英文名称',
+  `desc` mediumtext NOT NULL COMMENT '描述',
+  `url` varchar(100) NOT NULL COMMENT '链接地址',
+  `hits` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '点击数量',
+  `setting` mediumtext NOT NULL COMMENT '栏目配置',
+  `order` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `is_menu` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否显示，1 显示',
+  PRIMARY KEY (`id`),
+  KEY `module` (`pid`,`order`,`id`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='内容分类表' AUTO_INCREMENT=17 ;
+
+-- ----------------------------
+-- 16、文章分类关系表
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `cms_category_article_rel` (
+  `id` smallint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目id',
+  `cid` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '栏目id category表相对应id',
+  `aid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '文章id',
+  `tid` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '模板id',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否发布 0:不发布 1:发布',
+  `is_top` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否置顶 0:不置顶 1:置顶',
+  PRIMARY KEY (`id`),
+  KEY `module` (`cid`,`aid`),
+   KEY `status` (`status`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='内容分类关系表' AUTO_INCREMENT=17 ;
 
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('1', '投资移民', '0');
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('2', '技术移民', '0');

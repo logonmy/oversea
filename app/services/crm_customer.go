@@ -60,7 +60,7 @@ func (this *crmCustomerService) GetCrmCustomerList(page, pageSize int,
 
 	crmCustomers := make([]*entitys.CrmCustomer, 0)
 
-	query := orm.NewOrm().QueryTable(new(entitys.OzImmigrantProject))
+	query := orm.NewOrm().QueryTable(new(entitys.CrmCustomer))
 	if len(filters) > 0 {
 		l := len(filters)
 		for k := 0; k < l; k += 2 {
