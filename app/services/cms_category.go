@@ -5,15 +5,19 @@ import (
 	"oversea/app/entitys"
 )
 
+type cmsCategoryService struct {
+	
+} 
+
 // 添加分类
-func AddCmsCategory(m *entitys.CmsCategory) (id int64, err error) {
+func (this *cmsCategoryService) AddCmsCategory(m *entitys.CmsCategory) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
 // 根据id 获得分类
-func GetCmsCategoryById(id int) (v *entitys.CmsCategory, err error) {
+func (this *cmsCategoryService) GetCmsCategoryById(id int) (v *entitys.CmsCategory, err error) {
 	o := orm.NewOrm()
 	v = &entitys.CmsCategory{Id: id}
 	if err = o.Read(v); err == nil {
@@ -23,7 +27,7 @@ func GetCmsCategoryById(id int) (v *entitys.CmsCategory, err error) {
 }
 
 // 更新分类
-func UpdateCmsCategoryById(m *entitys.CmsCategory) (err error) {
+func (this *cmsCategoryService) UpdateCmsCategoryById(m *entitys.CmsCategory) (err error) {
 	o := orm.NewOrm()
 	v := entitys.CmsCategory{Id: m.Id}
 	if err = o.Read(&v); err == nil {
@@ -33,7 +37,7 @@ func UpdateCmsCategoryById(m *entitys.CmsCategory) (err error) {
 }
 
 // 删除分类
-func DeleteCmsCategory(id int) (err error) {
+func (this *cmsCategoryService) DeleteCmsCategory(id int) (err error) {
 	o := orm.NewOrm()
 	v := entitys.CmsCategory{Id: id}
 	if err = o.Read(&v); err == nil {
@@ -44,7 +48,7 @@ func DeleteCmsCategory(id int) (err error) {
 
 
 // 分页获取文章分类列表
-func (this *crmCustomerService) GetCmsCategoryList(page, pageSize int,
+func (this *cmsCategoryService) GetCmsCategoryList(page, pageSize int,
 	filters ...interface{}) ([]*entitys.CmsCategory,
 	int64) {
 	offset := (page - 1) * pageSize

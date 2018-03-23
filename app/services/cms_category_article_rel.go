@@ -26,7 +26,8 @@ func (this *cmsCategoryArticleRelService) GetCmsCategoryArticleRelById(id int) (
 }
 
 
-func UpdateCmsCategoryArticleRelById(m *entitys.CmsCategoryArticleRel, fileds ...string) (err error) {
+func (this *cmsCategoryArticleRelService) UpdateCmsCategoryArticleRelById(m *entitys.CmsCategoryArticleRel,
+	fileds ...string) (err error) {
 	o := orm.NewOrm()
 	v := entitys.CmsCategoryArticleRel{Id: m.Id}
 	if err = o.Read(&v); err == nil {
@@ -36,7 +37,7 @@ func UpdateCmsCategoryArticleRelById(m *entitys.CmsCategoryArticleRel, fileds ..
 }
 
 
-func DeleteCmsCategoryArticleRel(id int) (err error) {
+func (this *cmsCategoryArticleRelService) DeleteCmsCategoryArticleRel(id int) (err error) {
 	o := orm.NewOrm()
 	v := entitys.CmsCategoryArticleRel{Id: id}
 	if err = o.Read(&v); err == nil {
@@ -47,14 +48,14 @@ func DeleteCmsCategoryArticleRel(id int) (err error) {
 
 
 // 分页获取文章列表
-func (this *cmsArticleService) GetCmsCategoryArticleRelList(page, pageSize int,
+func (this *cmsCategoryArticleRelService) GetCmsCategoryArticleRelList(page, pageSize int,
 	filters ...interface{}) ([]*entitys.CmsCategoryArticleRel,
 	int64) {
 	offset := (page - 1) * pageSize
 
-	cmsCategoryArticleRels := make([]*entitys.CmsArticle, 0)
+	cmsCategoryArticleRels := make([]*entitys.CmsCategoryArticleRel, 0)
 
-	query := orm.NewOrm().QueryTable(new(entitys.CmsArticle))
+	query := orm.NewOrm().QueryTable(new(entitys.CmsCategoryArticleRel))
 	if len(filters) > 0 {
 		l := len(filters)
 		for k := 0; k < l; k += 2 {

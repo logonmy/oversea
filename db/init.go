@@ -44,6 +44,7 @@ func Init() {
 	orm.RegisterModelWithPrefix("cms",
 		new(entitys.CmsArticle),
 		new(entitys.CmsCategory),
+		new(entitys.CmsCategoryArticleRel),
 	)
 
 	if beego.AppConfig.String("runmode") == "dev" {
