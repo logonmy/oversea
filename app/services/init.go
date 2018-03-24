@@ -12,6 +12,8 @@ var (
 	CmsArticleService            *cmsArticleService
 	CmsCategoryArticleRelService *cmsCategoryArticleRelService
 	CmsCategoryService           *cmsCategoryService
+	CmsGuestbookService          *cmsGuestbookService
+	CmsUsersService              *cmsUsersService
 )
 
 func InitServices() {
@@ -26,4 +28,6 @@ func InitServices() {
 	CmsArticleService = &cmsArticleService{}
 	CmsCategoryArticleRelService = &cmsCategoryArticleRelService{}
 	CmsCategoryService = &cmsCategoryService{}
+	CmsGuestbookService = &cmsGuestbookService{}
+	CmsUsersService = &cmsUsersService{}
 }

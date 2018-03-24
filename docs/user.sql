@@ -256,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `cms_article` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `cid` (`cid`,`id`),
+  KEY `uid` (`uid`),
   KEY `create_time` (`create_time`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='内容表' AUTO_INCREMENT=0 ;
 
@@ -313,16 +313,15 @@ CREATE TABLE IF NOT EXISTS `cms_users` (
   `signature` varchar(255) DEFAULT NULL COMMENT '个性签名',
   `last_login_ip` varchar(16) DEFAULT NULL COMMENT '最后登录ip',
   `last_login_time` datetime DEFAULT NULL  COMMENT '最后登录时间',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
   `validation_type`    varchar(50) comment '验证类型(用户激活,重置密码,邮箱激活)',
-   `validation_key`    varchar(100) comment '验证KEY',
+  `validation_key`    varchar(100) comment '验证KEY',
   `salt`               varchar(32) comment '加密混淆码',
   `user_status` int(11) NOT NULL DEFAULT '1' COMMENT '用户状态 0：禁用； 1：正常 ；2：未验证',
   `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号',
   `qq_openid`          varchar(64) comment 'qq openid',
-   `weibo_uid`          varchar(64) comment 'weibo uid',
+  `weibo_uid`          varchar(64) comment 'weibo uid',
   `weixin_openid`      varchar(64) comment 'weixin openid',
-    `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   unique KEY `user_login` (`user_login`)
@@ -332,15 +331,19 @@ CREATE TABLE IF NOT EXISTS `cms_users` (
 -- 17、用户留言表
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `cms_guestbook` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `full_name` varchar(50) NOT NULL COMMENT '留言者姓名',
   `email` varchar(100) NOT NULL COMMENT '留言者邮箱',
   `title` varchar(255) DEFAULT NULL COMMENT '留言标题',
   `msg` text NOT NULL COMMENT '留言内容',
-  `createtime` datetime NOT NULL COMMENT '留言时间',
+  `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '留言时间',
+  `reply_msg` VARCHAR(255) NOT NULL DEFAULT '' comment '回复信息',
+  `replier` VARCHAR(50) NOT NULL DEFAULT '' comment '答复者',
+  `reply_time` timestamp DEFAULT  NULL comment '答复时间',
+  `is_email_reply` SMALLINT(2) DEFAULT  '0'  COMMENT '是否同时发送答复邮件，1：发送，0：不发送',
   `status` smallint(2) NOT NULL DEFAULT '1' COMMENT '留言状态，1：正常，0：删除',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='留言表';
+) ENGINE=innodb DEFAULT CHARSET=utf8 COMMENT='留言表';
 
 
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('1', '投资移民', '0');

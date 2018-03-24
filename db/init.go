@@ -45,6 +45,8 @@ func Init() {
 		new(entitys.CmsArticle),
 		new(entitys.CmsCategory),
 		new(entitys.CmsCategoryArticleRel),
+		new(entitys.CmsUsers),
+		new(entitys.CmsGuestbook),
 	)
 
 	if beego.AppConfig.String("runmode") == "dev" {
