@@ -1,15 +1,139 @@
-<!-- footer begin -->
-<footer>
-    <div class="panel panel-footer">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-11 col-xs-10 g-c9">&copy; 2017 厦门xxxxxx有限公司</div>
-                <div class="col-md-1 col-xs-2">
-                    <div class="go-up pull-right">
-                        <!-- <a rel="go-top" href="#"><span class="caret"></span></a>   --></div>
+<!--footer-->
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 col-sm-2 footer-item">
+                <div class="footer-list">
+                    <h4>常用工具</h4>
+                    <ul>
+                        <li><a href="#" target="_blank">电码查询</a></li>
+                        <li><a href="#">护照追踪</a></li>
+                        <li><a href="#">资料下载</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-2 footer-item">
+                <div class="footer-list">
+                    <h4>快捷裢接</h4>
+                    <ul>
+                        <li><a href="#">签证资讯</a></li>
+                        <li><a href="#">签证指南</a></li>
+                        <li><a href="#">常见问题</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-2 footer-item">
+                <div class="footer-list">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="#">关于世桥</a></li>
+                        <li><a href="#">服务协议</a></li>
+                        <li><a href="#">收藏本站</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-2 footer-item">
+                <div class="footer-wechat">
+                    <img class="img-responsive" src="{{.website}}images/wechat.png">
+                    <p>微信<sapn class="hidden-sm">号:</sapn>1840xxx38365</p>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 footer-item footer-item-last">
+                <div class="footer-contact">
+                    <h2><img src="{{.website}}images/pc-footer-phone.png">020-555555</h2>
+                    <h2><img src="{{.website}}images/pc-footer-qq.png">555555</h2>
+                    <h2><img src="{{.website}}images/pc-footer-mob.png">184xxx238365</h2>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+
+<!--版权-->
+<div id="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <p>Copyright ©  海外世侨  版权所有 <a target="_blank" href="http://www.miitbeian.gov.cn/">粤ICP备xxx号</a></p>
+
+                <div style="width:300px;margin:0 auto; padding:20px 0; text-align: center;">
+                    <a target="_blank" href="#" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+                        <img src="{{.website}}images/ghs.png" style="float:left;">
+                        <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#fafafa;">粤公网安备 xxxx号</p></a>
                 </div>
             </div>
         </div>
     </div>
-</footer>
-<!-- footer close -->
+</div>
+<!--版权-->
+
+<!--手机端底部-->
+<div id="mob-bottom" class="visible-xs-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-3 mob-bottom-item">
+                <a href="tel:01064648731">
+                    <img class="img-responsive center-block" src="{{.website}}images/mob-footer-phone.png">
+                    <span>电话咨询</span>
+                </a>
+            </div>
+            <div class="col-xs-3 mob-bottom-item">
+                <a href="tel:18401238365">
+                    <img class="img-responsive center-block" src="{{.website}}images/mob-footer-mob.png">
+                    <span>紧急电话</span>
+                </a>
+            </div>
+            <div class="col-xs-3 mob-bottom-item">
+                <a href="#">
+                    <img class="img-responsive center-block web-chat" src="{{.website}}images/mob-footer-chat.png">
+                    <span>在线咨询</span>
+                </a>
+            </div>
+            <div class="col-xs-3 mob-bottom-item">
+                <a href="sms:18401238365">
+                    <img class="img-responsive center-block" src="{{.website}}images/mob-footer-msm.png">
+                    <span>短信咨询</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--手机端底部-->
+<!--返回顶部-->
+<div id="clan-slider">
+    <ul>
+        <li class="hidden-xs">
+            <a id="slider-chat" class="web-chat" href="javascript:;"></a>
+            <div class="clan-slider-tips" style="display: none;">
+                在线咨询
+            </div>
+        </li>
+        <li class="hidden-xs">
+            <a target="_blank" href="#" id="slider-qq"></a>
+            <div class="clan-slider-tips" style="display: none;">
+                QQ咨询
+            </div>
+        </li>
+        <li class="hidden-xs">
+            <a id="slider-phone" href="javascript:void(0);"></a>
+            <div class="clan-slider-tips" style="display: none;">
+                010-64648731
+            </div>
+        </li>
+        <li class="hidden-xs">
+            <a id="slider-wechat" href="javascript:void(0);"></a>
+            <div class="clan-slider-tips-wechat" style="display: none;">
+                <img src="http://www.clantrip.com/static/images/wechat.png">
+            </div>
+        </li>
+        <li><a id="slider-goTop" href="javascript:void(0);" style="display: block;"></a></li>
+        <!--
+        <li class="visible-xs-block">
+            <a id="slider-menu" href="javascript:void(0);"></a>
+        </li>
+        -->
+    </ul>
+</div>
+<!--返回顶部-->

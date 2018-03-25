@@ -57,7 +57,7 @@ body {
 @viewport         { width: device-width; }
 
 .navbar {
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+    /*box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16);*/
     background-color: #fff;
 }
 
@@ -78,4 +78,17 @@ body {
     height: 46px;
     margin-top: -12px;
     padding-right: 50px;
+}
+
+.nav > li {
+    height: inherit;
+    float: left;
+    position: relative;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #b63327;
+     background-color: transparent;
 }
