@@ -315,6 +315,51 @@ blockquote .quote-content{
     color: #fff;
 }
 
+.travel-type-list {
+    margin-bottom: 0;
+    text-align: center;
+    background-color: white;
+}
+.travel-type-list {
+    padding-left: 0;
+    list-style: none;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.travel-type-list>li {
+    float: left;
+}
+
+.travel-type-list>li>a {
+    font-size: 14px;
+    padding: 15px 25px;
+    color: inherit;
+    display: block;
+    text-decoration: none;
+    border-bottom: 1px;
+    border-top: 1px;
+    border-left: 0px;
+    border-right: 0px;
+    border-color:#d9d9d9 ;
+    border-style: solid;
+}
+.travel-type-list>li>a:hover, .list-unstyled>li>a:focus{
+    background-color: #b63327;
+    color: #ffffff;
+    border-style: none;
+}
+
+.travel-type-list>li .active{
+    background-color: #b63327;
+    color: #ffffff;
+    border-style: none;
+}
+
+
 a:hover, a:focus {
     color: #b63327;
     text-decoration: underline;
@@ -326,6 +371,96 @@ a:hover, a:focus {
 .mr-40 {
     margin-right: 40px;
 }
+
+/*移民项目*/
+
+.crumbs {
+    background-image: url("../images/20170905103057128-1229.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    /*background-color: #000000;*/
+    color: #ffffff;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+.background-white {
+    background-color: #ffffff;
+}
+
+/*移民项目*/
+
+/*分页重写*/
+.pagination > li > a, .pagination > li > span , .pagination > li> a:hover{
+    color: #b63327;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background-color: #b63327;
+    border-color: #b63327;
+}
+
+
+
+/*分页重写*/
+
+/*关于我们*/
+.content-nav {
+    height: 55px;
+    border: solid 1px #e9edef;
+    background-color: #f4f6f7;
+}
+
+.content-left {
+    width: 72%;
+    overflow: hidden;
+}
+
+.content-nav .about-tab {
+    position: absolute;
+    margin-top: -1px;
+    margin-left: -15px;
+}
+
+.content-nav a:hover, .content-nav a.active {
+    padding-top: 0;
+    background-color: #fff;
+    text-decoration: none;
+    border-top: solid 3px #b63327;
+}
+
+.content-nav a, .content-nav a:visited {
+    display: inline-block;
+    padding-top: 3px;
+    height: 54px;
+    line-height: 50px;
+    width: 130px;
+    text-align: center;
+    font-size: 18px;
+    color: #797b7b;
+    text-decoration: none;
+}
+
+.content-order {
+    padding: 35px 25px;
+    border: solid 1px #e9edef;
+    border-top: 0;
+}
+
+
+/*关于我们*/
+
+/*新闻资讯*/
+.news-bg {
+    background-image: url("../images/news_bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    /*background-color: #000000;*/
+    color: #ffffff;
+}
+/*新闻资讯*/
 
 
 /*全部-咨询banner*/

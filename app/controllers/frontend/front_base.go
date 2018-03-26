@@ -40,6 +40,7 @@ func (this *FrontendBaseController) display(tpl ...string) {
 	this.LayoutSections["Header"] = tpldir + "layout/sections/header.html"
 	this.LayoutSections["Footer"] = tpldir + "layout/sections/footer.html"
 	this.LayoutSections["Navbar"] = tpldir + "layout/sections/navbar.html"
+	this.LayoutSections["Crumbs"] = tpldir + "layout/sections/crumbs.html"
 }
 
 // StdoutSuccess 输出结构-完成

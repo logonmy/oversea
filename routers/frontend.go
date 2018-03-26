@@ -13,4 +13,8 @@ func frontendRouters()  {
 	beego.SetStaticPath("/js","static/frontend/js")
 
 	beego.Router("/", &frontend.IndexController{}, "get:Home")
+	beego.Router("/travel", &frontend.TravelController{}, "get:Index")
+	beego.Router("/about", &frontend.AboutController{}, "get:Index")
+	beego.Router("/contact", &frontend.ContactController{}, "get:Index")
+	beego.Router("/news", &frontend.NewsController{}, "get:Index")
 }
