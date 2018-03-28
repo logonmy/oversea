@@ -345,6 +345,98 @@ CREATE TABLE IF NOT EXISTS `cms_guestbook` (
   PRIMARY KEY (`id`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 COMMENT='留言表';
 
+-- ----------------------------
+-- 18、友情链接
+-- ----------------------------
+CREATE TABLE `cms_link` (
+  `id` int(5) NOT NULL AUTO_INCREMENT COMMENT '标识ID',
+  `ftype` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:友情链接 1:合作单位',
+  `title` varchar(30) NOT NULL DEFAULT '' COMMENT '标题',
+  `url` varchar(150) NOT NULL DEFAULT '' COMMENT '链接地址',
+  `cover` varchar(255) NOT NULL DEFAULT '0' COMMENT '封面图片ID',
+  `descrip` varchar(255) NOT NULL DEFAULT '' COMMENT '备注信息',
+  `sort` int(10) NOT NULL DEFAULT '0' COMMENT '排序',
+  `hits` tinyint(7) NOT NULL DEFAULT '0' COMMENT '点击率',
+  `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `uid` int(7) NOT NULL DEFAULT '0' COMMENT '用户ID ',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 0：禁用； 1：正常 ；',
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='友情链接';
+
+-- ----------------------------
+-- 19、广告表
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_ad`;
+CREATE TABLE `cms_ad` (
+  `id` int(11) UNSIGNED  NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `place_id` int(11) DEFAULT NULL COMMENT '广告位ID',
+  `title` varchar(150) DEFAULT NULL COMMENT '广告名称',
+  `cover` VARCHAR(255) NOT NULL  COMMENT '广告图片',
+  `photolist` varchar(20) NOT NULL COMMENT '辅助图片',
+  `url` varchar(150) DEFAULT NULL COMMENT '广告链接',
+  `listurl` varchar(255) DEFAULT NULL COMMENT '辅助链接',
+  `background` varchar(150) DEFAULT NULL COMMENT '广告背景',
+  `content` text COMMENT '广告描述',
+  `begin_time` timestamp  DEFAULT NULL COMMENT '开始时间',
+  `end_time` timestamp  DEFAULT NULL  COMMENT '结束时间',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '广告位状态0：禁用； 1：正常 ；',
+  PRIMARY KEY(`id`),
+  KEY `time_sq`(`begin_time`,`end_time`),
+  KEY `status`(`status`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='广告表';
+
+-- ----------------------------
+-- 20、广告位
+-- ----------------------------
+
+DROP TABLE IF EXISTS `cms_ad_place`;
+CREATE TABLE `cms_ad_place` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` varchar(150) DEFAULT NULL COMMENT '广告位名称',
+  `name` varchar(20) NOT NULL COMMENT '调用名称',
+  `show_type` int(11) NOT NULL DEFAULT '5' COMMENT '广告位类型',
+  `show_num` int(11) NOT NULL DEFAULT '5' COMMENT '显示条数',
+  `start_time` int(11) NOT NULL DEFAULT '0' COMMENT '开始时间',
+  `end_time` int(11) NOT NULL DEFAULT '0' COMMENT '结束时间',
+  `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `template` varchar(150) DEFAULT NULL COMMENT '广告位模板',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '广告位状态 0：禁用； 1：正常 ；',
+   PRIMARY KEY(`id`),
+   KEY `create_time`(`create_time`),
+   KEY `status`(`status`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='广告位表';
+
+-- ----------------------------
+-- 21、用户等级
+-- ----------------------------
+CREATE TABLE `cms_user_level` (
+  `level_id` smallint(4) unsigned NOT NULL AUTO_INCREMENT COMMENT '表id',
+  `level_name` varchar(30) DEFAULT NULL COMMENT '头衔名称',
+  `sort` int(3) DEFAULT '0' COMMENT '排序',
+  `bomlimit` int(5) DEFAULT '0' COMMENT '积分下限',
+  `toplimit` int(5) DEFAULT '0' COMMENT '积分上限',
+  PRIMARY KEY (`level_id`)
+) ENGINE=INNODB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户等级';
+
+
+-- ----------------------------
+-- 22、用户收藏表
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_user_favorite`;
+CREATE TABLE `cms_user_favorite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL DEFAULT '0' COMMENT '收藏用户UID',
+  `collect` int(11) NOT NULL COMMENT '收藏的内容ID编号',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1文章 2图书',
+  `create_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `uid`(`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='用户收藏表';
+
 
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('1', '投资移民', '0');
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('2', '技术移民', '0');
