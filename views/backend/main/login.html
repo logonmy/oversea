@@ -1,107 +1,121 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="no-js " lang="en">
 <head>
-    <title>{{.pageTitle}}</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="renderer" content="webkit" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="author" content="newmorehot" />
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="管理后台">
     <meta name="_xsrf" content="{{.xsrf_token}}" />
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="{{.website}}css/iconfont.css" />
-    <link rel="stylesheet" href="{{.website}}css/login.css" />
-    <link rel="stylesheet" href="{{.website}}js/toastr/toastr.css" />
-    <script type="text/javascript" src="{{.website}}js/jquery-2.1.1.min.js"></script>
+    <title>管理后台</title>
+    <!-- Favicon-->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{{.website}}assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{.website}}assets/css/main.css">
+    <link rel="stylesheet" href="{{.website}}assets/css/authentication.css">
+    <link rel="stylesheet" href="{{.website}}assets/css/color_skins.css">
+    <link rel="stylesheet" href="{{.website}}assets/plugins/toastr/toastr.css" />
 
+    <script type="text/javascript" src="{{.website}}assets/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{{.website}}assets/js/cookie.min.js"></script>
+    <script type="text/javascript" src="{{.website}}assets/js/ajax_extend.js"></script>
 </head>
-<body>
-    <div id="app">
-        <div id="bg" >
 
-            <div class="g-doc">
-                <div class="m-body">
-                    <div class="g-body">
-                        <div class="container">
-
-                            <div class="m-plogin">
-
-                                <div class="login_container">
-                                    <form class="login-form m-form" id="loginForm"
-                                          method="post" action="{{urlfor "MainController.Login"}}">
-
-                                        <h2 class="title">世桥海外登录</h2>
-                                        <div class="m-form-group">
-
-                                            <div class="m-input-group ">
-                                                <input type="text" name="username" class="m-input m-input-large
-                                                account-input" placeholder="世桥海外管理员账号">
-                                                <div class="m-input-in-icon">
-                                                    <i class="icomoon icon-clean"></i>
-                                                    <i class="icomoon icon-user"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="m-form-group">
-                                            <div class="m-input-group m-password-group ">
-                                                <input type="password" name="password" class="m-input m-input-large password-input" placeholder="登录密码">
-                                                <div class="m-input-in-icon">
-                                                    <i class="icomoon icon-clean"></i>
-                                                    <i class="icomoon icon-open-eye"></i>
-                                                </div>
-                                                <i class="icomoon icon-password"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="m-form-group">
-                                            <div class="m-input-group m-password-group ">
-                                                <input type="text" name="captcha" class="m-input m-input-large
-                                                password-input" placeholder="验证码" maxlength="6">
-                                                <div class="m-input-in-icon">
-                                                    <img id="captchaImg" alt="验证码" src="{{ .captcha.captchaUrl}}"
-                                                         title="点击刷新" style="margin-top: -8px" >
-                                                </div>
-                                                <i class="icomoon icon-password"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="f-clearfix">
-                                            <div class="m-form-group z-small">
-                                                <div class="m-checkbox-group" id="rememberPwd">
-                                                  <i class="icomoon icon-checkbox checked "></i>
-                                                  <span>15天免登录</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <input type="hidden" name="captchaId" value="{{ .captcha.captchaId }}"/>
-                                        <div class="m-form-group m-form-group-small">
-                                            <button type="submit" class="m-btn m-btn-primary m-btn-large
-                                            m-btn-submit" id="btnLogin">登&nbsp;&nbsp;录</button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
+<body class="theme-purple authentication sidebar-collapse">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-transparent">
+    <div class="container">
+        <div class="navbar-translate n_logo">
+            <a class="navbar-brand" href="javascript:void(0);" title="" target="_blank">管理后台</a>
+            <button class="navbar-toggler" type="button">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">网站首页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+<div class="page-header">
+    <div class="page-header-image" style="background-image:url(http://pic2.sc.chinaz.com/Files/pic/pic9/201607/fpic5747_s.jpg)"></div>
+    <div class="container">
+        <div class="col-md-12 content-center">
+            <div class="card-plain">
+                <form class="form" id="loginForm" method="post" action="{{urlfor "MainController.Login"}}">
+                    <div class="header">
+                        <div class="logo-container">
+                            <img src="{{.website}}assets/images/logo.svg" alt="">
                         </div>
+                        <h5>Log in</h5>
                     </div>
-                </div>
+                    <div class="content">
+                        <div class="input-group input-lg">
+                            <input type="text" class="form-control" name="username" placeholder="管理员账号">
+                            {{/*<span class="input-group-addon">*/}}
+                                {{/*<i class="zmdi zmdi-account-circle"></i>*/}}
+                            {{/*</span>*/}}
+                        </div>
+                        <div class="input-group input-lg">
+                            <input type="password" placeholder="请输入密码" name="password" class="form-control" />
+                            {{/*<span class="input-group-addon">*/}}
+                                {{/*<i class="zmdi zmdi-lock"></i>*/}}
+                            {{/*</span>*/}}
+                        </div>
+
+                         <div class="input-group input-lg">
+                            <input type="text" name="captcha" placeholder="验证码" class="form-control" />
+                            <span class="input-group-addon" style="padding: 0px;">
+                               <img id="captchaImg" alt="验证码" src="{{ .captcha.captchaUrl}}"
+                                    title="点击刷新"   style="border-top-right-radius: 20px;border-bottom-right-radius: 20px;">
+                            </span>
+                        </div>
+
+
+                    </div>
+                       <div class="checkbox">
+                            <input id="terms" type="checkbox">
+                            <label for="terms">
+                                    十&nbsp;五&nbsp;天&nbsp;内 <a href="javascript:void(0);">&nbsp;免&nbsp;登&nbsp;陆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            </label>
+                       </div>
+
+                    <input type="hidden" name="captchaId" value="{{ .captcha.captchaId }}"/>
+                    <div class="footer text-center">
+                        <button id="btnLogin" class="btn btn-primary btn-round btn-lg btn-block ">登  录</button>
+                        {{/*<h5><a href="forgot-password.html" class="link">Forgot Password?</a></h5>*/}}
+                    </div>
+                </form>
             </div>
         </div>
-
     </div>
-</body>
-<script type="text/javascript" src="{{.website}}js/cookie.min.js"></script>
-<script type="text/javascript" src="{{.website}}js/ajax_extend.js"></script>
-<script type="text/javascript" src="{{.website}}js/toastr/toastr.min.js"></script>
-<script type="text/javascript" src="{{.website}}js/jquery-validation/jquery.validate.js"></script>
-<script type="text/javascript" src="{{.website}}js/jquery-validation/localization/messages_zh.js"></script>
+
+</div>
+
+<!-- Jquery Core Js -->
+{{/*<script src="{{.website}}assets/bundles/libscripts.bundle.js"></script>*/}}
+{{/*<script src="{{.website}}assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->*/}}
+<script type="text/javascript" src="{{.website}}assets/plugins/toastr/toastr.min.js"></script>
+<script src="{{.website}}assets/js/login.js"></script>
 <script>
-    toastr.options = {
-        "positionClass": "toast-top-center"
-    }
+     toastr.options = {
+         "positionClass": "toast-top-center"
+     }
+
+   $(".navbar-toggler").on('click',function() {
+       $("html").toggleClass("nav-open");
+   });
+   $('.form-control').on("focus", function() {
+       $(this).parent('.input-group').addClass("input-group-focus");
+   }).on("blur", function() {
+       $(this).parent(".input-group").removeClass("input-group-focus");
+   });
 </script>
-<script type="text/javascript" src="{{.website}}js/login.js"></script>
+</body>
 </html>

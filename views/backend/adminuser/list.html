@@ -1,349 +1,123 @@
-<div class="oversea-row" style="margin-left: -10px; margin-right: -10px;">
 
-    <div class="actions___1fT2D clearfix___1B55C">
-        <button type="button" class="oversea-btn oversea-btn-primary">
-            <span>新建文章</span></button>
-        <button type="button" class="oversea-btn oversea-btn-primary">
-            <span>新建图集</span></button>
-        <button type="button" class="oversea-btn oversea-btn-primary">
-            <span>新建视频</span></button>
-
-
-        <div class="rightActions___2fGLs">
-            <div class="oversea-select-sm filter___2IU0N oversea-select oversea-select-enabled">
-                <div class="oversea-select-selection
-                oversea-select-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true"
-                     aria-expanded="false" tabindex="0">
-                    <div class="oversea-select-selection__rendered">
-                        <div class="oversea-select-selection-selected-value" title="1" style="display: block;opacity: 1;">全部状态</div>
-                    </div>
-                    <span class="oversea-select-arrow" unselectable="unselectable" style="user-select: none;">
-                        <b></b>
-                    </span>
-                </div>
-            </div>
-
-            <span class="oversea-input-group oversea-input-group-compact searchWrap___36MsM">
-                <span class="oversea-input-affix-wrapper" style="width: 169px;margin-right: -2px">
-                    <input type="text" placeholder="搜索标题" value="" class="oversea-input oversea-input-lg"></span>
-                <button type="button" class="oversea-btn searchIcon___3K2HQ oversea-btn-sm">
-                    <i class="anticon anticon-search"></i>
-                </button>
-            </span>
-            <button type="button" class="oversea-btn">
-                <i class="iconfont___48nuJ icon-upload___2gohI icon___1Frhf"></i>
-                <span>投递</span></button>
-            <button type="button" class="oversea-btn">
-                <i class="iconfont___48nuJ icon-delete___2dgs- icon___1Frhf"></i>
-                <span>删除</span></button>
-        </div>
-    </div>
-
-   <!-- <div class="actions___1hcMj">
-        <div class="oversea-row">
-            <div class="oversea-col-6">
-                <div class="filter___2IU0N oversea-select oversea-select-enabled">
-                    <div class="oversea-select-selection
-                    oversea-select-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true"
-                         aria-expanded="false" tabindex="0">
-                        <div class="oversea-select-selection__rendered">
-                            <div class="oversea-select-selection-selected-value" title="推荐" style="display: block;
-                            opacity: 1;">
-                                <div>
-                                    <span>推荐</span>
-                                    <span class="tips___1Vgmz">全部直发</span></div>
-                            </div>
-                        </div>
-                        <span class="oversea-select-arrow" unselectable="unselectable" style="user-select: none;">
-                            <b>
-                            </b>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="oversea-col-18">
-                <div class="rightActions___2mWhn">
-                    <button type="button" class="oversea-btn oversea-btn-primary">
-                        <i class="iconfont___48nuJ icon-check___3cjTY iconPrimary___3sX1x"></i>
-                        <span>审核通过</span></button>
-                    <button type="button" class="oversea-btn">
-                        <i class="iconfont___48nuJ icon-close___2kNly icon___1IjEF"></i>
-                        <span>拒绝通过</span></button>
-                    <button type="button" class="oversea-btn">
-                        <i class="iconfont___48nuJ icon-setting___3IKR7 icon___1IjEF"></i>
-                        <span>审核设置</span></button>
-                    <button type="button" class="oversea-btn">
-                        <i class="iconfont___48nuJ icon-filter___F7Z-O icon___1IjEF"></i>
-                        <span>过滤设置</span></button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <div class="oversea-table-wrapper">
-        <div class="oversea-spin-nested-loading">
-            <div class="oversea-spin-container">
-                <div class="oversea-table oversea-table-middle oversea-table-scroll-position-left">
-                    <div class="oversea-table-content">
-                        <div class="oversea-table-body">
-                            <table class="">
-                                <colgroup>
-                                    <col>
-                                        <col>
-                                            <col style="width: 6em; min-width: 6em;">
-                                                <col>
-                                                    <col>
-                                                        <col></colgroup>
-                                <thead class="oversea-table-thead">
-                                    <tr>
-                                        <th class="oversea-table-selection-column">
-                                            <span>
-                                                <div class="oversea-table-selection">
-                                                    <label class="oversea-checkbox-wrapper">
-                                                        <span class="oversea-checkbox">
-                                                            <input type="checkbox" class="oversea-checkbox-input"
-                                                                   value="on">
-                                                            <span class="oversea-checkbox-inner"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </span>
-                                        </th>
-                                        <th class=""><span>昵称</span></th>
-                                        <th class=""><span>性别</span></th>
-                                        <th class=""><span>手机</span></th>
-                                        <th class=""><span>邮箱</span></th>
-                                        <th class=""><span>最后登录时间</span></th>
-                                        <th class=""><span>最后登录ip</span></th>
-                                        <th class="textAlignCenter___1rfVB"><span>操作</span></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="oversea-table-tbody">
-                                    {{range $k,$v := .userList}}
-                                    <tr class="oversea-table-row
-                                    oversea-table-row-level-{{$k}}">
-                                        <td class="oversea-table-selection-column">
-                                            <span>
-                                                <label class="oversea-checkbox-wrapper">
-                                                    <span class="oversea-checkbox">
-                                                        <input type="checkbox" class="oversea-checkbox-input"
-                                                               value="on" data-id="{{$v.Id}}">
-                                                        <span class="oversea-checkbox-inner"></span>
-                                                    </span>
-                                                </label>
-                                            </span>
-                                        </td>
-                                        <td class="">
-                                            <span class="oversea-table-row-indent indent-level-0"
-                                                  style="padding-left: 0px;"></span>
-                                            <div class="rowTitle___3CsKe">
-                                                <a href="{{urlfor "AdminUserController.Edit"}}?id={{$v.Id}}">
-                                                     {{$v.UserName}}
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td class=""> {{$v.Sex}}</td>
-                                        <td class="">{{$v.Phone}} </td>
-                                        <td class="">{{$v.Email}}</td>
-                                        <td class=""><span class="appChannel___2Qhqo">{{$v.LastLogin}}</span></td>
-                                        <td class="">{{$v.LastIp}}</td>
-                                        <td class="textAlignCenter___1rfVB">
-                                            <span class="tableActions___1TxK0">
-                                                <a class="actionLink___2IjwD" href="{{urlfor "AdminUserController.Edit"}}?id={{$v.Id}}">编辑</a>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    {{end}}
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-               {{str2html .pageBar}}
-                <!--<ul class="oversea-pagination oversea-table-pagination" unselectable="unselectable"
-                    style="margin-right: 10px;">
-                  <li title="上一页" tabindex="0" class="oversea-pagination-disabled oversea-pagination-prev" aria-disabled="true">
-                    <a class="oversea-pagination-item-link"></a>
-                  </li>
-                  <li title="1" class="oversea-pagination-item oversea-pagination-item-1 oversea-pagination-item-active" tabindex="0">
-                    <a>1</a>
-                  </li>
-                  <li title="下一页" tabindex="0" class="oversea-pagination-disabled oversea-pagination-next" aria-disabled="true">
-                    <a class="oversea-pagination-item-link"></a>
-                  </li>
-                  <li class="oversea-pagination-options">
-                    <div class="oversea-pagination-options-quick-jumper">
-                      跳至<input type="text" value="">页
-                  </div></li>
-                </ul>-->
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!--弹出层-->
-<div id="confirm-modal" style="display: none">
-    <div class="oversea-modal-mask"></div>
-    <div tabindex="-1" class="oversea-modal-wrap " role="dialog">
-        <div role="document" class="oversea-modal oversea-confirm oversea-confirm-confirm alignCenterConfirm"
-             style="width:
-        416px;
-        transform-origin: 766px 428.5px 0px;">
-            <div class="oversea-modal-content">
-                <button aria-label="Close" class="oversea-modal-close">
-                    <span class="oversea-modal-close-x"></span>
-                </button>
-                <div class="oversea-modal-body">
-                    <div class="oversea-confirm-body-wrapper">
-                        <div class="oversea-confirm-body">
-                            <i class="anticon anticon-question-circle"></i>
-                            <span class="oversea-confirm-title">通过审核？</span>
-                            <div class="oversea-confirm-content">
-                                <ul style="list-style-type: disc;">
-                                    <li>文章审核通过后，需约10分钟后被个性化分发至不同用户</li>
-                                    <li>若该文章属于多个频道，审核通过后可能被推荐到其他的频道</li></ul>
-                            </div>
-                        </div>
-
-                        <div class="oversea-confirm-btns">
-                            <button type="button" class="oversea-btn oversea-btn-lg">
-                                <span>取 消</span></button>
-                            <button type="button" class="oversea-btn oversea-btn-primary oversea-btn-lg">
-                                <span>确 定</span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div tabindex="0" style="width: 0px; height: 0px; overflow: hidden;">sentinel</div></div>
-    </div>
-</div>
-
-<!--带输入框的modal-->
-<div  style="display: none;">
-    <div class="oversea-modal-mask"></div>
-    <div tabindex="-1" class="oversea-modal-wrap " role="dialog" aria-labelledby="rcDialogTitle0" style="">
-        <div role="document" class="oversea-modal" style="width: 580px; transform-origin: 300px 387px 0px;">
-            <div class="oversea-modal-content">
-                <button aria-label="Close" class="oversea-modal-close">
-                    <span class="oversea-modal-close-x"></span>
-                </button>
-                <div class="oversea-modal-header">
-                    <div class="oversea-modal-title" id="rcDialogTitle0">添加突显文章</div></div>
-                <div class="oversea-modal-body">
-                    <form class="oversea-form oversea-form-horizontal">
-                        <div class="oversea-row oversea-form-item oversea-form-item-no-colon">
-                            <div class="oversea-form-item-label oversea-col-xs-24 oversea-col-sm-4">
-                                <label class="" title="APP-频道">APP-频道</label></div>
-                            <div class="oversea-form-item-control-wrapper oversea-col-xs-24 oversea-col-sm-20">
-                                <div class="oversea-form-item-control ">
-                                    <!-- react-text: 17 -->默认应用
-                                    <!-- /react-text -->
-                                    <!-- react-text: 18 -->-
-                                    <!-- /react-text -->
-                                    <!-- react-text: 19 -->头条
-                                    <!-- /react-text --></div></div>
-                        </div>
-                        <div class="oversea-row oversea-form-item oversea-form-item-no-colon">
-                            <div class="oversea-form-item-label oversea-col-xs-24 oversea-col-sm-4">
-                                <label for="highlightType" class="" title="突显设置">突显设置</label></div>
-                            <div class="oversea-form-item-control-wrapper oversea-col-xs-24 oversea-col-sm-20">
-                                <div class="oversea-form-item-control has-success">
-                                    <div class="oversea-radio-group oversea-radio-group-large" id="highlightType">
-                                        <label class="oversea-radio-wrapper">
-                                            <span class="oversea-radio">
-                                                <input type="radio" class="oversea-radio-input" value="on">
-                                                <span class="oversea-radio-inner"></span>
-                                            </span>
-                                            <span>置顶</span></label>
-                                        <label class="oversea-radio-wrapper oversea-radio-wrapper-checked">
-                                            <span class="oversea-radio oversea-radio-checked">
-                                                <input type="radio" class="oversea-radio-input" value="on">
-                                                <span class="oversea-radio-inner"></span>
-                                            </span>
-                                            <span>头图</span></label>
-                                    </div>
+<section class="content contact">
+    {{str2html  .breadcrumb}}
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card action_bar">
+                    <div class="body">
+                        <div class="row clearfix">
+                            <div class="col-lg-1 col-md-2 col-3">
+                                <div class="checkbox inlineblock delete_all">
+                                    <input id="deleteall" type="checkbox">
+                                    <label for="deleteall">
+                                        全部
+                                    </label>
                                 </div>
                             </div>
+                            <div class="col-lg-5 col-md-5 col-6">
+                                <div class="input-group search">
+                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <span class="input-group-addon">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-5 col-3 text-right">
+                                <div class="btn-group hidden-sm-down" role="group">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-neutral dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="zmdi zmdi-label"></i>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right pullDown">
+                                            <li>
+                                                <a href="javascript:void(0);">Family</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Work</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);">Google</a>
+                                            </li>
+                                            <li role="separator" class="divider"></li>
+                                            <li>
+                                                <a href="javascript:void(0);">Create a Label</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-neutral hidden-sm-down">
+                                    <i class="zmdi zmdi-plus-circle"></i>
+                                </button>
+                                <button type="button" class="btn btn-neutral hidden-sm-down">
+                                    <i class="zmdi zmdi-archive"></i>
+                                </button>
+                                <button type="button" class="btn btn-neutral">
+                                    <i class="zmdi zmdi-delete"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="oversea-row oversea-form-item oversea-form-item-no-colon">
-                            <div class="oversea-form-item-label oversea-col-xs-24 oversea-col-sm-4">
-                                <label for="deliverId" class="" title="头图文章">头图文章</label></div>
-                            <div class="oversea-form-item-control-wrapper oversea-col-xs-24 oversea-col-sm-20">
-                                <div class="oversea-form-item-control ">
-                                    <div class="oversea-select-lg oversea-select oversea-select-enabled">
-                                        <div class="oversea-select-selection
-                                        oversea-select-selection--single" role="combobox" aria-autocomplete="list"
-                                             aria-haspopup="true" aria-expanded="false" tabindex="0">
-                                            <div class="oversea-select-selection__rendered">
-                                                <div class="oversea-select-selection-selected-value" title=""
-                                                     style="display: block; opacity: 1;"></div>
-                                                <div class="oversea-select-search oversea-select-search--inline"
-                                                     style="display:
-                                                 none;">
-                                                    <div class="oversea-select-search__field__wrap">
-                                                        <input id="deliverId" autocomplete="off" value=""
-                                                               class="oversea-select-search__field">
-                                                        <span class="oversea-select-search__field__mirror">
-                                                            <!-- react-text: 48 -->
-                                                            <!-- /react-text -->
-                                                            <!-- react-text: 49 -->&nbsp;
-                                                            <!-- /react-text --></span></div>
-                                                </div>
-                                            </div>
-                                            <span class="oversea-select-arrow" unselectable="unselectable"
-                                                  style="user-select: none;">
-                                                <b>
-                                                </b>
-                                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="body table-responsive">
+                        <table class="table table-hover m-b-0 c_list">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="">昵称</th>
+                                    <th data-breakpoints="xs">性别</th>
+                                    <th class="">手机</th>
+                                    <th data-breakpoints="xs">邮箱</th>
+                                    <th data-breakpoints="xs">最后登录时间</th>
+                                    <th data-breakpoints="xs">最后登录ip</th>
+                                    <th data-breakpoints="xs">操作</th>
+                                </tr>
+                            </thead>
+                                <tbody>
+                                {{range $k,$v := .userList}}
+                                <tr>
+                                    <td>
+                                        <div class="checkbox">
+                                            <input id="delete_{{$k}}" type="checkbox">
+                                            <label for="delete_{{$k}}">&nbsp;</label>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="oversea-row oversea-form-item oversea-form-item-no-colon">
-                            <div class="oversea-form-item-label oversea-col-xs-24 oversea-col-sm-4">
-                                <label class="" title="头图时效">头图时效</label></div>
-                            <div class="oversea-form-item-control-wrapper oversea-col-xs-24 oversea-col-sm-20">
-                                <div class="oversea-form-item-control ">
-                                    <div class="oversea-row oversea-form-item inlineItem___3Ani6">
-                                        <div class="oversea-form-item-control-wrapper">
-                                            <div class="oversea-form-item-control has-success">
-                                                <div class="oversea-select-lg oversea-select oversea-select-enabled"
-                                                     style="width:
-                                                80px;">
-                                                    <div class="oversea-select-selection
-                                                    oversea-select-selection--single" role="combobox"
-                                                         aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0">
-                                                        <div class="oversea-select-selection__rendered">
-                                                            <div class="oversea-select-selection-selected-value"
-                                                                 title="3天"
-                                                                 style="display: block; opacity: 1;">3天</div></div>
-                                                        <span class="oversea-select-arrow" unselectable="unselectable"
-                                                              style="user-select: none;">
-                                                            <b>
-                                                            </b>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                                    </td>
+                                    <td>
+                                        <img src="assets/images/xs/avatar1.jpg" class="rounded-circle
+                                        avatar" alt="">
+                                        <p class="c_name">{{$v.UserName}}<!--<span class="badge badge-default m-l-10 hidden-sm-down">Family</span>--></p>
+                                    </td>
+                                    <td>
+                                        {{$v.Sex}}
+                                    </td>
+                                    <td>
+                                        <span class="phone"><i class="zmdi zmdi-phone m-r-10"></i>{{$v.Phone}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="email"><i class="zmdi zmdi-email m-r-10"></i>{{$v.Email}}</span>
+                                    </td>
+                                    <td> {{date $v.LastLogin "Y-m-d H:i:s"}}</td>
+                                    <td>{{$v.LastIp}}</td>
+                                    <td>
+                                        <button class="btn btn-icon btn-neutral btn-icon-mini"><i class="zmdi zmdi-edit"></i></button>
+                                        <button class="btn btn-icon btn-neutral btn-icon-mini"><i class="zmdi zmdi-delete"></i></button>
+                                    </td>
+                                </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="oversea-modal-footer">
-                    <button type="button" class="oversea-btn btnSecondary___31mKp">
-                        <span>确 定</span></button>
-                    <button type="button" class="oversea-btn">
-                        <span>取 消</span></button>
-                </div>
+                {{str2html  .pageBar}}
             </div>
-            <div tabindex="0" style="width: 0px; height: 0px; overflow: hidden;">sentinel</div></div>
+        </div>
+
     </div>
-</div>
+</section>
+

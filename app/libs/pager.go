@@ -78,48 +78,43 @@ func (this *Pager) ToString() string {
 			from = totalpage - linknum + 1
 		}
 	}
-
-	buf.WriteString("<ul class=\"oversea-pagination oversea-table-pagination\" style=\"margin-right:10px;\">")
+	buf.WriteString("<div class=\"card\">")
+	buf.WriteString("<div class=\"body\">")
+	buf.WriteString("<ul class=\"pagination pagination-primary m-b-0\" >")
 	if this.Page > 1 {
-		buf.WriteString(fmt.Sprintf("<li class=\"oversea-pagination-prev\"><a class=\"oversea-pagination-item-link" +
-			"\" href=\"%s\"></a></li>",
+		buf.WriteString(fmt.Sprintf("<li class=\"page-item\"><a class=\"page-link" +
+			"\" href=\"%s\"><i class=\"zmdi zmdi-arrow-left\"></i></a></li>",
 			this.url(this.Page-1)))
-	} else {
-		buf.WriteString("<li class=\"oversea-pagination-disabled oversea-pagination-prev\"><a href=\"#\" class" +
-			"=\"oversea-pagination-item-link\"></a></li>")
 	}
 
 	if this.Page > linknum {
-		buf.WriteString(fmt.Sprintf("<li class=\"oversea-pagination-item\"><a class=\"oversea-pagination-item-link\"  href=\"%s\">1...</a></li>",
+		buf.WriteString(fmt.Sprintf("<li class=\"page-item\"><a class=\"page-link\" href=\"%s\">1...</a></li>",
 			this.url(1)))
 	}
 
 	for i := from; i <= to; i++ {
 		if i == this.Page {
-			buf.WriteString(fmt.Sprintf("<li class=\"oversea-pagination-item oversea-pagination-item-1 oversea-pagination-item-active\"><a href=\"#\">%d</a></li>", i))
+			buf.WriteString(fmt.Sprintf("<li class=\"page-item active\"><a class=\"page-link\" href=\"#\">%d</a></li>", i))
 		} else {
-			buf.WriteString(fmt.Sprintf("<li  class=\"oversea-pagination-item\" ><a href=\"%s\">%d</a></li>", this.url(i), i))
+			buf.WriteString(fmt.Sprintf("<li  class=\"page-item\" ><a class=\"page-link\" href=\"%s\">%d</a></li>", this.url(i), i))
 		}
 	}
 
 	if totalpage > to {
-		buf.WriteString(fmt.Sprintf("<li class=\"oversea-pagination-item\"><a class=\"oversea-pagination-item-link\"  href=\"%s\">...%d</a></li>", this.url(totalpage), totalpage))
+		buf.WriteString(fmt.Sprintf("<li class=\"page-item\"><a class=\"page-link\"  href=\"%s\">...%d</a></li>", this.url(totalpage), totalpage))
 	}
 
 	if this.Page < totalpage {
-		buf.WriteString(fmt.Sprintf("<li class=\"oversea-pagination-next\"><a class=\"oversea-pagination-item-link\"  href=\"%s\"></a></li>",
+		buf.WriteString(fmt.Sprintf("<li class=\"page-item\"><a class=\"page-link\"  href=\"%s\"><i" +
+			" class=\"zmdi zmdi-arrow-right\"></i></a></li>",
 			this.url(this.Page+1)))
-	} else {
-		buf.WriteString(fmt.Sprintf("<li class=\"oversea-pagination-disabled oversea-pagination-next\"><a href" +
-			"=\"#\" class=\"oversea-pagination-item-link\" ></a></li>"))
 	}
 
-	buf.WriteString(fmt.Sprintf("     <li class=\"oversea-pagination-options\">"+
-	"<div class=\"oversea-pagination-options-quick-jumper\">"+
-		"跳至<input type=\"text\" href=\"%s\" value=\"%d\">页"+
-	"</div></li>",this.url(this.Page), this.Page))
 
 	buf.WriteString("</ul>")
+
+	buf.WriteString("</div>")
+	buf.WriteString("</div>")
 
 	return buf.String()
 }

@@ -61,7 +61,8 @@ func (this *AdminBaseController) display(tpl ...string) {
 	this.LayoutSections["Header"] = tpldir + "layout/sections/header.html"
 	this.LayoutSections["Footer"] = tpldir + "layout/sections/footer.html"
 	this.LayoutSections["Navbar"] = tpldir + "layout/sections/navbar.html"
-	this.LayoutSections["Sidebar"] = tpldir + "layout/sections/sidebar.html"
+	this.LayoutSections["LeftSidebar"] = tpldir + "layout/sections/left_sidebar.html"
+	this.LayoutSections["RightSidebar"] = tpldir + "layout/sections/right_sidebar.html"
 
 	this.Data["website"] = beego.AppConfig.String("website")
 	this.Data["xsrf_token"] = this.XSRFToken()

@@ -1,29 +1,25 @@
 <title>{{.pageTitle}}</title>
 <meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="author" content="newmorehot" />
 <meta name="_xsrf" content="{{.xsrf_token}}" />
-<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="{{.website}}css/iconfont.css" />
-<link rel="stylesheet" href="{{.website}}js/bootstrap/css/bootstrap.css" />
-<link rel="stylesheet" href="{{.website}}css/font-awesome/css/font-awesome.min.css" />
-<link rel="stylesheet" href="{{.website}}css/navbar.css" />
-<link rel="stylesheet" href="{{.website}}css/index.css" />
-<link rel="stylesheet" href="{{.website}}js/toastr/toastr.css" />
-<script type="text/javascript" src="{{.website}}js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="{{.website}}js/cookie.min.js"></script>
-<script type="text/javascript" src="{{.website}}js/common.js"></script>
-<script type="text/javascript" src="{{.website}}js/ajax_extend.js"></script>
-<script type="text/javascript" src="{{.website}}js/toastr/toastr.min.js"></script>
-<script>
-    toastr.options = {
-        "positionClass": "toast-top-center"
-    }
-</script>
 
-<script type="text/javascript" src="{{.website}}js/jquery-validation/jquery.validate.js"></script>
-<script type="text/javascript" src="{{.website}}js/jquery-validation/localization/messages_zh.js"></script>
+<link rel="icon" href="{{.website}}favicon.ico" type="image/x-icon"> <!-- Favicon-->
+<link rel="stylesheet" href="{{static_url "assets/plugins/bootstrap/css/bootstrap.min.css"}}">
+<link rel="stylesheet" href="{{static_url "assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css"}}"/>
+<link rel="stylesheet" href="{{static_url "assets/css/main.css"}}" />
+<!-- Custom Css -->
+<link rel="stylesheet" href="{{static_url "assets/css/main.css"}}">
+<link rel="stylesheet" href="{{static_url "assets/css/color_skins.css"}}">
+
+<script type="text/javascript" src="{{static_url "assets/js/jquery-2.1.1.min.js"}}"></script>
+<script type="text/javascript" src="{{static_url "assets/js/cookie.min.js"}}"></script>
+<script type="text/javascript" src="{{static_url "assets/js/ajax_extend.js"}}"></script>
+
+
+
+<link rel="stylesheet" href="{{static_url "assets/plugins/footable-bootstrap/css/footable.bootstrap.min.css"}}">
+<link rel="stylesheet" href="{{static_url "assets/plugins/footable-bootstrap/css/footable.standalone.min.css"}}">

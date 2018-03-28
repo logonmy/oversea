@@ -33,6 +33,8 @@ func (this *AdminUserController) List() {
 		true).ToString()
 	this.Data["pageTitle"] = "管理员列表"
 	this.Data["userList"] = userList
+
+	this.Data["breadcrumb"] = libs.NewBreadcrumb("管理员列表", "").ToString()
 	this.display()
 }
 
