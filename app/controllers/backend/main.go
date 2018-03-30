@@ -5,6 +5,7 @@ import (
 	"github.com/dchest/captcha"
 	"oversea/app/stdout"
 	"oversea/app/services"
+	"github.com/astaxie/beego/logs"
 )
 
 type MainController struct {
@@ -23,17 +24,21 @@ func (c *MainController) Login() {
 		c.redirect("/admin/home/index")
 	}
 
-	beego.ReadFromRequest(&c.Controller)
+	//beego.ReadFromRequest(&c.Controller)
 	if c.isPost() {
 		phone := c.GetString("username")
+		if phone == `` {
+			phone = c.GetString("userName")
+		}
 		password := c.GetString("password")
 		captchaId := c.GetString("captchaId")
 		captchaValue := c.GetString("captcha")
 
 		remember := c.GetString("rememberme")
 
+
 		if !captcha.VerifyString(captchaId, captchaValue) {
-			c.StdoutError(stdout.ParamsError, stdout.CaptchaError, c.getCaptchaMap())
+			//c.StdoutError(stdout.ParamsError, stdout.CaptchaError, c.getCaptchaMap())
 		}
 
 		if phone != "" && password != "" {

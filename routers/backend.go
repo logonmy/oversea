@@ -9,6 +9,7 @@ import (
 func adminRouters()  {
 	beego.SetStaticPath("/admin/assets","static/backend/assets")
 
+
 	// 验证码路由
 	beego.Handler("/captcha/*.png", captcha.Server(130, 40))
 

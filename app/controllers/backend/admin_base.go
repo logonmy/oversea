@@ -132,7 +132,8 @@ func (this *AdminBaseController) initAuth() {
 	if !this.auth.IsLogined() {
 		if this.controllerName != "main" ||
 			(this.controllerName == "main" && this.actionName != "logout" && this.actionName != "login") {
-			this.redirect(beego.URLFor("MainController.Login"))
+			    this.Ctx.ResponseWriter.WriteHeader(401)
+				this.redirect(beego.URLFor("MainController.Login"))
 		}
 
 	} else {
