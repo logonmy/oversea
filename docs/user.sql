@@ -449,4 +449,4 @@ INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`)
 INSERT INTO `sys_admin_user` (`id`, `user_name`, `password`, `salt`, `sex`, `email`, `last_login`, `last_ip`, `status`,
 `create_time`, `update_time`)
 VALUES
-	(1,'admin','7fef6171469e80d32c0559f88b377245','',1,'admin@admin.com','2016-05-11 10:33:49','127.0.0.1',0,'2016-05-11 10:33:49','2016-05-11 10:33:49');
+	(1,'admin','21232f297a57a5a743894a0e4a801fc3','',1,'admin@admin.com','2016-05-11 10:33:49','127.0.0.1',0,'2016-05-11 10:33:49','2016-05-11 10:33:49');

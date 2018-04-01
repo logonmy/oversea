@@ -17,6 +17,7 @@ func adminRouters()  {
 	beego.Router("/api/v1/user/add", &backend.AdminUserController{}, "post:Add")
 	beego.Router("/api/v1/user/edit", &backend.AdminUserController{}, "post:Edit")
 
+	beego.Router("/api/v1/customer/list", &backend.CustomerController{}, "post:List")
 }
 
 

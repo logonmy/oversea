@@ -31,17 +31,17 @@ func Init() {
 		new(entitys.SysConfig),
 	)
 
-	orm.RegisterModelWithPrefix("oz",
+	orm.RegisterModelWithPrefix("oz_",
 		new(entitys.OzImmigrantProject),
 		new(entitys.OzProjectType),
 		new(entitys.OzImmigrantNation),
 	)
 
-	orm.RegisterModelWithPrefix("crm",
+	orm.RegisterModelWithPrefix("crm_",
 		new(entitys.CrmCustomer),
 	)
 
-	orm.RegisterModelWithPrefix("cms",
+	orm.RegisterModelWithPrefix("cms_",
 		new(entitys.CmsArticle),
 		new(entitys.CmsCategory),
 		new(entitys.CmsCategoryArticleRel),

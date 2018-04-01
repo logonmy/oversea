@@ -1,9 +1,12 @@
 package backend
 
 import (
-	"github.com/dchest/captcha"
 	"oversea/app/stdout"
 	"oversea/app/services"
+	"github.com/astaxie/beego/logs"
+	"encoding/json"
+	"oversea/app/form/backend"
+	"github.com/astaxie/beego/validation"
 )
 
 type MainController struct {
@@ -14,38 +17,30 @@ type MainController struct {
 // 登录
 func (c *MainController) Login() {
 
-	phone := c.GetString("username")
-	if phone == `` {
-		phone = c.GetString("userName")
-	}
-	password := c.GetString("password")
-	captchaId := c.GetString("captchaId")
-	captchaValue := c.GetString("captcha")
+	var loginForm backend.LoginForm
+	json.Unmarshal(c.Ctx.Input.RequestBody,&loginForm)
+	valid := validation.Validation{}
+	_, err := valid.Valid(&loginForm)
 
-	remember := c.GetString("rememberme")
-
-
-	if !captcha.VerifyString(captchaId, captchaValue) {
-		//c.StdoutError(stdout.ParamsError, stdout.CaptchaError, c.getCaptchaMap())
+	if err != nil{
+		c.StdoutError(stdout.ParamsError, err.Error())
 	}
 
-	if phone != "" && password != "" {
-		token, err := services.SysAuthService.Login(phone, password)
+	logs.Error(string(c.Ctx.Input.RequestBody))
+	logs.Error(loginForm)
+	token, err := services.SysAuthService.Login(loginForm.UserName, loginForm.Password)
 
-		if err != nil {
-			c.StdoutError(stdout.ParamsError, err.Error())
-		}
+	if err != nil {
+		c.StdoutError(stdout.ParamsError, err.Error())
+	}
 
-		if remember == "yes" {
-			c.Ctx.SetCookie("auth", token, 7*86400)
-		} else {
-			c.Ctx.SetCookie("auth", token)
-		}
-		services.SysActionLogService.Login()
-		c.StdoutSuccess(nil)
+	if loginForm.Remember == "yes" {
+		c.Ctx.SetCookie("auth", token, 7*86400)
 	} else {
-		c.StdoutError(stdout.ParamsError, stdout.UsernameOrPasswdEmptyError, c.getCaptchaMap())
+		c.Ctx.SetCookie("auth", token)
 	}
+	services.SysActionLogService.Login()
+	c.StdoutSuccess(nil)
 
 }
 

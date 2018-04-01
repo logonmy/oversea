@@ -80,8 +80,7 @@ func (this *AdminBaseController) initAuth() {
 	this.Data["auth"] = this.auth
 	this.Data["adminEntity"] = this.auth.GetUser()
 	if !this.auth.IsLogined() {
-		if this.controllerName != "main" ||
-			(this.actionName != "logout" && this.actionName != "login") {
+		if this.actionName != "logout" && this.actionName != "login" {
 			    this.Ctx.ResponseWriter.WriteHeader(stdout.HttpNotAuthorization)
 				this.StdoutError(stdout.NotAuthorizationError,  stdout.NotAuthorizationErrorMsg)
 		}
