@@ -5,6 +5,7 @@ const (
 	HttpStatusSuccess  = 200
 	HttpStatusFail     = 200
 	HttpStatusNotFound = 404
+	HttpNotAuthorization = 401
 )
 
 const (
@@ -13,6 +14,7 @@ const (
 	DBError = 1000
 	// 参数错误
 	ParamsError = 2000
+	NotAuthorizationError = 2001
 )
 
 // 后台errMsg
@@ -34,10 +36,7 @@ const (
 	EmailAddressError = "邮箱地址格式错误"
 	MobilePhoneError = "手机号码格式错误"
 	UpdateError = "更新失败"
-)
-
-const (
-
+	NotAuthorizationErrorMsg = "你还没未登录，请先登陆"
 )
 
 

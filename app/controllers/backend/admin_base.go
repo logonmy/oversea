@@ -44,56 +44,6 @@ func (this *AdminBaseController) Prepare() {
 	this.initAuth()
 }
 
-//渲染模版
-func (this *AdminBaseController) display(tpl ...string) {
-	var tplname string
-	tpldir := "backend/"
-	if len(tpl) > 0 {
-		tplname = tpl[0] + ".html"
-	} else {
-		tplname = this.controllerName + "/" + this.actionName + ".html"
-	}
-
-	this.Layout = tpldir + "layout/layout.html"
-	this.TplName = tpldir + tplname
-
-	this.LayoutSections = make(map[string]string)
-	this.LayoutSections["Header"] = tpldir + "layout/sections/header.html"
-	this.LayoutSections["Footer"] = tpldir + "layout/sections/footer.html"
-	this.LayoutSections["Navbar"] = tpldir + "layout/sections/navbar.html"
-	this.LayoutSections["LeftSidebar"] = tpldir + "layout/sections/left_sidebar.html"
-	this.LayoutSections["RightSidebar"] = tpldir + "layout/sections/right_sidebar.html"
-
-	this.Data["website"] = beego.AppConfig.String("website")
-	this.Data["xsrf_token"] = this.XSRFToken()
-}
-
-func (this *AdminBaseController) setTpl(tpl ...string) {
-	var tplname string
-	tpldir := "backend/"
-	if len(tpl) > 0 {
-		tplname = tpl[0] + ".html"
-	} else {
-		tplname = this.controllerName + "/" + this.actionName + ".html"
-	}
-	this.TplName = tpldir + tplname
-
-	this.Data["website"] = beego.AppConfig.String("website")
-	this.Data["xsrf_token"] = this.XSRFToken()
-}
-
-// 重定向
-func (this *AdminBaseController) redirect(url string) {
-	if this.IsAjax() {
-		//this.showMsg("", MSG_REDIRECT, url)
-	} else {
-		this.Redirect(url, 302)
-		this.StopRun()
-	}
-}
-
-
-
 // 获取验证码
 func (this *AdminBaseController) getCaptchaMap() map[string]interface{} {
 
@@ -131,9 +81,9 @@ func (this *AdminBaseController) initAuth() {
 	this.Data["adminEntity"] = this.auth.GetUser()
 	if !this.auth.IsLogined() {
 		if this.controllerName != "main" ||
-			(this.controllerName == "main" && this.actionName != "logout" && this.actionName != "login") {
-			    this.Ctx.ResponseWriter.WriteHeader(401)
-				this.redirect(beego.URLFor("MainController.Login"))
+			(this.actionName != "logout" && this.actionName != "login") {
+			    this.Ctx.ResponseWriter.WriteHeader(stdout.HttpNotAuthorization)
+				this.StdoutError(stdout.NotAuthorizationError,  stdout.NotAuthorizationErrorMsg)
 		}
 
 	} else {
@@ -153,6 +103,20 @@ func (this *AdminBaseController) StdoutSuccess(data interface{}) {
 	this.StopRun()
 }
 
+// StdoutSuccess 输出带分页查询信息的结构-完成
+func (this *AdminBaseController) StdoutQuerySuccess(offset, limit int, count int64, data interface{}) {
+	s :=  this.makeStdJSON(stdout.Success)
+	s.ErrMsg = stdout.MsgSuccess
+	if data != nil {
+		s.Data = data
+	}
+	s.Query(offset, limit, count)
+	this.Data["json"] = s
+	this.ServeFormatted()
+	this.StopRun()
+}
+
+
 // StdoutError 输出结构-失败
 func (this *AdminBaseController) StdoutError(code int, errMsg string, data ...interface{}) {
 	s := this.makeStdJSON(code)
@@ -163,6 +127,19 @@ func (this *AdminBaseController) StdoutError(code int, errMsg string, data ...in
 	this.Data["json"] = s
 	this.ServeFormatted()
 	this.StopRun()
+}
+
+func (this *AdminBaseController) makeStdJSON(code int) *StdJSON {
+	return &StdJSON{
+		ErrCode: code,
+		Time:    time.Now().Unix(),
+	}
+}
+
+func (this *AdminBaseController) checkError(err error) {
+	if err != nil {
+		this.StdoutError(-1, err.Error())
+	}
 }
 
 
@@ -178,18 +155,24 @@ type StdJSON struct {
 	Time      int64                  `json:"time"`
 }
 
-func (this *AdminBaseController) makeStdJSON(code int) *StdJSON {
-	return &StdJSON{
-		ErrCode: code,
-		Time:    time.Now().Unix(),
+func (s *StdJSON) Query(offset, limit int, count int64) *StdJSON {
+	s.DataQuery = map[string]interface{}{
+		"offset": offset,
+		"limit":  limit,
+		"count":  count,
 	}
+	return s
 }
 
-func (this *AdminBaseController) checkError(err error) {
-	if err != nil {
-		if this.IsAjax() {
-			this.StdoutError(-1, err.Error())
-		}
-		this.Ctx.WriteString(err.Error()) //后续用错误页面替换
+func (s *StdJSON) Extra(key string, data interface{}) *StdJSON {
+	if key == "tagMap" {
+		s.TagMap = data
+		return s
 	}
+	if s.DataExtra == nil {
+		s.DataExtra = make(map[string]interface{}, 2)
+	}
+	s.DataExtra[key] = data
+	return s
 }
+

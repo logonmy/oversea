@@ -23,5 +23,5 @@ func static_url(url string) string {
 
 	website := beego.AppConfig.String("website")
 	//return website + url + "?v=" + strconv.FormatInt(time.Now().Unix(), 10)
-	return website + url + "?v=" + strconv.FormatInt(utils.GetFileModTime("static/backend/" + url), 10)
+	return website + url + "?v=" + strconv.FormatInt(utils.GetFileModTime("static/frontend/" + url), 10)
 }

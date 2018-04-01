@@ -7,18 +7,15 @@ import (
 )
 
 func adminRouters()  {
-	beego.SetStaticPath("/admin/assets","static/backend/assets")
-
 
 	// 验证码路由
 	beego.Handler("/captcha/*.png", captcha.Server(130, 40))
 
-	beego.Router("/admin/home/index", &backend.MainController{}, "*:Index")
-	beego.Router("/admin/user/list", &backend.AdminUserController{}, "*:List")
-	beego.Router("/admin/login", &backend.MainController{}, "*:Login")
-	beego.Router("/admin/logout", &backend.MainController{}, "*:Logout")
-	beego.Router("/admin/user/add", &backend.AdminUserController{}, "*:Add")
-	beego.Router("/admin/user/edit", &backend.AdminUserController{}, "*:Edit")
+	beego.Router("/api/v1/user/list", &backend.AdminUserController{}, "get:List")
+	beego.Router("/api/v1/login", &backend.MainController{}, "post:Login")
+	beego.Router("/api/v1/logout", &backend.MainController{}, "get:Logout")
+	beego.Router("/api/v1/user/add", &backend.AdminUserController{}, "post:Add")
+	beego.Router("/api/v1/user/edit", &backend.AdminUserController{}, "post:Edit")
 
 }
 
