@@ -17,6 +17,8 @@ type CrmCustomer struct {
 	CreateBy   int       `orm:"column(create_by)" description:"创建者"`
 	AssignTo   int       `orm:"column(assign_to)" description:"指派给"`
 	AssignTime time.Time `orm:"column(assign_time);type(timestamp);null" description:"指派日期"`
+	ContactedDate time.Time `orm:"column(contacted_date);type(date);null" description:"拜访日期"`
+	NextDate time.Time `orm:"column(next_date);type(date);null" description:"下次拜访日期"`
 	CreateTime time.Time `orm:"column(create_time);type(timestamp);auto_now_add" description:"创建时间"`
 	UpdateTime time.Time `orm:"column(update_time);type(timestamp);auto_now" description:"更新时间"`
 }

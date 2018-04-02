@@ -1,30 +1,46 @@
 package backend
 
-import "oversea/app/services"
+import (
+	"oversea/app/services"
+	"oversea/app/form/backend"
+	"encoding/json"
+)
 
 type CustomerController struct {
    AdminBaseController
 }
 func (this *CustomerController) List() {
-	page, _ := this.GetInt("page")
-	pageSize, _:= this.GetInt("pageSize")
-	if page < 1 {
-		page = 1
+
+
+	var customerForm backend.CustomerForm
+	json.Unmarshal(this.Ctx.Input.RequestBody,&customerForm)
+
+	if customerForm.Page < 1 {
+		customerForm.Page = 1
 	}
 
-	if pageSize < 1 {
-		pageSize = this.pageSize
+	if customerForm.PageSize < 1 {
+		customerForm.PageSize = this.pageSize
 	}
 
 	filters := make([]interface{}, 0)
 
-	id := this.GetString("id")
-	if id != "" {
+	id := customerForm.Id
+	if id > 0 {
 		filters = append(filters, "id", id)
 	}
 
-	userList, count := services.CrmCustomerService.GetCrmCustomerList(page, pageSize, filters...)
+	if customerForm.AssignTo != `` {
+		filters = append(filters, "assign_to", customerForm.AssignTo)
+	}
 
-	this.StdoutQuerySuccess(page, page, count, userList)
+	if customerForm.Name != `` {
+		filters = append(filters, "name", customerForm.Name)
+	}
+
+
+	userList, count := services.CrmCustomerService.GetCrmCustomerList(customerForm.Page, customerForm.PageSize, filters...)
+
+	this.StdoutQuerySuccess(customerForm.Page, customerForm.PageSize, count, userList)
 
 }

@@ -163,6 +163,8 @@ CREATE TABLE `crm_customer` (
   `create_by` int(11) NOT NULL DEFAULT '0' COMMENT '创建者',
   `assign_to` int(11) NOT NULL DEFAULT '0' COMMENT '指派给',
   `assign_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '指派日期',
+  `contacted_date` date DEFAULT NULL  COMMENT '拜访日期',
+  `next_date` date NOT DEFAULT  COMMENT '下次拜访日期',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`cust_id`),
