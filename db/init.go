@@ -39,6 +39,7 @@ func Init() {
 
 	orm.RegisterModelWithPrefix("crm_",
 		new(entitys.CrmCustomer),
+		new(entitys.CrmLinkman),
 	)
 
 	orm.RegisterModelWithPrefix("cms_",

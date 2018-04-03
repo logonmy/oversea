@@ -148,6 +148,7 @@ create table sys_user_online (
 -- ----------------------------
 -- 12、客户表 crm_customer
 -- ----------------------------
+drop table if exists crm_customer;
 CREATE TABLE `crm_customer` (
   `cust_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL COMMENT '客户姓名',
@@ -159,42 +160,48 @@ CREATE TABLE `crm_customer` (
   `fax` varchar(256) DEFAULT NULL COMMENT '客户传真',
   `email` varchar(256) DEFAULT NULL COMMENT '客户邮箱地址',
   `status` varchar(256) DEFAULT NULL COMMENT '客户状态',
+  `sex` int(2) DEFAULT 0 comment '性别: 0-未知，1-男， 2-女',
+  `native_place` varchar(10) comment '籍贯',
+  `address` varchar(255) comment '家庭住址',
+  `idcard` VARCHAR(30) DEFAULT NULL comment '身份证号',
+  `capital` varchar(30) DEFAULT NULL  comment '资本描素',
   `intro` text COMMENT '客户简介',
   `create_by` int(11) NOT NULL DEFAULT '0' COMMENT '创建者',
   `assign_to` int(11) NOT NULL DEFAULT '0' COMMENT '指派给',
-  `assign_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '指派日期',
-  `contacted_date` date DEFAULT NULL  COMMENT '拜访日期',
-  `next_date` date NOT DEFAULT  COMMENT '下次拜访日期',
+  `assign_status` int(11) NOT NULL DEFAULT '0' COMMENT '指派状态: 0-未指派，1-已指派，2-无需指派',
+  `assign_time` timestamp NULL DEFAULT NULL COMMENT '指派日期',
+  `contacted_date` datetime   DEFAULT NULL  COMMENT '拜访日期',
+  `next_date` datetime  DEFAULT NULL COMMENT '下次拜访日期',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`cust_id`),
   KEY `name` (`name`),
   KEY `assign_to` (`assign_to`) USING BTREE,
   KEY `create_by` (`create_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 comment '客户表';
 -- ----------------------------
 -- 联系人表 linkman
 -- ----------------------------
 DROP TABLE IF EXISTS `crm_linkman`;
 CREATE TABLE `crm_linkman` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `job` varchar(255) DEFAULT NULL,
-  `call` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `qq` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `linkmanstatus_id` bigint(20) DEFAULT NULL,
+  `cust_id` int(11)  DEFAULT 0  comment '客户id',
+  `name` varchar(255) DEFAULT NULL comment '联系人姓名',
+  `job` varchar(255) DEFAULT NULL comment '职业',
+  `call` varchar(255) DEFAULT NULL comment '固定电话',
+  `phone` varchar(255) DEFAULT NULL comment '手机号',
+  `qq` varchar(255) DEFAULT NULL comment 'QQ',
+  `email` varchar(255) DEFAULT NULL comment '邮箱',
   `main` bit(1) DEFAULT NULL,
-  `institute` varchar(255) DEFAULT NULL,
-  `department` varchar(255) DEFAULT NULL,
   `sex` tinyint(4) DEFAULT NULL,
-  `birthday` date DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `intro` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+   KEY `create_time` (`create_time`) USING BTREE,
+    KEY `name` (`name`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 comment '联系人信息表';
 
 
 -- ----------------------------

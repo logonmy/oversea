@@ -19,6 +19,7 @@ const (
 
 // 后台errMsg
 const (
+	ParamsErrorMsg = "参数错误"
 	// MsgSuccess ...
 	MsgSuccess = "success"
 	// MsgUnknown ...

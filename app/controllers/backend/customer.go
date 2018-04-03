@@ -4,13 +4,14 @@ import (
 	"oversea/app/services"
 	"oversea/app/form/backend"
 	"encoding/json"
+	"oversea/app/stdout"
 )
 
 type CustomerController struct {
    AdminBaseController
 }
-func (this *CustomerController) List() {
 
+func (this *CustomerController) List() {
 
 	var customerForm backend.CustomerForm
 	json.Unmarshal(this.Ctx.Input.RequestBody,&customerForm)
@@ -43,4 +44,19 @@ func (this *CustomerController) List() {
 
 	this.StdoutQuerySuccess(customerForm.Page, customerForm.PageSize, count, userList)
 
+}
+
+func (this *CustomerController) GetInfo() {
+
+	custId, _ := this.GetInt("id", 0)
+	if custId <= 0 {
+		this.StdoutError(stdout.ParamsError, stdout.ParamsErrorMsg, nil)
+	}
+
+	customer, err := services.CrmCustomerService.GetCrmCustomerById(custId)
+	if err != nil {
+		this.StdoutError(stdout.DBError, err.Error(), nil)
+	}
+
+	this.StdoutSuccess(customer)
 }
