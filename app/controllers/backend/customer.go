@@ -5,12 +5,15 @@ import (
 	"oversea/app/form/backend"
 	"encoding/json"
 	"oversea/app/stdout"
+	"oversea/app/entitys"
+	"strconv"
 )
 
 type CustomerController struct {
    AdminBaseController
 }
 
+// 获取客户列表
 func (this *CustomerController) List() {
 
 	var customerForm backend.CustomerForm
@@ -39,13 +42,13 @@ func (this *CustomerController) List() {
 		filters = append(filters, "name", customerForm.Name)
 	}
 
-
 	userList, count := services.CrmCustomerService.GetCrmCustomerList(customerForm.Page, customerForm.PageSize, filters...)
 
 	this.StdoutQuerySuccess(customerForm.Page, customerForm.PageSize, count, userList)
 
 }
 
+// 获取客户信息
 func (this *CustomerController) GetInfo() {
 
 	custId, _ := this.GetInt("id", 0)
@@ -59,4 +62,47 @@ func (this *CustomerController) GetInfo() {
 	}
 
 	this.StdoutSuccess(customer)
+}
+
+// 添加客户资料
+func (c *CustomerController) AddCrmCustomer() {
+	var v entitys.CrmCustomer
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		if _, err := services.CrmCustomerService.AddCrmCustomer(&v); err == nil {
+			c.Ctx.Output.SetStatus(201)
+			c.StdoutSuccess(nil)
+		} else {
+			c.StdoutError(stdout.DBError, err.Error(), nil)
+		}
+	} else {
+		c.StdoutError(stdout.DBError, err.Error(), nil)
+	}
+}
+
+
+// 更新客户信息
+func (c *CustomerController) UpdateCrmCustomerById() {
+	idStr := c.Ctx.Input.Param(":id")
+	id, _ := strconv.Atoi(idStr)
+	v := entitys.CrmCustomer{Id: id}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		if err := services.CrmCustomerService.UpdateCrmCustomerById(&v); err == nil {
+			c.StdoutSuccess(nil)
+		} else {
+			c.StdoutError(stdout.DBError, err.Error(), nil)
+		}
+	} else {
+		c.StdoutError(stdout.ParamsError, err.Error(), nil)
+	}
+}
+
+// 删除客户
+func (c *CustomerController) DeleteCrmCustomer() {
+	idStr := c.Ctx.Input.Param(":id")
+	id, _ := strconv.Atoi(idStr)
+	if err := services.CrmCustomerService.DeleteCrmCustomer(id); err == nil {
+		c.StdoutSuccess(nil)
+	} else {
+		c.StdoutError(stdout.DBError, err.Error(), nil)
+	}
 }

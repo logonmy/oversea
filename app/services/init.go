@@ -14,6 +14,7 @@ var (
 	CmsCategoryService           *cmsCategoryService
 	CmsGuestbookService          *cmsGuestbookService
 	CmsUsersService              *cmsUsersService
+	CrmLinkmanService            *crmLinkmanService
 )
 
 func InitServices() {
@@ -30,4 +31,5 @@ func InitServices() {
 	CmsCategoryService = &cmsCategoryService{}
 	CmsGuestbookService = &cmsGuestbookService{}
 	CmsUsersService = &cmsUsersService{}
+	CrmLinkmanService = &crmLinkmanService{}
 }

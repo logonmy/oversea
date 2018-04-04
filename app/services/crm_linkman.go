@@ -130,3 +130,26 @@ func (this *crmLinkmanService) DeleteCrmLinkman(id int) (err error) {
 	}
 	return
 }
+
+
+
+// 分页获取客户联系人列表
+func (this *crmLinkmanService) GetCrmLinkmanList(page, pageSize int,
+	filters ...interface{}) ([]*entitys.CrmLinkman,
+	int64) {
+	offset := (page - 1) * pageSize
+
+	crmLinkmans := make([]*entitys.CrmLinkman, 0)
+
+	query := orm.NewOrm().QueryTable(new(entitys.CrmLinkman))
+	if len(filters) > 0 {
+		l := len(filters)
+		for k := 0; k < l; k += 2 {
+			query = query.Filter(filters[k].(string), filters[k+1])
+		}
+	}
+	total, _ := query.Count()
+	query.OrderBy("-id").Limit(pageSize, offset).All(&crmLinkmans)
+
+	return crmLinkmans, total
+}

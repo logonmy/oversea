@@ -159,7 +159,8 @@ CREATE TABLE `crm_customer` (
   `tel` varchar(256) DEFAULT NULL COMMENT '客户电话号码',
   `fax` varchar(256) DEFAULT NULL COMMENT '客户传真',
   `email` varchar(256) DEFAULT NULL COMMENT '客户邮箱地址',
-  `status` varchar(256) DEFAULT NULL COMMENT '客户状态',
+  `wechat` VARCHAR (256) DEFAULT NULL COMMENT '微信',
+  `status` int(10) DEFAULT 0 COMMENT '客户状态: 0-正常，1-禁用',
   `sex` int(2) DEFAULT 0 comment '性别: 0-未知，1-男， 2-女',
   `native_place` varchar(10) comment '籍贯',
   `address` varchar(255) comment '家庭住址',
@@ -179,6 +180,16 @@ CREATE TABLE `crm_customer` (
   KEY `assign_to` (`assign_to`) USING BTREE,
   KEY `create_by` (`create_by`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 comment '客户表';
+
+ALTER TABLE `crm_customer`
+ADD COLUMN `link_address`  varchar(255) NULL COMMENT '联系地址' AFTER `address`;
+ALTER TABLE `crm_customer`
+ADD COLUMN `birthday`  date DEFAULT NULL COMMENT '生日' AFTER `address`;
+ALTER TABLE `crm_customer`
+ADD COLUMN `age`  int(4) NULL COMMENT '年龄' AFTER `address`;
+
+ALTER TABLE `crm_customer`
+ADD COLUMN `qq`  VARCHAR(20) NULL COMMENT 'qq' AFTER `wechat`;
 -- ----------------------------
 -- 联系人表 linkman
 -- ----------------------------
