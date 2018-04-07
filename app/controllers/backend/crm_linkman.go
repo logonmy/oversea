@@ -32,8 +32,8 @@ func (c *CrmLinkmanController) AddCrmLinkman() {
 
 // 获取联系人信息
 func (c *CrmLinkmanController) GetCrmLinkmanById() {
-	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
+
+	id, _ := c.GetInt("id")
 	v, err := services.CrmLinkmanService.GetCrmLinkmanById(id)
 	if err != nil {
 		c.StdoutError(stdout.DBError, err.Error(), nil)

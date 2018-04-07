@@ -195,24 +195,25 @@ ADD COLUMN `qq`  VARCHAR(20) NULL COMMENT 'qq' AFTER `wechat`;
 -- ----------------------------
 DROP TABLE IF EXISTS `crm_linkman`;
 CREATE TABLE `crm_linkman` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `cust_id` int(11)  DEFAULT 0  comment '客户id',
-  `name` varchar(255) DEFAULT NULL comment '联系人姓名',
-  `job` varchar(255) DEFAULT NULL comment '职业',
-  `call` varchar(255) DEFAULT NULL comment '固定电话',
-  `phone` varchar(255) DEFAULT NULL comment '手机号',
-  `qq` varchar(255) DEFAULT NULL comment 'QQ',
-  `email` varchar(255) DEFAULT NULL comment '邮箱',
-  `main` bit(1) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cust_id` int(11) DEFAULT '0' COMMENT '客户id',
+  `name` varchar(255) DEFAULT NULL COMMENT '联系人姓名',
+  `job` varchar(255) DEFAULT NULL COMMENT '职业',
+  `call` varchar(255) DEFAULT NULL COMMENT '固定电话',
+  `phone` varchar(255) DEFAULT NULL COMMENT '手机号',
+  `qq` varchar(255) DEFAULT NULL COMMENT 'QQ',
+  `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
+  `main` text,
   `sex` tinyint(4) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `intro` varchar(255) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
-   KEY `create_time` (`create_time`) USING BTREE,
-    KEY `name` (`name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 comment '联系人信息表';
+  KEY `create_time` (`create_time`) USING BTREE,
+  KEY `name` (`name`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='联系人信息表';
+
 
 
 -- ----------------------------

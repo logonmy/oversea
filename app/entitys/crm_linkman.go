@@ -11,7 +11,7 @@ type CrmLinkman struct {
 	Phone      string    `orm:"column(phone);size(255);null" description:"手机号"`
 	Qq         string    `orm:"column(qq);size(255);null" description:"QQ"`
 	Email      string    `orm:"column(email);size(255);null" description:"邮箱"`
-	Main       uint64    `orm:"column(main);size(1);null"`
+	Main       string    `orm:"column(main);null"`
 	Sex        int8      `orm:"column(sex);null"`
 	Address    string    `orm:"column(address);size(255);null"`
 	Intro      string    `orm:"column(intro);size(255);null"`
