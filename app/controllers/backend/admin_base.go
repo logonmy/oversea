@@ -7,17 +7,19 @@ import (
 	"time"
 	"oversea/app/stdout"
 	"oversea/app/services"
+	"reflect"
+	"fmt"
 )
 
 type AdminBaseController struct {
 	beego.Controller
 	auth           *services.AuthService // 验证服务
-	userId         int    // 当前登录的用户id
-	controllerName string // 控制器名
-	actionName     string // 动作名
-	pageSize       int    // 默认分页大小
-	lang           string // 当前语言环境
-	menuList       []Menu // 当前菜单
+	userId         int                   // 当前登录的用户id
+	controllerName string                // 控制器名
+	actionName     string                // 动作名
+	pageSize       int                   // 默认分页大小
+	lang           string                // 当前语言环境
+	menuList       []Menu                // 当前菜单
 }
 
 type Menu struct {
@@ -64,7 +66,6 @@ func (this *AdminBaseController) isPost() bool {
 	return this.Ctx.Input.IsPost()
 }
 
-
 func (this *AdminBaseController) isAjax() bool {
 	return this.Ctx.Input.IsAjax()
 }
@@ -76,13 +77,12 @@ func (this *AdminBaseController) initAuth() {
 	this.auth.Init(token)
 	this.userId = this.auth.GetUserId()
 
-
 	this.Data["auth"] = this.auth
 	this.Data["adminEntity"] = this.auth.GetUser()
 	if !this.auth.IsLogined() {
 		if this.actionName != "logout" && this.actionName != "login" {
-			    this.Ctx.ResponseWriter.WriteHeader(stdout.HttpNotAuthorization)
-				this.StdoutError(stdout.NotAuthorizationError,  stdout.NotAuthorizationErrorMsg)
+			this.Ctx.ResponseWriter.WriteHeader(stdout.HttpNotAuthorization)
+			this.StdoutError(stdout.NotAuthorizationError, stdout.NotAuthorizationErrorMsg)
 		}
 
 	} else {
@@ -90,9 +90,41 @@ func (this *AdminBaseController) initAuth() {
 	}
 }
 
+func (this *AdminBaseController) checkFileds(data interface{}) []string{
+
+	value := reflect.ValueOf(data)
+	fmt.Println(value) //Go & C & Python
+	typ := reflect.TypeOf(data)
+	fmt.Println(typ) //main.NotknownType
+	fmt.Println("==============", data)
+
+	knd := value.Kind()
+	fmt.Println(knd) // struct
+
+	var fields []string
+
+	for i := 0; i < value.NumField(); i++ {
+
+		ty := value.Field(i).Type().String()
+		if ty == `string` {
+			if  typ.Field(i).Name != ""{
+				fields = append(fields, typ.Field(i).Name)
+			}
+		} else {
+			fields = append(fields, typ.Field(i).Name)
+		}
+
+	}
+
+	fmt.Println("------------------",fields)
+
+	return  fields
+
+}
+
 // StdoutSuccess 输出结构-完成
 func (this *AdminBaseController) StdoutSuccess(data interface{}) {
-	s :=  this.makeStdJSON(stdout.Success)
+	s := this.makeStdJSON(stdout.Success)
 	s.ErrMsg = stdout.MsgSuccess
 	if data != nil {
 		s.Data = data
@@ -104,7 +136,7 @@ func (this *AdminBaseController) StdoutSuccess(data interface{}) {
 
 // StdoutSuccess 输出带分页查询信息的结构-完成
 func (this *AdminBaseController) StdoutQuerySuccess(offset, limit int, count int64, data interface{}) {
-	s :=  this.makeStdJSON(stdout.Success)
+	s := this.makeStdJSON(stdout.Success)
 	s.ErrMsg = stdout.MsgSuccess
 	if data != nil {
 		s.Data = data
@@ -114,7 +146,6 @@ func (this *AdminBaseController) StdoutQuerySuccess(offset, limit int, count int
 	this.ServeFormatted()
 	this.StopRun()
 }
-
 
 // StdoutError 输出结构-失败
 func (this *AdminBaseController) StdoutError(code int, errMsg string, data ...interface{}) {
@@ -140,7 +171,6 @@ func (this *AdminBaseController) checkError(err error) {
 		this.StdoutError(-1, err.Error())
 	}
 }
-
 
 // StdJSON 标准输出JSON格式
 type StdJSON struct {
@@ -174,4 +204,3 @@ func (s *StdJSON) Extra(key string, data interface{}) *StdJSON {
 	s.DataExtra[key] = data
 	return s
 }
-

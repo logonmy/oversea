@@ -68,6 +68,10 @@ func (this *CustomerController) GetInfo() {
 func (c *CustomerController) AddCrmCustomer() {
 	var v entitys.CrmCustomer
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		if len(v.Birthday) >= 10 {
+			v.Birthday = v.Birthday[:10]
+		}
+
 		if _, err := services.CrmCustomerService.AddCrmCustomer(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.StdoutSuccess(nil)
@@ -82,11 +86,14 @@ func (c *CustomerController) AddCrmCustomer() {
 
 // 更新客户信息
 func (c *CustomerController) UpdateCrmCustomerById() {
-	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
-	v := entitys.CrmCustomer{Id: id}
+	v := entitys.CrmCustomer{}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := services.CrmCustomerService.UpdateCrmCustomerById(&v); err == nil {
+		fields := c.checkFileds(v)
+		if len(v.Birthday) >= 10 {
+			v.Birthday = v.Birthday[:10]
+		}
+
+		if err := services.CrmCustomerService.UpdateCrmCustomerById(&v, fields...); err == nil {
 			c.StdoutSuccess(nil)
 		} else {
 			c.StdoutError(stdout.DBError, err.Error(), nil)

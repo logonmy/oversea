@@ -190,6 +190,11 @@ ADD COLUMN `age`  int(4) NULL COMMENT '年龄' AFTER `address`;
 
 ALTER TABLE `crm_customer`
 ADD COLUMN `qq`  VARCHAR(20) NULL COMMENT 'qq' AFTER `wechat`;
+
+
+ALTER TABLE `crm_customer`
+ADD COLUMN `intension`  varchar(255) NULL AFTER `capital`;
+
 -- ----------------------------
 -- 联系人表 linkman
 -- ----------------------------

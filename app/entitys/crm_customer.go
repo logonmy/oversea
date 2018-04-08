@@ -18,11 +18,12 @@ type CrmCustomer struct {
 	NativePlace   string    `orm:"column(native_place);size(10);null" description:"籍贯"`
 	Address       string    `orm:"column(address);size(255);null" description:"家庭住址"`
 	LinkAddress   string    `orm:"column(link_address);size(255);null" description:"联系地址"`
-	Birthday      string    `orm:"column(birthday);type(date);null" description:"联系地址"`
-	Idcard        string    `orm:"column(idcard);size(30);null" description:"生日"`
+	Birthday      string    `orm:"column(birthday);type(date);null" description:"生日"`
+	Idcard        string    `orm:"column(idcard);size(30);null" description:"身份证"`
 	Qq            string    `orm:"column(qq);size(20);null" description:"QQ"`
 	Age           int       `orm:"column(age);" description:"年龄"`
 	Capital       string    `orm:"column(capital);size(30);null" description:"资本描素"`
+	Intension     string    `orm:"column(intension);size(100);null" description:"移民意向"`
 	Intro         string    `orm:"column(intro);null" description:"客户简介"`
 	CreateBy      int       `orm:"column(create_by)" description:"创建者"`
 	AssignTo      int       `orm:"column(assign_to)" description:"指派给"`
