@@ -2,11 +2,11 @@ package services
 
 import (
 	"github.com/astaxie/beego/orm"
-	"fmt"
 	"strings"
 	"reflect"
 	"oversea/app/entitys"
 	"errors"
+	"oversea/app/stdout"
 )
 
 type crmLinkmanService struct {
@@ -108,17 +108,19 @@ func (this *crmLinkmanService) GetAllCrmLinkman(query map[string]string, fields 
 }
 
 // 更新联系人信息
-func (this *crmLinkmanService) UpdateCrmLinkmanById(m *entitys.CrmLinkman) (err error) {
+func (this *crmLinkmanService) UpdateCrmLinkmanById(m *entitys.CrmLinkman, fileds ...string) (err error) {
+	if len(fileds) < 1 {
+		return errors.New(stdout.FieldsLengthMustMoreThanOne)
+	}
+
 	o := orm.NewOrm()
 	v := entitys.CrmLinkman{Id: m.Id}
 	// ascertain id exists in the database
-	if err = o.Read(&v); err == nil {
-		var num int64
-		if num, err = o.Update(m); err == nil {
-			fmt.Println("Number of records updated in database:", num)
-		}
+	if err := o.Read(&v); err == nil {
+		_, err = o.Update(m, fileds...)
+		return err
 	}
-	return
+	return nil
 }
 
 // 删除联系人

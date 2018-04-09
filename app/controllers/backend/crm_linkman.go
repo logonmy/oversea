@@ -19,6 +19,9 @@ type CrmLinkmanController struct {
 func (c *CrmLinkmanController) AddCrmLinkman() {
 	var v entitys.CrmLinkman
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		if v.CustId == 0 {
+			c.StdoutError(stdout.DBError, stdout.ParamsErrorMsg, nil)
+		}
 		if _, err := services.CrmLinkmanService.AddCrmLinkman(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.StdoutSuccess(nil)
@@ -123,7 +126,8 @@ func (c *CrmLinkmanController) UpdateCrmLinkmanById() {
 	id, _ := strconv.Atoi(idStr)
 	v := entitys.CrmLinkman{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := services.CrmLinkmanService.UpdateCrmLinkmanById(&v); err == nil {
+		fields := c.checkFileds(v, []string{"CreateTime", "UpdateTime"})
+		if err := services.CrmLinkmanService.UpdateCrmLinkmanById(&v, fields...); err == nil {
 			c.StdoutSuccess(nil)
 		} else {
 			c.StdoutError(stdout.DBError, err.Error(), nil)

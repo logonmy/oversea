@@ -10,6 +10,7 @@ type CrmLinkman struct {
 	Call       string    `orm:"column(call);size(255);null" description:"固定电话"`
 	Phone      string    `orm:"column(phone);size(255);null" description:"手机号"`
 	Qq         string    `orm:"column(qq);size(255);null" description:"QQ"`
+	Wechat     string    `orm:"column(wechat);size(256);null" description:"微信"`
 	Email      string    `orm:"column(email);size(255);null" description:"邮箱"`
 	Main       string    `orm:"column(main);null"`
 	Sex        int8      `orm:"column(sex);null"`

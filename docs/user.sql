@@ -220,6 +220,8 @@ CREATE TABLE `crm_linkman` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='联系人信息表';
 
 
+ALTER TABLE `crm_linkman`
+ADD COLUMN `wechat`  VARCHAR(20) NULL COMMENT '微信' AFTER `qq`;
 
 -- ----------------------------
 -- 12、客户地址表

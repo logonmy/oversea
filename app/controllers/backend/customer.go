@@ -88,7 +88,7 @@ func (c *CustomerController) AddCrmCustomer() {
 func (c *CustomerController) UpdateCrmCustomerById() {
 	v := entitys.CrmCustomer{}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		fields := c.checkFileds(v)
+		fields := c.checkFileds(v, []string{"CreateTime", "UpdateTime"})
 		if len(v.Birthday) >= 10 {
 			v.Birthday = v.Birthday[:10]
 		}

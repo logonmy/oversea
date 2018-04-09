@@ -9,6 +9,7 @@ import (
 	"oversea/app/services"
 	"reflect"
 	"fmt"
+	"oversea/utils"
 )
 
 type AdminBaseController struct {
@@ -90,22 +91,21 @@ func (this *AdminBaseController) initAuth() {
 	}
 }
 
-func (this *AdminBaseController) checkFileds(data interface{}) []string{
+func (this *AdminBaseController) checkFileds(data interface{},excludeFileds []string) []string{
 
 	value := reflect.ValueOf(data)
-	fmt.Println(value) //Go & C & Python
 	typ := reflect.TypeOf(data)
-	fmt.Println(typ) //main.NotknownType
-	fmt.Println("==============", data)
-
-	knd := value.Kind()
-	fmt.Println(knd) // struct
 
 	var fields []string
 
 	for i := 0; i < value.NumField(); i++ {
 
 		ty := value.Field(i).Type().String()
+
+		if utils.InStrArray(typ.Field(i).Name, excludeFileds) {
+			continue
+		}
+
 		if ty == `string` {
 			if  typ.Field(i).Name != ""{
 				fields = append(fields, typ.Field(i).Name)
