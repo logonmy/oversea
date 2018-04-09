@@ -30,6 +30,8 @@ func adminRouters()  {
 	beego.Router("/api/v1/linkman/add", &backend.CrmLinkmanController{}, "post:AddCrmLinkman")
 	beego.Router("/api/v1/linkman/delete", &backend.CrmLinkmanController{}, "get:DeleteCrmLinkman")
 
+	beego.Router("/api/v1/contact/add", &backend.ContactController{}, "post:AddContactNote")
+
 }
 
 

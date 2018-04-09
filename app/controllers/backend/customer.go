@@ -72,7 +72,17 @@ func (c *CustomerController) AddCrmCustomer() {
 			v.Birthday = v.Birthday[:10]
 		}
 
-		if _, err := services.CrmCustomerService.AddCrmCustomer(&v); err == nil {
+		if custId, err := services.CrmCustomerService.AddCrmCustomer(&v); err == nil {
+			services.CrmLinkmanService.AddCrmLinkman(&entitys.CrmLinkman{
+				Phone:v.Mobile,
+				Wechat:v.Wechat,
+				Qq:v.Qq,
+				Name:v.Name,
+				Address:v.Address,
+				Sex:v.Sex,
+                Email:v.Email,
+                CustId:custId,
+			})
 			c.Ctx.Output.SetStatus(201)
 			c.StdoutSuccess(nil)
 		} else {

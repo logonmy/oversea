@@ -5,7 +5,7 @@ import "time"
 // 用户动作
 type ActionLog struct {
 	Id         int
-	UserId     int                                     // 用户id
+	UserId     int                                       // 用户id
 	Action     string    `orm:"size(20)"`                // 动作类型
 	Actor      string    `orm:"size(20)"`                // 操作角色
 	ObjectType string    `orm:"size(20)"`                // 操作对象类型
@@ -15,6 +15,8 @@ type ActionLog struct {
 	CreateTime time.Time `orm:"auto_now;type(datetime)"` // 更新时间
 	Read       int
 	Message    string    `orm:"-"` // 格式化后的消息
+	Customer   int                 //客户ID
+	Contact    int                 //联系人ID
 }
 
 // 表名

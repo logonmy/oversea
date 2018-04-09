@@ -35,6 +35,12 @@ CREATE TABLE `sys_action_log` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE `sys_action_log`
+ADD COLUMN `contact`  int NULL COMMENT '客户联系人' AFTER `read`,
+ADD COLUMN `customer`  int NULL COMMENT '客户' AFTER `contact`,
+ADD INDEX `customer` (`customer`) USING BTREE ;
+
+
 -- 移民项目类型表
 CREATE TABLE `oz_project_type` (
   `project_type_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '项目类型id',
