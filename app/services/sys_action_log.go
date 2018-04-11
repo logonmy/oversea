@@ -25,6 +25,7 @@ func (this *actionLogService) Add(action, objectType string, objectId int, extra
 		if len == 1 {
 			act.Customer = fileds[0]
 		} else {
+			act.Customer = fileds[0]
 			act.Contact = fileds[1]
 		}
 	}
@@ -50,10 +51,18 @@ func (this *actionLogService) AddContactLog(customerId, contactId int, extra str
 }
 
 // 获取动态列表
-func (this *actionLogService) GetList(page, pageSize int) ([]entitys.ActionLog, error) {
+func (this *actionLogService) GetList(page, pageSize int, filters ...interface{}) ([]entitys.ActionLog, int64) {
 	var list []entitys.ActionLog
 	o := orm.NewOrm()
-	num, err := o.QueryTable(new(entitys.ActionLog)).OrderBy("-create_time").Offset((page - 1) * pageSize).Limit(
+	query := o.QueryTable(new(entitys.ActionLog))
+	if len(filters) > 0 {
+		l := len(filters)
+		for k := 0; k < l; k += 2 {
+			query = query.Filter(filters[k].(string), filters[k+1])
+		}
+	}
+
+	num, err := query.OrderBy("-create_time").Offset((page - 1) * pageSize).Limit(
 		pageSize).All(
 		&list)
 	if num > 0 && err == nil {
@@ -61,7 +70,8 @@ func (this *actionLogService) GetList(page, pageSize int) ([]entitys.ActionLog, 
 			this.format(&list[i])
 		}
 	}
-	return list, err
+	total, _ := query.Count()
+	return list, total
 }
 
 // 格式化
@@ -80,7 +90,8 @@ func (this *actionLogService) format(action *entitys.ActionLog) {
 		linkman, err1 := CrmLinkmanService.GetCrmLinkmanById(action.Contact)
 
 		if err == nil && err1 == nil {
-			action.Message = fmt.Sprintf("<b>%s</b>, <b>%s</b> 添加了沟通日志，联系人：<b>%s</b>，联系时间：<b>%s</b>", action.CreateTime,user.UserName,
+			action.Message = fmt.Sprintf("<b>%s</b>, <b>%s</b> 添加了沟通日志，联系人：<b>%s</b>，沟通内容：<b>%s</b>",
+				action.CreateTime,user.UserName,
 				linkman.Name, action.Extra)
 		}
 
