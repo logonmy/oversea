@@ -11,6 +11,7 @@ func frontendRouters()  {
 	beego.SetStaticPath("/images","static/frontend/images")
 	beego.SetStaticPath("/css","static/frontend/css")
 	beego.SetStaticPath("/js","static/frontend/js")
+	beego.SetStaticPath("/excel","static/frontend/excel")
 
 	beego.Router("/", &frontend.IndexController{}, "get:Home")
 	beego.Router("/travel", &frontend.TravelController{}, "get:Index")

@@ -3,7 +3,7 @@ package stdout
 
 const (
 	HttpStatusSuccess  = 200
-	HttpStatusFail     = 200
+	HttpStatusFail     = 201
 	HttpStatusNotFound = 404
 	HttpNotAuthorization = 401
 )
@@ -20,11 +20,13 @@ const (
 // 后台errMsg
 const (
 	ParamsErrorMsg = "参数错误"
+	HttpErrorMsg = "服务器内部错误"
 	// MsgSuccess ...
 	MsgSuccess = "success"
 	// MsgUnknown ...
 	MsgUnknown = "unknown error"
 	UserOrderPasswordError = "账户或密码错误"
+	OldPasswordError = "旧密码输入错误"
 	SystemError = "系统错误"
 	UserIsDisenbled = "账号已经被禁用"
 	FieldsLengthMustMoreThanOne = "更新字段不能为空"

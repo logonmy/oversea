@@ -72,3 +72,14 @@ func (this *crmCustomerService) GetCrmCustomerList(page, pageSize int,
 
 	return crmCustomers, total
 }
+
+
+func (this *crmCustomerService) GetAllCrmCustomerList() ([]*entitys.CrmCustomer) {
+
+	crmCustomers := make([]*entitys.CrmCustomer, 0)
+	query := orm.NewOrm().QueryTable(new(entitys.CrmCustomer))
+
+	query.OrderBy("-id").All(&crmCustomers)
+
+	return crmCustomers
+}

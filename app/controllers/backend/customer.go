@@ -7,6 +7,11 @@ import (
 	"oversea/app/stdout"
 	"oversea/app/entitys"
 	"strconv"
+	"os"
+	"github.com/astaxie/beego"
+	"oversea/utils"
+	"github.com/360EntSecGroup-Skylar/excelize"
+	"fmt"
 )
 
 type CustomerController struct {
@@ -122,4 +127,37 @@ func (c *CustomerController) DeleteCrmCustomer() {
 	} else {
 		c.StdoutError(stdout.DBError, err.Error(), nil)
 	}
+}
+
+// 导出文件
+func (c *CustomerController) Export() {
+
+	xlsx := excelize.NewFile()
+	// Create a new sheet.
+	index := xlsx.NewSheet("Sheet1")
+	xlsx.NewSheet("Sheet2")
+	xlsx.NewSheet("Sheet1")
+	xlsx.NewSheet("XLSXSheet2")
+	xlsx.NewSheet("XLSXSheet3")
+	xlsx.SetCellInt("XLSXSheet2", "A23", 56)
+	xlsx.SetCellStr("Sheet1", "B20", "42")
+	// Set value of a cell.
+	categories := map[string]string{"A2": "Small", "A3": "Normal", "A4": "Large", "B1": "Apple", "C1": "Orange", "D1": "Pear"}
+
+	for k, v := range categories {
+		fmt.Println(k)
+		xlsx.SetCellValue("Sheet1", k, v)
+	}
+
+	xlsx.SetActiveSheet(index)
+
+	path,_ :=  os.Getwd()
+	path +=  "/static/frontend/excel/"
+	filename :=  utils.NewUUID() +  ".xlsx"
+	err := xlsx.SaveAs(path + "/" + filename)
+	if err != nil {
+		c.StdoutError(stdout.HttpStatusFail, stdout.HttpErrorMsg, nil)
+	}
+	website := beego.AppConfig.String("frontend_website")
+	c.StdoutSuccess(website +  "excel/" + filename)
 }
