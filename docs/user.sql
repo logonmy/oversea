@@ -471,6 +471,17 @@ CREATE TABLE `cms_user_favorite` (
   KEY `uid`(`uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='用户收藏表';
 
+-- ----------------------------
+-- 23、客户来源
+-- ----------------------------
+DROP TABLE IF EXISTS `crm_customer_source`;
+CREATE TABLE `crm_customer_source` (
+  `sid` int(11) NOT NULL AUTO_INCREMENT,
+  `source` VARCHAR(20) NOT NULL  COMMENT '来源名称',
+  `comment` text  COMMENT '备注',
+  PRIMARY KEY (`sid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='客户来源表';
+
 
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('1', '投资移民', '0');
 INSERT INTO `oz_project_type` (`project_type_id`, `project_type_name`, `status`) VALUES ('2', '技术移民', '0');
@@ -484,3 +495,26 @@ INSERT INTO `sys_admin_user` (`id`, `user_name`, `password`, `salt`, `sex`, `ema
 `create_time`, `update_time`)
 VALUES
 	(1,'admin','21232f297a57a5a743894a0e4a801fc3','',1,'admin@admin.com','2016-05-11 10:33:49','127.0.0.1',0,'2016-05-11 10:33:49','2016-05-11 10:33:49');
+
+
+ALTER TABLE `crm_customer`
+ADD COLUMN `follow_status`  int(11) NULL DEFAULT 0 COMMENT '跟进状态: 0-未跟进，1-已跟进，2-无需跟进' AFTER `assign_to`;
+
+
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('5', '营销QQ', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('6', '电话', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('7', '微信服务号', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('8', '微信订阅号', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('9', 'QQ群', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('10', '客户介绍', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('11', '同事介绍', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('12', '网站预约', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('13', '网站评估', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('14', '数据挖掘', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('15', '互动游戏', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('16', '项目宣传', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('17', '其他渠道', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('18', '移动咨询', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('19', '调研', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('20', '微信群', NULL);
+INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('21', '百度搜索', NULL);

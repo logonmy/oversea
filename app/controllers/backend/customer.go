@@ -15,14 +15,14 @@ import (
 )
 
 type CustomerController struct {
-   AdminBaseController
+	AdminBaseController
 }
 
 // 获取客户列表
 func (this *CustomerController) List() {
 
 	var customerForm backend.CustomerForm
-	json.Unmarshal(this.Ctx.Input.RequestBody,&customerForm)
+	json.Unmarshal(this.Ctx.Input.RequestBody, &customerForm)
 
 	if customerForm.Page < 1 {
 		customerForm.Page = 1
@@ -43,11 +43,71 @@ func (this *CustomerController) List() {
 		filters = append(filters, "assign_to", customerForm.AssignTo)
 	}
 
+	if customerForm.AssignStatus != "-1" {
+		filters = append(filters, "assign_status", customerForm.AssignStatus)
+	}
+
+	if customerForm.FollowStatus != "-1" {
+		filters = append(filters, "follow_status", customerForm.FollowStatus)
+	}
+
+
 	if customerForm.Name != `` {
 		filters = append(filters, "name", customerForm.Name)
 	}
 
-	userList, count := services.CrmCustomerService.GetCrmCustomerList(customerForm.Page, customerForm.PageSize, filters...)
+	if customerForm.Director != `` {
+		filters = append(filters, "Director", customerForm.Director)
+	}
+
+	userList, count := services.CrmCustomerService.GetCrmCustomerList(customerForm.Page, customerForm.PageSize, customerForm.Source, filters...)
+
+	this.StdoutQuerySuccess(customerForm.Page, customerForm.PageSize, count, userList)
+
+}
+
+
+// 获取我的客户列表
+func (this *CustomerController) MyCustomerList() {
+
+	var customerForm backend.CustomerForm
+	json.Unmarshal(this.Ctx.Input.RequestBody, &customerForm)
+
+	if customerForm.Page < 1 {
+		customerForm.Page = 1
+	}
+
+	if customerForm.PageSize < 1 {
+		customerForm.PageSize = this.pageSize
+	}
+
+	filters := make([]interface{}, 0)
+
+	filters = append(filters, "assign_to", this.userId)
+	id := customerForm.Id
+	if id > 0 {
+		filters = append(filters, "id", id)
+	}
+
+
+	if customerForm.AssignStatus != "-1" {
+		filters = append(filters, "assign_status", customerForm.AssignStatus)
+	}
+
+	if customerForm.FollowStatus != "-1" {
+		filters = append(filters, "follow_status", customerForm.FollowStatus)
+	}
+
+
+	if customerForm.Name != `` {
+		filters = append(filters, "name", customerForm.Name)
+	}
+
+	if customerForm.Director != `` {
+		filters = append(filters, "Director", customerForm.Director)
+	}
+
+	userList, count := services.CrmCustomerService.GetCrmCustomerList(customerForm.Page, customerForm.PageSize, customerForm.Source, filters...)
 
 	this.StdoutQuerySuccess(customerForm.Page, customerForm.PageSize, count, userList)
 
@@ -77,16 +137,18 @@ func (c *CustomerController) AddCrmCustomer() {
 			v.Birthday = v.Birthday[:10]
 		}
 
+		v.CreateBy = c.userId
+
 		if custId, err := services.CrmCustomerService.AddCrmCustomer(&v); err == nil {
 			services.CrmLinkmanService.AddCrmLinkman(&entitys.CrmLinkman{
-				Phone:v.Mobile,
-				Wechat:v.Wechat,
-				Qq:v.Qq,
-				Name:v.Name,
-				Address:v.Address,
-				Sex:v.Sex,
-                Email:v.Email,
-                CustId:custId,
+				Phone:   v.Mobile,
+				Wechat:  v.Wechat,
+				Qq:      v.Qq,
+				Name:    v.Name,
+				Address: v.Address,
+				Sex:     v.Sex,
+				Email:   v.Email,
+				CustId:  custId,
 			})
 			c.Ctx.Output.SetStatus(201)
 			c.StdoutSuccess(nil)
@@ -97,7 +159,6 @@ func (c *CustomerController) AddCrmCustomer() {
 		c.StdoutError(stdout.DBError, err.Error(), nil)
 	}
 }
-
 
 // 更新客户信息
 func (c *CustomerController) UpdateCrmCustomerById() {
@@ -151,13 +212,13 @@ func (c *CustomerController) Export() {
 
 	xlsx.SetActiveSheet(index)
 
-	path,_ :=  os.Getwd()
-	path +=  "/static/frontend/excel/"
-	filename :=  utils.NewUUID() +  ".xlsx"
+	path, _ := os.Getwd()
+	path += "/static/frontend/excel/"
+	filename := utils.NewUUID() + ".xlsx"
 	err := xlsx.SaveAs(path + "/" + filename)
 	if err != nil {
 		c.StdoutError(stdout.HttpStatusFail, stdout.HttpErrorMsg, nil)
 	}
 	website := beego.AppConfig.String("frontend_website")
-	c.StdoutSuccess(website +  "excel/" + filename)
+	c.StdoutSuccess(website + "excel/" + filename)
 }

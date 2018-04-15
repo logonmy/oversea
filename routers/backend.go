@@ -37,6 +37,9 @@ func adminRouters()  {
 	beego.Router("/api/v1/contact/add", &backend.ContactController{}, "post:AddContactNote")
 	beego.Router("/api/v1/contact/list", &backend.ContactController{}, "post:GetAllContactNoteList")
 
+	// 客户来源
+	beego.Router("/api/v1/customer/source/list", &backend.CrmCustomerSourceController{}, "get:GetAllSource")
+	beego.Router("/api/v1/customer/me/list", &backend.CustomerController{}, "post:MyCustomerList")
 }
 
 
