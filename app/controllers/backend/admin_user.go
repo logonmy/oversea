@@ -34,8 +34,24 @@ func (this *AdminUserController) List() {
 		filters = append(filters, "id", id)
 	}
 
-	userList, count := services.SysUserService.GetAdminUsersList(userForm.Page, userForm.PageSize , filters...)
+	result, count := services.SysUserService.GetAdminUsersList(userForm.Page, userForm.PageSize , filters...)
 
+	userList := make([]entitys.User, 0)
+	for _,v := range result{
+		userList = append(userList, entitys.User{
+			Id:v.Id,
+			UserName:v.UserName,
+			Sex      :v.Sex,
+			Email      :v.Email,
+			Phone     :v.Phone,
+			LastLogin  :v.LastLogin,
+			LastIp     :v.LastIp,
+			Status    :v.Status,
+			CreateTime :v.CreateTime,
+			UpdateTime :v.UpdateTime,
+			Avatar    : "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png",
+		})
+	}
 	this.StdoutQuerySuccess(userForm.Page, userForm.PageSize, count, userList)
 }
 
@@ -111,7 +127,19 @@ func (this *AdminUserController) GetInfo() {
 		this.StdoutError(stdout.DBError, err.Error(), nil)
 	}
 
-	this.StdoutSuccess(customer)
+	this.StdoutSuccess(entitys.User{
+		Id:customer.Id,
+		UserName:customer.UserName,
+		Sex      :customer.Sex,
+		Email      :customer.Email,
+		Phone     :customer.Phone,
+		LastLogin  :customer.LastLogin,
+		LastIp     :customer.LastIp,
+		Status    :customer.Status,
+		CreateTime :customer.CreateTime,
+		UpdateTime :customer.UpdateTime,
+		Avatar    : "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png",
+	})
 }
 
 // 我的信息
@@ -122,7 +150,19 @@ func (this *AdminUserController) GetMyInfo() {
 		this.StdoutError(stdout.DBError, err.Error(), nil)
 	}
 
-	this.StdoutSuccess(customer)
+	this.StdoutSuccess(entitys.User{
+		Id:customer.Id,
+		UserName:customer.UserName,
+		Sex      :customer.Sex,
+		Email      :customer.Email,
+		Phone     :customer.Phone,
+		LastLogin  :customer.LastLogin,
+		LastIp     :customer.LastIp,
+		Status    :customer.Status,
+		CreateTime :customer.CreateTime,
+		UpdateTime :customer.UpdateTime,
+		Avatar    : "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png",
+	})
 }
 
 // 修改密码
@@ -150,4 +190,27 @@ func (this *AdminUserController) ChangePassword() {
 		this.StdoutError(stdout.DBError, stdout.UpdateError)
 	}
 	this.StdoutSuccess(nil)
+}
+
+// 获取所有的顾问
+
+func (this *AdminUserController) GetAllUserList()  {
+	result := services.SysUserService.GetAllAdminUsersList()
+	userList := make([]entitys.User, 0)
+	for _,v := range result{
+		userList = append(userList, entitys.User{
+			Id:v.Id,
+			UserName:v.UserName,
+			Sex      :v.Sex,
+			Email      :v.Email,
+			Phone     :v.Phone,
+			LastLogin  :v.LastLogin,
+			LastIp     :v.LastIp,
+			Status    :v.Status,
+			CreateTime :v.CreateTime,
+			UpdateTime :v.UpdateTime,
+			Avatar    : "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png",
+		})
+	}
+	this.StdoutSuccess(userList)
 }

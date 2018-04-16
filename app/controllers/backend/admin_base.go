@@ -42,7 +42,7 @@ func (this *AdminBaseController) Prepare() {
 	controllerName, actionName := this.GetControllerAndAction()
 	this.controllerName = strings.ToLower(controllerName[0: len(controllerName)-10])
 	this.actionName = strings.ToLower(actionName)
-	this.pageSize = 1
+	this.pageSize = 10
 
 	this.initAuth()
 }

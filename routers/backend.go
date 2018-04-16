@@ -11,6 +11,7 @@ func adminRouters()  {
 	// 验证码路由
 	beego.Handler("/captcha/*.png", captcha.Server(130, 40))
 
+	beego.Router("/api/v1/user/getAll", &backend.AdminUserController{}, "get:GetAllUserList")
 	beego.Router("/api/v1/user/getInfo", &backend.AdminUserController{}, "get:GetInfo")
 	beego.Router("/api/v1/user/list", &backend.AdminUserController{}, "get,post:List")
 	beego.Router("/api/v1/login", &backend.MainController{}, "post:Login")
@@ -26,7 +27,9 @@ func adminRouters()  {
 	beego.Router("/api/v1/customer/update", &backend.CustomerController{}, "post:UpdateCrmCustomerById")
 	beego.Router("/api/v1/customer/delete", &backend.CustomerController{}, "get:DeleteCrmCustomer")
 	beego.Router("/api/v1/customer/export", &backend.CustomerController{}, "get:Export")
-    // 联系人
+	beego.Router("/api/v1/customer/me/export", &backend.CustomerController{}, "get:MyCustomerExport")
+
+	// 联系人
 	beego.Router("/api/v1/linkman/getInfo", &backend.CrmLinkmanController{}, "get:GetCrmLinkmanById")
 	beego.Router("/api/v1/linkman/all/list", &backend.CrmLinkmanController{}, "post:GetAllCrmLinkmanList")
 	beego.Router("/api/v1/linkman/me/list", &backend.CrmLinkmanController{}, "post:GetMyCrmLinkmanList")
@@ -38,6 +41,8 @@ func adminRouters()  {
 	beego.Router("/api/v1/contact/list", &backend.ContactController{}, "post:GetAllContactNoteList")
 
 	// 客户来源
+	beego.Router("/api/v1/customer/assignTo", &backend.CustomerController{}, "post:AssignTo")
+
 	beego.Router("/api/v1/customer/source/list", &backend.CrmCustomerSourceController{}, "get:GetAllSource")
 	beego.Router("/api/v1/customer/me/list", &backend.CustomerController{}, "post:MyCustomerList")
 }

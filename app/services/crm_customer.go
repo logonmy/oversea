@@ -129,12 +129,47 @@ func (this *crmCustomerService) GetCrmCustomerList(page, pageSize int, sourceInA
 }
 
 
-func (this *crmCustomerService) GetAllCrmCustomerList() ([]*entitys.CrmCustomer) {
+func (this *crmCustomerService) GetAllCrmCustomerList() ([]*entitys.CrmCustomerFilter) {
 
-	crmCustomers := make([]*entitys.CrmCustomer, 0)
-	query := orm.NewOrm().QueryTable(new(entitys.CrmCustomer))
+	qb, _ := orm.NewQueryBuilder("mysql")
+	// 构建查询对象
 
-	query.OrderBy("-id").All(&crmCustomers)
+	qb.Select("a.*",
+		"b.source source_name", "c.user_name", "d.user_name creator").
+		From("crm_customer a").
+		LeftJoin("crm_customer_source b").On("a.source = b.sid").
+		LeftJoin("sys_admin_user c").On("c.id = a.assign_to").
+		LeftJoin("sys_admin_user d").On("d.id = a.create_by")
 
+	crmCustomers := make([]*entitys.CrmCustomerFilter, 0)
+
+	qb.OrderBy("cust_id").Desc()
+	sql := qb.String()
+	o := orm.NewOrm()
+
+	o.Raw(sql).QueryRows(&crmCustomers)
+	return crmCustomers
+}
+
+
+func (this *crmCustomerService) GetAllMyCrmCustomerList(uid int) ([]*entitys.CrmCustomerFilter) {
+
+	qb, _ := orm.NewQueryBuilder("mysql")
+	// 构建查询对象
+
+	qb.Select("a.*",
+		"b.source source_name", "c.user_name", "d.user_name creator").
+		From("crm_customer a").
+		LeftJoin("crm_customer_source b").On("a.source = b.sid").
+		LeftJoin("sys_admin_user c").On("c.id = a.assign_to").
+		LeftJoin("sys_admin_user d").On("d.id = a.create_by").Where("assign_to = ?")
+
+	crmCustomers := make([]*entitys.CrmCustomerFilter, 0)
+
+	qb.OrderBy("cust_id").Desc()
+	sql := qb.String()
+	o := orm.NewOrm()
+
+	o.Raw(sql, uid).QueryRows(&crmCustomers)
 	return crmCustomers
 }

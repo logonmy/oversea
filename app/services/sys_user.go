@@ -79,3 +79,15 @@ func (m *AdminUserService) GetAdminUsersList(page, pageSize int, filters ...inte
 
 	return users, total
 }
+
+
+func (m *AdminUserService) GetAllAdminUsersList() ([]*entitys.AdminUser) {
+
+	users := make([]*entitys.AdminUser, 0)
+
+	query := orm.NewOrm().QueryTable(new(entitys.AdminUser))
+
+	query.OrderBy("-id").All(&users)
+
+	return users
+}

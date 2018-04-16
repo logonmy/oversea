@@ -11,7 +11,6 @@ import (
 	"github.com/astaxie/beego"
 	"oversea/utils"
 	"github.com/360EntSecGroup-Skylar/excelize"
-	"fmt"
 )
 
 type CustomerController struct {
@@ -43,11 +42,11 @@ func (this *CustomerController) List() {
 		filters = append(filters, "assign_to", customerForm.AssignTo)
 	}
 
-	if customerForm.AssignStatus != "-1" {
+	if  !utils.IsEmpty(customerForm.AssignStatus) {
 		filters = append(filters, "assign_status", customerForm.AssignStatus)
 	}
 
-	if customerForm.FollowStatus != "-1" {
+	if  !utils.IsEmpty(customerForm.FollowStatus) {
 		filters = append(filters, "follow_status", customerForm.FollowStatus)
 	}
 
@@ -90,11 +89,11 @@ func (this *CustomerController) MyCustomerList() {
 	}
 
 
-	if customerForm.AssignStatus != "-1" {
+	if  !utils.IsEmpty(customerForm.AssignStatus) {
 		filters = append(filters, "assign_status", customerForm.AssignStatus)
 	}
 
-	if customerForm.FollowStatus != "-1" {
+	if  !utils.IsEmpty(customerForm.FollowStatus) {
 		filters = append(filters, "follow_status", customerForm.FollowStatus)
 	}
 
@@ -195,19 +194,51 @@ func (c *CustomerController) Export() {
 
 	xlsx := excelize.NewFile()
 	// Create a new sheet.
-	index := xlsx.NewSheet("Sheet1")
+	sheetName := "客户列表"
+	index := xlsx.NewSheet(sheetName)
 	xlsx.NewSheet("Sheet2")
-	xlsx.NewSheet("Sheet1")
-	xlsx.NewSheet("XLSXSheet2")
-	xlsx.NewSheet("XLSXSheet3")
-	xlsx.SetCellInt("XLSXSheet2", "A23", 56)
-	xlsx.SetCellStr("Sheet1", "B20", "42")
-	// Set value of a cell.
-	categories := map[string]string{"A2": "Small", "A3": "Normal", "A4": "Large", "B1": "Apple", "C1": "Orange", "D1": "Pear"}
 
-	for k, v := range categories {
-		fmt.Println(k)
-		xlsx.SetCellValue("Sheet1", k, v)
+	xlsx.SetCellValue(sheetName, "A1", "姓名")
+	xlsx.SetCellValue(sheetName, "B1", "客户来源")
+	xlsx.SetCellValue(sheetName, "C1", "联系电话")
+	xlsx.SetCellValue(sheetName, "D1", "邮箱")
+	xlsx.SetCellValue(sheetName, "E1", "QQ")
+	xlsx.SetCellValue(sheetName, "F1", "客户资产")
+	xlsx.SetCellValue(sheetName, "G1", "客户意向")
+	xlsx.SetCellValue(sheetName, "H1", "创建时间")
+	xlsx.SetCellValue(sheetName, "I1", "跟进时间")
+	xlsx.SetCellValue(sheetName, "J1", "下次跟进时间")
+	xlsx.SetCellValue(sheetName, "K1", "跟进状态")
+	xlsx.SetCellValue(sheetName, "L1", "分配状态")
+
+	contactStateMap := map[string]string {
+		"0":"未分配",
+		"1":"已分配",
+		"2":"无需分配",
+	}
+
+	followStateMap := map[string]string {
+		"0":"未跟进",
+		"1":"已跟进",
+		"2":"无需跟进",
+	}
+
+	resultList := services.CrmCustomerService.GetAllCrmCustomerList()
+	for k, v := range resultList {
+		keyIndex := strconv.Itoa(k + 2)
+		xlsx.SetCellValue(sheetName, "A" + keyIndex, v.Name)
+		xlsx.SetCellValue(sheetName, "B" + keyIndex, v.SourceName )
+		xlsx.SetCellValue(sheetName, "C" + keyIndex, v.Mobile)
+		xlsx.SetCellValue(sheetName, "D" + keyIndex, v.Email)
+		xlsx.SetCellValue(sheetName, "E" + keyIndex, v.Qq)
+		xlsx.SetCellValue(sheetName, "F" + keyIndex, v.Capital)
+		xlsx.SetCellValue(sheetName, "G" + keyIndex, v.Intension)
+		xlsx.SetCellValue(sheetName, "H" + keyIndex, v.CreateTime)
+		xlsx.SetCellValue(sheetName, "I" + keyIndex, v.ContactedDate)
+		xlsx.SetCellValue(sheetName, "J" + keyIndex, v.NextDate)
+		xlsx.SetCellValue(sheetName, "K" + keyIndex, followStateMap[strconv.Itoa(v.FollowStatus)])
+		xlsx.SetCellValue(sheetName, "L" + keyIndex, contactStateMap[strconv.Itoa(v.AssignStatus)])
+
 	}
 
 	xlsx.SetActiveSheet(index)
@@ -221,4 +252,90 @@ func (c *CustomerController) Export() {
 	}
 	website := beego.AppConfig.String("frontend_website")
 	c.StdoutSuccess(website + "excel/" + filename)
+}
+
+
+// 导出文件
+func (c *CustomerController) MyCustomerExport() {
+
+	xlsx := excelize.NewFile()
+	// Create a new sheet.
+	sheetName := "客户列表"
+	index := xlsx.NewSheet(sheetName)
+	xlsx.NewSheet("Sheet2")
+
+	xlsx.SetCellValue(sheetName, "A1", "姓名")
+	xlsx.SetCellValue(sheetName, "B1", "客户来源")
+	xlsx.SetCellValue(sheetName, "C1", "联系电话")
+	xlsx.SetCellValue(sheetName, "D1", "邮箱")
+	xlsx.SetCellValue(sheetName, "E1", "QQ")
+	xlsx.SetCellValue(sheetName, "F1", "客户资产")
+	xlsx.SetCellValue(sheetName, "G1", "客户意向")
+	xlsx.SetCellValue(sheetName, "H1", "创建时间")
+	xlsx.SetCellValue(sheetName, "I1", "跟进时间")
+	xlsx.SetCellValue(sheetName, "J1", "下次跟进时间")
+	xlsx.SetCellValue(sheetName, "K1", "跟进状态")
+	xlsx.SetCellValue(sheetName, "L1", "分配状态")
+
+	contactStateMap := map[string]string {
+		"0":"未分配",
+		"1":"已分配",
+		"2":"无需分配",
+	}
+
+	followStateMap := map[string]string {
+		"0":"未跟进",
+		"1":"已跟进",
+		"2":"无需跟进",
+	}
+
+	resultList := services.CrmCustomerService.GetAllMyCrmCustomerList(c.userId)
+	for k, v := range resultList {
+		keyIndex := strconv.Itoa(k + 2)
+		xlsx.SetCellValue(sheetName, "A" + keyIndex, v.Name)
+		xlsx.SetCellValue(sheetName, "B" + keyIndex, v.SourceName )
+		xlsx.SetCellValue(sheetName, "C" + keyIndex, v.Mobile)
+		xlsx.SetCellValue(sheetName, "D" + keyIndex, v.Email)
+		xlsx.SetCellValue(sheetName, "E" + keyIndex, v.Qq)
+		xlsx.SetCellValue(sheetName, "F" + keyIndex, v.Capital)
+		xlsx.SetCellValue(sheetName, "G" + keyIndex, v.Intension)
+		xlsx.SetCellValue(sheetName, "H" + keyIndex, v.CreateTime)
+		xlsx.SetCellValue(sheetName, "I" + keyIndex, v.ContactedDate)
+		xlsx.SetCellValue(sheetName, "J" + keyIndex, v.NextDate)
+		xlsx.SetCellValue(sheetName, "K" + keyIndex, followStateMap[strconv.Itoa(v.FollowStatus)])
+		xlsx.SetCellValue(sheetName, "L" + keyIndex, contactStateMap[strconv.Itoa(v.AssignStatus)])
+
+	}
+
+	xlsx.SetActiveSheet(index)
+
+	path, _ := os.Getwd()
+	path += "/static/frontend/excel/"
+	filename := utils.NewUUID() + ".xlsx"
+	err := xlsx.SaveAs(path + "/" + filename)
+	if err != nil {
+		c.StdoutError(stdout.HttpStatusFail, stdout.HttpErrorMsg, nil)
+	}
+	website := beego.AppConfig.String("frontend_website")
+	c.StdoutSuccess(website + "excel/" + filename)
+}
+
+
+func (c *CustomerController) AssignTo()  {
+	var v entitys.CrmCustomer
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		if v.Id <= 0 {
+			c.StdoutError(stdout.ParamsError, stdout.ParamsErrorMsg, nil)
+		}
+		if v.AssignTo <= 0 {
+			c.StdoutError(stdout.ParamsError, stdout.ParamsErrorMsg, nil)
+		}
+		v.AssignStatus = 1
+		err = services.CrmCustomerService.UpdateCrmCustomerById(&v, "AssignTo", "AssignStatus")
+		c.checkError(err)
+		c.StdoutSuccess(nil)
+	} else {
+		c.StdoutError(stdout.ParamsError, err.Error(), nil)
+	}
+
 }
