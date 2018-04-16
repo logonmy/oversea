@@ -11,7 +11,7 @@ case $2 in
         p='oversea_stg'
         ;;
     pro)
-        p='clibscenter_pro'
+        p='oversea_pro'
         ;;
     *)
         p='oversea_dev'

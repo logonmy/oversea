@@ -31,7 +31,7 @@ ds=`date +%Y%m%d%H%M%S`
 
 
 tar zcvf oversea.tar.gz ./deploy
-md5=`md5sum  clibscenter.tar.gz | awk '{ print $1}'`
+md5=`md5sum  oversea.tar.gz | awk '{ print $1}'`
 #mv  clibs_addarticle.tar.gz clibs_addarticle_${ds}_${md5:24}.tar.gz
 mv  oversea.tar.gz ${p}_${ds}.tar.gz
 rm -rf ./deploy >>/dev/null
