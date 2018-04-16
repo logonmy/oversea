@@ -9,9 +9,25 @@ import (
 	_"github.com/astaxie/beego/session/mysql"
 	"oversea/utils"
 	"strconv"
+	"github.com/astaxie/beego/orm"
+)
+
+const appEnv = EnvProd
+
+const (
+	EnvDev = "dev"
+	EnvProd = "prod"
+	EnvStg = "stg"
 )
 
 func main() {
+
+	beego.LoadAppConfig("ini", "conf/" + appEnv + ".conf")
+
+	if appEnv == EnvDev {
+		orm.Debug = true
+	}
+
     db.Init()
 	services.InitServices()
 
