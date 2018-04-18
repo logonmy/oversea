@@ -17,7 +17,7 @@ func adminRouters() {
 		beego.NewNamespace("/api",
 			beego.NSNamespace("/v1",
 				beego.NSRouter("/login", &backend.MainController{}, "post:Login"),
-				// 后续添加验证
+				// 后续添加验证 黑白名单，反扒之类的
 				beego.NSCond(func(ctx *context.Context) bool {
 					return true
 				}),

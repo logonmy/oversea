@@ -22,6 +22,7 @@ rm -rf ./deploy >>/dev/null
 mkdir deploy
 mkdir deploy/conf
 cp  conf/* ./deploy/conf
+cp  -r static/ ./deploy
 cp  run.sh ./deploy
 cp  ${p} ./deploy
 rm  ${p}

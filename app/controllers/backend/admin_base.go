@@ -37,7 +37,6 @@ type SubMenu struct {
 }
 
 func (this *AdminBaseController) Prepare() {
-	//this.Ctx.Output.Header("X-Powered-By", "GoPub/"+beego.AppConfig.String("version"))
 	this.Ctx.Output.Header("X-Author-By", "weilanzhuan")
 	controllerName, actionName := this.GetControllerAndAction()
 	this.controllerName = strings.ToLower(controllerName[0: len(controllerName)-10])
