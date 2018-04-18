@@ -12,7 +12,7 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-const appEnv = EnvProd
+const appEnv = EnvDev
 
 const (
 	EnvDev = "dev"
