@@ -518,3 +518,67 @@ INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('18', '�
 INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('19', '调研', NULL);
 INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('20', '微信群', NULL);
 INSERT INTO `crm_customer_source` (`sid`, `source`, `comment`) VALUES ('21', '百度搜索', NULL);
+
+
+
+-- ----------------------------
+-- 24、来点处理
+-- ----------------------------
+DROP TABLE IF EXISTS `crm_call_log`;
+CREATE TABLE `crm_call_log` (
+  `id` int(11) NOT NULL default '0',
+  `tel` varchar(20) default NULL COMMENT '固定电话/手机号',
+  `content` varchar(255) default NULL COMMENT '来电内容',
+  `uid` int(11) NOT NULL DEFAULT 0 COMMENT '处理人',
+  `status` int(4) NOT NULL DEFAULT 0 COMMENT '处理状态:0-待处理，1-处理中，2-已处理',
+  `process_time` TIMESTAMP  COMMENT '处理时间',
+  `call_type_id` INT(4) NOT  NULL default 0 COMMENT '来电类型',
+  `customer_id` int(11) NOT NULL DEFAULT 0 COMMENT '客户',
+  `process_context` varchar(255) default NULL COMMENT '处理信息',
+  `linkman_id` int(11) NOT NULL DEFAULT 0 COMMENT '联系人',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY  (`id`),
+  KEY `customer_id`(`customer_id`),
+  KEY `uid`(`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='来电记录';
+
+-- ----------------------------
+-- 25、来电类型
+-- ----------------------------
+DROP TABLE IF EXISTS `crm_call_type`;
+CREATE TABLE `crm_call_type` (
+  `id` smallint(6) NOT NULL default '0',
+  `name` varchar(50) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='来电类型';
+
+INSERT INTO `crm_call_type` VALUES ('1', '销售机会');
+INSERT INTO `crm_call_type` VALUES ('2', '售后服务');
+INSERT INTO `crm_call_type` VALUES ('3', '投诉');
+INSERT INTO `crm_call_type` VALUES ('4', '合作');
+INSERT INTO `crm_call_type` VALUES ('5', '其他');
+
+-- ----------------------------
+-- 26、商机
+-- ----------------------------
+DROP TABLE IF EXISTS `crm_chance`;
+CREATE TABLE `crm_chance` (
+  `id` int(11) NOT NULL COMMENT '编号',
+  `chance_title` varchar(255) NOT NULL COMMENT '机会主题',
+  `cust_id` int(11) NOT NULL  DEFAULT  0 COMMENT '客户ID',
+  `found_time` date NOT NULL COMMENT '发现时间',
+  `demand` text  COMMENT '客户需求',
+  `estimated_sign_time` date NOT NULL COMMENT '预计签单时间',
+  `estimated_cost` double NOT NULL COMMENT '预计金额',
+  `possable` varchar(255) NOT NULL COMMENT '可能性描素',
+  `status` int(11) NOT NULL COMMENT '状态',
+  `creator` int(11) NOT NULL COMMENT '创建人',
+  `remark` varchar(255) NOT NULL COMMENT '备注',
+  `last_contact_time` datetime default NULL COMMENT '最后联系时间',
+  `attachment` varchar(255) default NULL COMMENT '附件地址',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY  (`id`),
+  KEY `cust_id`(`cust_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商机';

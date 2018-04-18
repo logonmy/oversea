@@ -41,6 +41,9 @@ func Init() {
 		new(entitys.CrmCustomer),
 		new(entitys.CrmLinkman),
 		new(entitys.CrmCustomerSource),
+		new(entitys.CrmCallType),
+		new(entitys.CrmCallLog),
+		new(entitys.CrmChance),
 	)
 
 	orm.RegisterModelWithPrefix("cms_",
