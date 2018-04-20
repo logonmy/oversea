@@ -4,6 +4,7 @@ import (
 	"net"
 	"net/http"
 	"strings"
+	"bytes"
 )
 
 // IpAddress 获取当前IP地址
@@ -33,4 +34,53 @@ func GetRemoteIpAddress(req *http.Request) string {
 		ip = ips[0]
 	}
 	return strings.TrimSpace(ip)
+}
+
+func CheckIpIsValid(ip string) bool {
+	trial := net.ParseIP(ip)
+	if trial.To4() == nil {
+		return false
+	}
+
+	return false
+}
+
+// 判断ip 是否在ip 段内
+func CheckIsInRange(ip, beginIp, endIp string) bool {
+
+	trial := net.ParseIP(ip)
+	beginIpTrial := net.ParseIP(beginIp)
+
+	if beginIpTrial.To4() == nil {
+		return false
+	}
+
+	endIpTrial := net.ParseIP(endIp)
+	if endIpTrial.To4() == nil {
+		return false
+	}
+
+	if bytes.Compare(trial, beginIpTrial) >= 0 && bytes.Compare(trial, endIpTrial) <= 0 {
+		return true
+	}
+
+	return false
+}
+
+// 判断是否本机IP
+func IsLocalIP(ip string) (bool, error) {
+	addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		return false, err
+	}
+	for i := range addrs {
+		intf, _, err := net.ParseCIDR(addrs[i].String())
+		if err != nil {
+			return false, err
+		}
+		if net.ParseIP(ip).Equal(intf) {
+			return true, nil
+		}
+	}
+	return false, nil
 }

@@ -6,6 +6,7 @@ const (
 	HttpStatusFail     = 201
 	HttpStatusNotFound = 404
 	HttpNotAuthorization = 401
+	HttpForbidded = 403
 )
 
 const (

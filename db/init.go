@@ -7,6 +7,8 @@ import (
 	"oversea/app/entitys"
 )
 
+
+
 func Init() {
 	dbHost := beego.AppConfig.String("db.host")
 	dbPort := beego.AppConfig.String("db.port")
@@ -54,7 +56,5 @@ func Init() {
 		new(entitys.CmsGuestbook),
 	)
 
-	if beego.AppConfig.String("runmode") == "dev" {
-		orm.Debug = true
-	}
 }
+

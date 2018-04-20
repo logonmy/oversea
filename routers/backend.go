@@ -5,6 +5,11 @@ import (
 	"github.com/dchest/captcha"
 	"oversea/app/controllers/backend"
 	"github.com/astaxie/beego/context"
+	"oversea/utils"
+	"oversea/middleware"
+	"oversea/app/stdout"
+	"github.com/astaxie/beego/logs"
+	"time"
 )
 
 func adminRouters() {
@@ -12,13 +17,31 @@ func adminRouters() {
 	// 验证码路由
 	beego.Handler("/captcha/*.png", captcha.Server(130, 40))
 
-
 	ns :=
 		beego.NewNamespace("/api",
 			beego.NSNamespace("/v1",
-				beego.NSRouter("/login", &backend.MainController{}, "post:Login"),
+				beego.NSRouter("     /login", &backend.MainController{}, "post:Login"),
 				// 后续添加验证 黑白名单，反扒之类的
 				beego.NSCond(func(ctx *context.Context) bool {
+					ip := utils.GetRemoteIpAddress(ctx.Request)
+					blacklist := &middleware.IpBlacklist{}
+					logs.Info("ip =======", ip)
+					if blacklist.IsIPInBacklist(ip) {
+						//ctx.ResponseWriter.WriteHeader(stdout.HttpForbidded)
+						type stdoutJson struct {
+							ErrCode int    `json:"errorCode"`
+							ErrMsg  string `json:"errorMsg"`
+							Time    int64  `json:"time"`
+						}
+						s := &stdoutJson{
+							ErrCode: stdout.HttpNotAuthorization,
+							ErrMsg: "禁止访问",
+							Time: time.Now().Unix(),
+						}
+						ctx.Output.JSON(s, true, false)
+
+						return false
+					}
 					return true
 				}),
 				beego.NSRouter("/user/getAll", &backend.AdminUserController{}, "get:GetAllUserList"),
