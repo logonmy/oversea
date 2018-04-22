@@ -30,7 +30,7 @@ func (this *AuthService) Login(userName, password string) (string, error) {
 		}
 	}
 
-	if user.Password != utils.MD5(password+user.Salt) {
+	if user.Password != utils.MD5(password + user.Salt) {
 		return "", errors.New(stdout.UserOrderPasswordError)
 	}
 	if user.Status == -1 {
@@ -81,7 +81,7 @@ func (this *AuthService) GetLastIp() string {
 }
 
 // 初始化
-func (this *AuthService) Init(token string) {
+func (this *AuthService) Init(token string) bool{
 	arr := strings.Split(token, "|")
 	beego.Trace("登录验证, token: ", token)
 	if len(arr) == 2 {
@@ -92,9 +92,12 @@ func (this *AuthService) Init(token string) {
 			if err == nil && password == utils.MD5(user.Password + user.Salt) {
 				this.loginUser = user
 				beego.Trace("验证成功，用户信息: ", user)
+				return true
 			}
 		}
 	}
+	this.loginUser = &entitys.AdminUser{}
+	return false
 }
 
 // 退出登录

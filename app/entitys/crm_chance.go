@@ -21,5 +21,5 @@ type CrmChance struct {
 }
 
 func (t *CrmChance) TableName() string {
-	return "crm_chance"
+	return "chance"
 }

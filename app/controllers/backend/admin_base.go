@@ -8,7 +8,6 @@ import (
 	"oversea/app/stdout"
 	"oversea/app/services"
 	"reflect"
-	"fmt"
 	"oversea/utils"
 )
 
@@ -77,13 +76,13 @@ func (this *AdminBaseController) initAuth() {
 	this.auth.Init(token)
 	this.userId = this.auth.GetUserId()
 
-	this.Data["auth"] = this.auth
-	this.Data["adminEntity"] = this.auth.GetUser()
-	if !this.auth.IsLogined() {
+	if token == "" || !this.auth.IsLogined() {
+
 		if this.actionName != "logout" && this.actionName != "login" {
 			this.Ctx.ResponseWriter.WriteHeader(stdout.HttpNotAuthorization)
 			this.StdoutError(stdout.NotAuthorizationError, stdout.NotAuthorizationErrorMsg)
 		}
+
 
 	} else {
 		// 进行权限判断
@@ -115,10 +114,7 @@ func (this *AdminBaseController) checkFileds(data interface{},excludeFileds []st
 
 	}
 
-	fmt.Println("------------------",fields)
-
 	return  fields
-
 }
 
 // StdoutSuccess 输出结构-完成

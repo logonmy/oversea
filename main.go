@@ -20,10 +20,11 @@ const (
 	EnvStg = "stg"
 )
 
+
 func main() {
 
 	beego.LoadAppConfig("ini", "conf/" + appEnv + ".conf")
-
+	
 	if appEnv == EnvDev {
 		orm.Debug = true
 	}

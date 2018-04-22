@@ -16,6 +16,7 @@ var (
 	CmsUsersService              *cmsUsersService
 	CrmLinkmanService            *crmLinkmanService
 	CrmCustomerSourceService     *crmCustomerSourceService
+	CrmChanceService             *crmChanceService
 )
 
 func InitServices() {
@@ -34,4 +35,5 @@ func InitServices() {
 	CmsUsersService = &cmsUsersService{}
 	CrmLinkmanService = &crmLinkmanService{}
 	CrmCustomerSourceService  = &crmCustomerSourceService{}
+	CrmChanceService  = &crmChanceService{}
 }
