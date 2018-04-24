@@ -10,6 +10,8 @@ import (
 	"oversea/utils"
 	"strconv"
 	"github.com/astaxie/beego/orm"
+	"flag"
+	"fmt"
 )
 
 const appEnv = EnvDev
@@ -21,10 +23,19 @@ const (
 )
 
 func main() {
+	var env string
+	flag.StringVar(&env, "env", EnvDev, "env is stg")
+	flag.Parse()
+	fmt.Println("env ======> " , env)
 
-	beego.LoadAppConfig("ini", "conf/" + appEnv + ".conf")
+	if env != EnvDev && env != EnvStg && env != EnvProd {
+		fmt.Println("参数错误，env参数目前只支持 dev, prod, stg 三种配置。")
+		return
+	}
 
-	if appEnv == EnvDev {
+	beego.LoadAppConfig("ini", "conf/" + env + ".conf")
+
+	if env == EnvDev {
 		orm.Debug = true
 	}
 
