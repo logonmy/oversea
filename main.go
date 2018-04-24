@@ -22,6 +22,7 @@ const (
 	EnvStg = "stg"
 )
 
+
 func main() {
 	var env string
 	flag.StringVar(&env, "env", EnvDev, "env is stg")

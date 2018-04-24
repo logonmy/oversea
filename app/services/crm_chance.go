@@ -8,7 +8,6 @@ import (
 )
 
 type crmChanceService struct {
-
 }
 
 // 添加商机
@@ -28,9 +27,7 @@ func (this *crmChanceService) GetCrmChanceById(id int) (v *entitys.CrmChance, er
 	return nil, err
 }
 
-
-// UpdateCrmChance updates CrmChance by Id and returns error if
-// the record to be updated doesn't exist
+// 更新商机
 func (this *crmChanceService) UpdateCrmChanceById(m *entitys.CrmChance, fileds ...string) (err error) {
 	if len(fileds) < 1 {
 		return errors.New(stdout.FieldsLengthMustMoreThanOne)
@@ -55,7 +52,7 @@ func (this *crmChanceService) DeleteCrmChance(id int) (err error) {
 }
 
 // 分页获取商机
-func (this *crmChanceService) GetAllCrmChance (page, pageSize int,
+func (this *crmChanceService) GetAllCrmChance(page, pageSize int,
 	filters ...interface{}) ([]*entitys.CrmChance,
 	int64) {
 	offset := (page - 1) * pageSize
